@@ -1,0 +1,21 @@
+Создание проекта под себя
+https://www.kreaweb.be/laravel-10-bootstrap-5/#1_LARAVEL_10_-_Introduction
+
+composer create-project laravel/laravel holiiday-home
+composer require laravel/ui --dev
+php artisan ui bootstrap --auth
+php artisan migrate
+
+composer require laravel/sail --dev
+php artisan sail:install
+
+npm install
+npm run dev
+
+БД
+./vendor/bin/sail mysql -u root -h 127.0.0.1 -P 3306
+
+Поменять версию ноды
+nvm install --lts
+nvm ls
+nvm use stable
