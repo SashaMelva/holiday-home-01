@@ -51,14 +51,14 @@ return [
 
         'mailgun' => [
             'transport' => 'mailgun',
-            // 'client' => [
+            // 'hotel' => [
             //     'timeout' => 5,
             // ],
         ],
 
         'postmark' => [
             'transport' => 'postmark',
-            // 'client' => [
+            // 'hotel' => [
             //     'timeout' => 5,
             // ],
         ],
