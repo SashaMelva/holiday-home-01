@@ -16,7 +16,7 @@
                 </a>
             </div>
             <h5 class="card-title">
-                <a href="{{ route('hotels.show', $hotel->$id)  }}">Кортъярд Марриотт Нью-Йорк</a>
+{{--                <a href="{{ route('hotels.show', $hotel->$id)  }}">Кортъярд Марриотт Нью-Йорк</a>--}}
             </h5>
             <ul class="nav nav-divider mb-2 mb-sm-3">
                 <li class="nav-item">Вай фай</li>

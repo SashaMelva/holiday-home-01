@@ -26,6 +26,7 @@
                     <input type="date" class="form-control" placeholder="Дата прибытия">
                 </div>
             </div>
+
             <div class="col-lg-4 d-flex">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      class="bi i-size-search fs-3 me-2 mt-2" viewBox="0 0 16 16">
