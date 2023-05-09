@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('services_list', function (Blueprint $table) {
             $table->id();
+            $table->integer('hotel_id');
+            $table->integer('service_id');
             $table->timestamps();
         });
     }
