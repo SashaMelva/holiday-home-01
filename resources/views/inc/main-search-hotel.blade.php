@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container block-center ">
     <form method="POST" action="{{ route('hotels.search')}}"
-          class="d-flex flex-row align-items-center shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4 search-content">
+          class="d-flex form-search-position flex-row align-items-center shadow rounded-3 position-relative p-4 pb-5 pb-md-4 search-content">
         @csrf
         <div class="row g-4 align-items-center">
             <div class="col-lg-4 d-flex">

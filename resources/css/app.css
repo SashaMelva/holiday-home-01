@@ -60,15 +60,34 @@ p {
     color: var(--primary-rest-dark);
 }
 
+.bg-black {
+    background-color: var(--basic-black);
+}
+
 
 /*LOGO*/
 .container-logo {
     width: 80px;
     height: 80px;
 }
+
 .container-long-logo {
     width: 265px;
 }
+
+.content-center {
+    justify-content: center;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.m-lr-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
 /*HEADER*/
 .header-container {
     background-color: var(--basic-white-white);
@@ -101,22 +120,31 @@ p {
 }
 
 /*SEARCH HOTEL*/
-.content-search {
+
+.container-search {
     position: relative;
-    background-color: var(--basic-black);
 }
+
+.content-search-text {
+    top: 0;
+    bottom: 0;
+    right: auto;
+    left: auto;
+    position: absolute;
+}
+
 
 .main-fon-img {
-    width: 100%;
     height: 90vh;
-    opacity: 0.6;
 }
 
-.img-fon{
+.img-fon {
+    opacity: 0.6;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .search-container {
     top: 50%;
     right: 0;
@@ -127,6 +155,12 @@ p {
 
 .form-control {
     background-color: transparent;
+}
+
+.form-search-position {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .search-btn {
@@ -153,11 +187,13 @@ p {
     width: 1.5em;
 }
 
+
 /*POPULAR НАПРАВЛЕНИЯ*/
 
 .container-popular {
     gap: 1.5em;
 }
+
 .card-city {
     background-color: var(--basic-white-white);
     width: 30rem;
@@ -175,16 +211,15 @@ p {
     height: 61vh;
     margin-top: 1.5em;
 }
+
 .header-search {
     color: var(--basic-white-white);
     text-transform: uppercase;
     font-weight: bold;
 }
-.content-center {
-    justify-content: center;
-}
 
-.img-fon-mini{
+
+.img-fon-mini {
     height: 61vh;
 }
 
