@@ -14,32 +14,37 @@ class HotelCategoriesSeeder extends Seeder
     public function run(): void
     {
         DB::table('hotel_categories')->insert([
-            'name' => '',
+            'name' => 'Отель',
             'description' => ''
         ]);
 
         DB::table('hotel_categories')->insert([
-            'name' => '',
+            'name' => 'Гостиница',
             'description' => ''
         ]);
 
         DB::table('hotel_categories')->insert([
-            'name' => '',
+            'name' => 'Апарт-отель',
             'description' => ''
         ]);
 
         DB::table('hotel_categories')->insert([
-            'name' => '',
+            'name' => 'Спа-отель',
             'description' => ''
         ]);
 
         DB::table('hotel_categories')->insert([
-            'name' => '',
+            'name' => 'Хостел',
             'description' => ''
         ]);
 
         DB::table('hotel_categories')->insert([
-            'name' => '',
+            'name' => 'Бизнес-отель',
+            'description' => ''
+        ]);
+
+        DB::table('hotel_categories')->insert([
+            'name' => 'Другое',
             'description' => ''
         ]);
     }

@@ -338,3 +338,7 @@ a {
 .prise {
     font-size: 26px;
 }
+
+.card {
+    border: 0 solid;
+}
