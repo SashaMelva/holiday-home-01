@@ -8,15 +8,14 @@
                     <img src="{{ Vite::asset('resources/img/hotel/orva-studio-YC8qqp50BdA-unsplash.jpg') }}"
                          class="img-fon rounded-3" alt="...">
                 </div>
-
                 <div class="row my-2 my-xl-5 content-search-text">
                     <h1 class="header-search text-center">Более 150 доступных отелей</h1>
                     @include('inc.main-search-hotel')
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between">
-            <button class="btn btn-primary-soft btn-primary-check mb-0">
+        <div class="d-flex justify-content-between m-4">
+            <button class="btn btn-lg btn-primary btn-base mb-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders"
                      viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -37,6 +36,7 @@
                 </li>
             </ul>
         </div>
+
         @include('inc.support-filters')
         @include('inc.list-hotels')
 
@@ -57,7 +57,5 @@
                 </li>
             </ul>
         </nav>
-
-
     </section>
 @endsection

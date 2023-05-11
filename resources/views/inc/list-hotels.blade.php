@@ -1,6 +1,6 @@
 <section class="container row g-4 container-list-hotel">
     <article class="card shadow p-2 pb-0 h-100">
-        <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}">
+        <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
         <div class="card-body px-3 pb-0">
             <div class="d-flex justify-content-between mb-3">
                 <a class="badge bg-dark text-white">
@@ -16,24 +16,26 @@
                 </a>
             </div>
             <h5 class="card-title">
-{{--                <a href="{{ route('hotels.show', $hotel->$id)  }}">Кортъярд Марриотт Нью-Йорк</a>--}}
+                <a href="#">Кортъярд Марриотт Нью-Йорк</a>
             </h5>
-            <ul class="nav nav-divider mb-2 mb-sm-3">
-                <li class="nav-item">Вай фай</li>
-                <li class="nav-item">Трансфер</li>
-                <li class="nav-item">Бассеин</li>
+            <ul class="nav mb-2 mb-sm-3">
+                <li class="nav-item nav-divider"><div class="point"></div><p>Вай фай</p></li>
+                <li class="nav-item nav-divider"><div class="point"></div><p>Трансфер</p></li>
+                <li class="nav-item nav-divider"><div class="point"></div><p>Бассеин</p></li>
             </ul>
         </div>
-        <div class="card-footer pt-0">
+        <div class="card-footer pt-6">
             <div class="d-sm-flex justify-content-sm-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <h5 class="fw-normal text-success mb-0 me-1">2000руб</h5>
+                    <h5 class="fw-normal text-success mb-0 me-1 prise">2000руб</h5>
                     <span class="mb-0 me-2">/день</span>
                 </div>
                 <div class="mt-2 mt-sm-0 z-index-2">
-                    <a class="btn btn-sm btn-primary-soft mb-0 w-100">
-                        Просмотреть детали
-                        <i class="bi bi-arrow-right ms-2"></i>
+                    <a class="btn btn-lg btn-primary btn-base mb-0">
+                        Детали
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
                     </a>
                 </div>
             </div>
