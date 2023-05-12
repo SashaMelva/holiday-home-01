@@ -1,7 +1,11 @@
 <section class="container row g-4 container-list-hotel">
     @foreach($hotels as $hotel)
         <article class="card shadow p-2 pb-0 h-100">
-            <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
+            @if(count($hotel->img) > 0)
+                    <img src="{{ Storage::url($hotel->img[0]->img) }}" alt="{{ $hotel->img[0]->description }}">
+            @else
+                <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
+            @endif
             <div class="card-body px-3 pb-0">
                 <div class="d-flex justify-content-between mb-3">
                     <a class="badge bg-dark text-white">
