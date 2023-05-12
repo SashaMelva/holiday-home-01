@@ -127,14 +127,20 @@
             <div class="form-size-lg form-control-borderless">
                 <label class="form-label">Тип отеля</label>
                 <select class="form-control-lg base-input" type="text">
-                    <option></option>
-                    <option></option>
-                    <option></option>
+                    @foreach($categories as $category)
+                    <option value="category-{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
         <div class="col-12">
             <label class="form-label">Удобства</label>
+            <div>
+                @foreach($services as $service)
+                    <input type="checkbox" id="service-{{ $service->id }}" value="service-{{ $service->id }}" name="{{ $service->name }}">
+                    <label for="service-{{ $service->id }}">{{ $service->name }}</label>
+                @endforeach
+            </div>
         </div>
         <div class="text-end align-items-center">
             <button type="button" class="btn btn-lg btn-link custom-lik p-0 mb-0">Сброс</button>

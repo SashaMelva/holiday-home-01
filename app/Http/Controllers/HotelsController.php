@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hotel\Hotel;
+use App\Models\Hotel\HotelCategories;
+use App\Models\Hotel\HotelServices;
+use App\Models\Hotel\HotelServicesList;
 use Illuminate\Http\Request;
 
 class HotelsController extends Controller
@@ -11,7 +15,11 @@ class HotelsController extends Controller
      */
     public function index()
     {
-        return view('hotel/hotel-search');
+        $hotels = Hotel::all();
+        $categories = HotelCategories::all();
+        $services = HotelServices::all();
+        $servicesList = HotelServicesList::all();
+        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList]);
     }
 
     /**
@@ -35,7 +43,9 @@ class HotelsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $hotel = Hotel::find((int)$id);
+        $servicesList = HotelServicesList::where('hotel_id', $id)->get();
+        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList]);
     }
 
     /**
@@ -62,7 +72,8 @@ class HotelsController extends Controller
         //
     }
 
-    public function searchHotels(Request $request) {
+    public function searchHotels(Request $request)
+    {
         return redirect()->route('hotels.index');
     }
 }

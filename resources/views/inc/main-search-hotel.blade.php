@@ -36,7 +36,8 @@
                 <div class="flex-grow-1">
                     <label for="guest-rooms">Гости и комнаты</label>
                     <div class="dropdown guest-selector me-2">
-                        <input id="guest-rooms" type="text" class="form-control" placeholder="Гости и комнаты" readonly>
+                        <input id="guest-rooms" type="text" class="form-control" placeholder="Гости и комнаты"
+                               readonly>
                         <div hidden="hidden">
                             <ul class="dropdown-menu guest-selector-dropdown show"
                                 style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 57px);"
@@ -53,7 +54,8 @@
                                                  viewBox="0 0 16 16">
                                                 <path
                                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                <path
+                                                    d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                             </svg>
                                         </button>
                                         <h6 class="guest-selector-count mb-0 adults">2</h6>
@@ -82,7 +84,8 @@
                                                  viewBox="0 0 16 16">
                                                 <path
                                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                <path
+                                                    d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                             </svg>
                                         </button>
                                         <h6 class="guest-selector-count mb-0 adults">2</h6>
@@ -111,7 +114,8 @@
                                                  viewBox="0 0 16 16">
                                                 <path
                                                     d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                <path
+                                                    d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                             </svg>
                                         </button>
                                         <h6 class="guest-selector-count mb-0 adults">2</h6>
@@ -127,7 +131,6 @@
                                         </button>
                                     </div>
                                 </li>
-
                             </ul>
                         </div>
                     </div>
@@ -154,7 +157,8 @@
 
         <div class="btn-position-md-middle">
             <button class="search-btn btn-position-md-middle" type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-search"
                      viewBox="0 0 16 16">
                     <path
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>

@@ -16,12 +16,12 @@ class HotelServicesList extends Model
         'service_id'
     ];
 
-    public function idHotel()
+    public function hotel()
     {
         return $this->belongsTo(Hotel::class);
     }
 
-    public function idService()
+    public function service()
     {
         return $this->belongsTo(HotelServices::class);
     }
