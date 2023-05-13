@@ -1,8 +1,7 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Hotel;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -73,6 +72,20 @@ class HotelServicesSeeder extends Seeder
         ]);
         DB::table('hotel_services')->insert([
             'name' => 'сауна',
+            'description' => '',
+            'price' => 0,
+            'type' => 'unique'
+        ]);
+
+        DB::table('hotel_services')->insert([
+            'name' => 'кулер с водой',
+            'description' => '',
+            'price' => 0,
+            'type' => 'unique'
+        ]);
+
+        DB::table('hotel_services')->insert([
+            'name' => 'Wi-Fi',
             'description' => '',
             'price' => 0,
             'type' => 'unique'

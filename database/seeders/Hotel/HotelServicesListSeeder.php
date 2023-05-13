@@ -1,8 +1,7 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Hotel;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,10 +16,12 @@ class HotelServicesListSeeder extends Seeder
             'hotel_id' => 1,
             'service_id' => 1
         ]);
+
         DB::table('services_list')->insert([
             'hotel_id' => 1,
             'service_id' => 2
         ]);
+
         DB::table('services_list')->insert([
             'hotel_id' => 1,
             'service_id' => 3
