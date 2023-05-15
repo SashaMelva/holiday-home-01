@@ -2,6 +2,7 @@
 
 namespace App\Models\Hotel;
 
+use App\Models\FavoritesHotels;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +36,10 @@ class Hotel extends Model
     public function img()
     {
         return $this->hasMany(HotelImg::class);
+    }
+
+    public function favoritesHotels()
+    {
+        return $this->hasMany(FavoritesHotels::class);
     }
 }
