@@ -6,6 +6,9 @@ use App\Models\Hotel\Hotel;
 use App\Models\Hotel\HotelCategories;
 use App\Models\Hotel\HotelServices;
 use App\Models\Hotel\HotelServicesList;
+use App\Models\Room\Room;
+use App\Models\Room\RoomEquipment;
+use App\Models\Room\RoomEquipmentList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,8 +23,7 @@ class HotelsController extends Controller
         $categories = HotelCategories::all();
         $services = HotelServices::all();
         $servicesList = HotelServicesList::all();
-//        $i = $hotels[0]->img;
-      // dd($hotels[0]->img[1]->img);
+
         return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList]);
     }
 
@@ -48,7 +50,11 @@ class HotelsController extends Controller
     {
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
-        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList]);
+
+        $rooms = Room::where('hotel_id', (int)$id)->get();
+        $roomEquipmentLists = RoomEquipmentList::all();
+
+        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists'=> $roomEquipmentLists]);
     }
 
     /**

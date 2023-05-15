@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\PreviewController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +34,9 @@ Route::get('/error404', function () {
 });
 
 
-Route::resource('hotels', HotelsController::class );
+Route::resource('hotels', HotelsController::class);
+Route::resource('rooms', RoomController::class);
+Route::resource('booking', BookingController::class);
 Route::post('/hotels-search', [HotelsController::class, 'searchHotels'])->name('hotels.search');
 
 Auth::routes();

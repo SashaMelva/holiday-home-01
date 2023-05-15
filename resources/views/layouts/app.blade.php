@@ -20,9 +20,9 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <div class="container-logo">
+            <div class="container-long-logo">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="bi me-2" src="{{ Vite::asset('resources/img/logo/logo-long.png') }}" alt="logo">
+                    <img class="bi me-2" src="{{ Vite::asset('resources/img/logo-mini/mini-logo.jpg') }}" alt="logo">
                 </a>
             </div>
 
@@ -46,13 +46,13 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Авторизация') }}</a>
                             </li>
                         @endif
 
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                             </li>
                         @endif
                     @else

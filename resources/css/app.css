@@ -79,6 +79,10 @@ a {
     margin-right: 0;
 }
 
+.m-tb-1{
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
 .btn-base {
     color: var(--basic-white-white);
     background-color: var(--primary-dark);
