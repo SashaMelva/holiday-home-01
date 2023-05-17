@@ -97,7 +97,11 @@ a {
 .btn-light {
 
 }
-
+.btn-default {
+    border: 0 solid;
+    background: transparent;
+    color: var(--basic-white-white);
+}
 .bg-light-card {
     border: 0 solid;
     background-color: var(--primary-rest-light);

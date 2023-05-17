@@ -37,7 +37,13 @@ Route::get('/error404', function () {
 Route::resource('hotels', HotelsController::class);
 Route::resource('rooms', RoomController::class);
 Route::resource('booking', BookingController::class);
+
+
 Route::post('/hotels-search', [HotelsController::class, 'searchHotels'])->name('hotels.search');
+Route::post('/room-for-search-hotel/{id}', [HotelsController::class, 'showHotels'])->name('hotels.list.search');
+Route::middleware('auth')->group(function () {
+    Route::post('/booking-review/{id}', [BookingController::class, 'bookingReview'])->name('booking.review');
+});
 
 Auth::routes();
 

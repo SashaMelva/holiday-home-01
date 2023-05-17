@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchHotelRequest;
 use App\Models\Hotel\Hotel;
 use App\Models\Hotel\HotelCategories;
 use App\Models\Hotel\HotelServices;
@@ -19,12 +20,12 @@ class HotelsController extends Controller
      */
     public function index()
     {
-        $hotels = Hotel::all();
-        $categories = HotelCategories::all();
-        $services = HotelServices::all();
-        $servicesList = HotelServicesList::all();
-
-        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList]);
+//        $hotels = Hotel::all();
+//        $categories = HotelCategories::all();
+//        $services = HotelServices::all();
+//        $servicesList = HotelServicesList::all();
+//
+//        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList]);
     }
 
     /**
@@ -46,15 +47,16 @@ class HotelsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showHotels(SearchHotelRequest $request, string $id)
     {
+        $validate = $request->validated();
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
 
         $rooms = Room::where('hotel_id', (int)$id)->get();
         $roomEquipmentLists = RoomEquipmentList::all();
 
-        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists'=> $roomEquipmentLists]);
+        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists'=> $roomEquipmentLists, 'dataBooking' => $validate]);
     }
 
     /**
@@ -81,8 +83,14 @@ class HotelsController extends Controller
         //
     }
 
-    public function searchHotels(Request $request)
+    public function searchHotels(SearchHotelRequest $request)
     {
-        return redirect()->route('hotels.index');
+        $validate = $request->validated();
+        $hotels = Hotel::where('city', $validate['city'])->get();;
+        $categories = HotelCategories::all();
+        $services = HotelServices::all();
+        $servicesList = HotelServicesList::all();
+
+        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate]);
     }
 }

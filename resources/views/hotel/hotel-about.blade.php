@@ -30,6 +30,7 @@
             <h3>Об этом отеле</h3>
             <hr/>
             <div class="row g-2">
+                @if(isset($hotel->img[0]->img))
                 <img class="rounded-4 col-md-6" src="{{ Storage::url($hotel->img[0]->img) }}"
                      alt="{{ $hotel->img[0]->description }}">
                 <div class="col-md-6">
@@ -42,6 +43,7 @@
                              alt="{{ $hotel->img[0]->description }}">
                     </div>
                 </div>
+                @endif
             </div>
 
             <h3>Удобства</h3>

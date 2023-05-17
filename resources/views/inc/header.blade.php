@@ -22,7 +22,7 @@
         <ul class="navigation-core align-items-center">
 
 {{--            <li class="li-mag-l-30"><a href="#" class="nav-link px-2 text-rest-dark">Мои бронирования</a></li>--}}
-            <li class="li-mag-l-30"><a href="{{ route('hotels.index') }}" class="nav-link px-2 text-rest-dark">Все отели</a></li>
+            <li class="li-mag-l-30"><a href="/" class="nav-link px-2 text-rest-dark">Главная</a></li>
             @if (Route::has('login'))
                 @auth
                     <li class="li-mag-l-30"><a href="{{ url('/home') }}"
