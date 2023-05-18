@@ -10,6 +10,8 @@ use App\Models\Hotel\HotelServicesList;
 use App\Models\Room\Room;
 use App\Models\Room\RoomEquipment;
 use App\Models\Room\RoomEquipmentList;
+use Illuminate\Support\Facades\Redis;
+use http\Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -47,16 +49,23 @@ class HotelsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showHotels(SearchHotelRequest $request, string $id)
+    public function showHotels(string $id)
     {
-        $validate = $request->validated();
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
 
         $rooms = Room::where('hotel_id', (int)$id)->get();
         $roomEquipmentLists = RoomEquipmentList::all();
 
-        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists'=> $roomEquipmentLists, 'dataBooking' => $validate]);
+        $validate = [
+            'city' => Redis::get('city'),
+            'arrival_date' => Redis::get('arrival_date'),
+            'date_departure' => Redis::get('date_departure'),
+            'count_adults' => Redis::get('count_adults'),
+            'count_children' => Redis::get('count_children')
+        ];
+
+        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists' => $roomEquipmentLists, 'dataBooking' => $validate]);
     }
 
     /**
@@ -86,10 +95,17 @@ class HotelsController extends Controller
     public function searchHotels(SearchHotelRequest $request)
     {
         $validate = $request->validated();
+
         $hotels = Hotel::where('city', $validate['city'])->get();;
         $categories = HotelCategories::all();
         $services = HotelServices::all();
         $servicesList = HotelServicesList::all();
+
+        Redis::set('city', $validate['city']);
+        Redis::set('arrival_date', $validate['arrival_date']);
+        Redis::set('date_departure', $validate['date_departure']);
+        Redis::set('count_adults', $validate['count_adults']);
+        Redis::set('count_children', $validate['count_children']);
 
         return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate]);
     }

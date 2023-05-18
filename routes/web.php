@@ -40,9 +40,11 @@ Route::resource('booking', BookingController::class);
 
 
 Route::post('/hotels-search', [HotelsController::class, 'searchHotels'])->name('hotels.search');
-Route::post('/room-for-search-hotel/{id}', [HotelsController::class, 'showHotels'])->name('hotels.list.search');
+
+Route::get('/room-for-search-hotel/{id}', [HotelsController::class, 'showHotels'])->name('hotels.list.search');
+
 Route::middleware('auth')->group(function () {
-    Route::post('/booking-review/{id}', [BookingController::class, 'bookingReview'])->name('booking.review');
+    Route::get('/booking-review/{id}', [BookingController::class, 'bookingReview'])->name('booking.review');
 });
 
 Auth::routes();

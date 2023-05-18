@@ -38,7 +38,7 @@
         </div>
 
         @include('inc.support-filters')
-        @include('inc.hotels')
+        @include('hotel.hotels')
 
         <nav aria-label="Page navigation example">
             <ul class="pagination content-center">

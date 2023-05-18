@@ -14,7 +14,8 @@
                     <label for="city">Город</label>
                     <input id="city" name="city" type="text" class="form-control" placeholder="Выберите город"
                            aria-label="City"
-                           @if(isset($dataBooking['city']))value="{{ $dataBooking['city'] }}" @else value="Краснодар" @endif
+                           @if(isset($dataBooking['city']))value="{{ $dataBooking['city'] }}" @else value="Краснодар"
+                           @endif
                            required>
                 </div>
             </div>
@@ -27,15 +28,17 @@
                 <div class="flex-grow-1">
                     <label for="arrival_date">Дата приезда</label>
                     <input name="arrival_date" id="arrival_date" type="date" class="form-control"
-                           placeholder="Дата прибытия" @if(isset($dataBooking['arrival_date']))value="{{ $dataBooking['arrival_date'] }}"
+                           placeholder="Дата прибытия"
+                           @if(isset($dataBooking['arrival_date']))value="{{ $dataBooking['arrival_date'] }}"
                            @else value="{{ config('global.DATE_ARRIVAL') }}" @endif
                            min="{{ config('global.DATE_ARRIVAL') }}" max="2023-12-01" required>
                 </div>
                 <div class="flex-grow-1">
                     <label for="date_departure">выезда</label>
                     <input name="date_departure" id="date_departure" type="date" class="form-control"
-                           placeholder="Дата вызда" @if(isset($dataBooking['date_departure']))value="{{ config('global.DATE_DEPARTURE') }}"
-                           @else value="2023-05-17" @endif
+                           placeholder="Дата вызда"
+                           @if(isset($dataBooking['date_departure']))value="{{ $dataBooking['date_departure'] }}"
+                           @else value="{{config('global.DATE_DEPARTURE') }}" @endif
                            min="{{ config('global.DATE_ARRIVAL') }}" max="2023-12-01" required>
                 </div>
             </div>
@@ -50,7 +53,7 @@
                     <div class="dropdown guest-selector me-2">
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <button type="button" class="btn">
+                                <button id="minus-adults" type="button" class="btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-dash-circle" viewBox="0 0 16 16">
                                         <path
@@ -59,10 +62,11 @@
                                     </svg>
                                 </button>
                                 <input id="count_adults" name="count_adults" type="text" class="form-control"
-                                       @if(isset($dataBooking['count_adults']))value="{{ $dataBooking['count_adults'] }}" @else value="1"
+                                       @if(isset($dataBooking['count_adults']))value="{{ $dataBooking['count_adults'] }}"
+                                       @else value="1"
                                        @endif
                                        readonly required>
-                                <button type="button" class="btn">
+                                <button id="plus-adults" type="button" class="btn">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-plus-circle" viewBox="0 0 16 16">
                                         <path
@@ -79,7 +83,7 @@
                     <label for="count_children">детей</label>
                     <div class="dropdown guest-selector me-2">
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn">
+                            <button id="minus-children" type="button" class="btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-dash-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -87,10 +91,11 @@
                                 </svg>
                             </button>
                             <input id="count_children" name="count_children" type="text" class="form-control"
-                                   @if(isset($dataBooking['count_children']))value="{{ $dataBooking['count_children'] }}" @else value="0"
+                                   @if(isset($dataBooking['count_children']))value="{{ $dataBooking['count_children'] }}"
+                                   @else value="0"
                                    @endif
                                    readonly required>
-                            <button type="button" class="btn">
+                            <button id="plus-children" type="button" class="btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-plus-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

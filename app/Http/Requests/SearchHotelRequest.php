@@ -24,9 +24,9 @@ class SearchHotelRequest extends FormRequest
         return [
             'city' => 'required|string|max:100',
             'arrival_date' => 'required|date',
-            'date_departure' => 'required|date|after:today',
-            'count_adults' => 'required|integer|max:2',
-            'count_children' => 'required|integer|max:2',
+            'date_departure' => 'required|date',
+            'count_adults' => 'required',
+            'count_children' => 'required',
         ];
     }
 

@@ -93,16 +93,16 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="bg-light py-3 px-4 rounded-3">
-                                    <h6 class="fw-light small mb-1">Команаты и гости</h6>
-                                    <h5 class="mb-1">{{ $dataBooking['date_departure'] }} К
-                                        - {{ $dataBooking['date_departure'] }}Г</h5>
+                                    <h6 class="fw-light small mb-1">Гости</h6>
+                                    <h5 class="mb-1">{{ $dataBooking['count_adults'] }} К
+                                        - {{ $dataBooking['count_children'] }}Г</h5>
                                     <small>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
                                             <path
                                                 d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
                                         </svg>
-                                        4 дня - 3 ночи
+                                        {{ $countNight + 1 }} дня - {{ $countNight }} ночи
                                     </small>
                                 </div>
                             </div>
@@ -134,151 +134,302 @@
                     </div>
                 </section>
                 <section class="card shadow p-4 m-tb-1">
-                    <div class="card-header p-4 border-bottom">
-                        <h3 class="mb-0">Информация о гостях</h3>
-                    </div>
-                    <div class="card-body p-4">
+                    <form method="POST">
+                        @csrf
+                        <div class="card-header p-4 border-bottom">
+                            <h3 class="mb-0">Информация о гостях</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="col-12">
+                                <div class="bg-light rounded-2 px-4 py-3">
+                                    <h6 class="mb-0">Главный гость (авторизованный)</h6>
+                                </div>
+                            </div>
+                            <h3>Заполните данные о себе</h3>
+                            <div class="row g-3">
+                                <div class="col">
+                                    <label for="inputEmail4" class="form-label">Фамилия</label>
+                                    <input type="text" class="form-control" placeholder="Фамилия" required>
+                                </div>
+                                <div class="col">
+                                    <label for="inputEmail4" class="form-label">Имя</label>
+                                    <input type="text" class="form-control" placeholder="Имя" value="{{ $userData[0] }}"
+                                           required>
+                                </div>
+                                <div class="col">
+                                    <label for="inputEmail4" class="form-label">Отчество</label>
+                                    <input type="text" class="form-control" placeholder="Отчество">
+                                </div>
+                            </div>
+
+                            <div class="col-12 row">
+                                <div class="col-md-6">
+                                    <label for="inputEmail4" class="form-label">Пол</label>
+                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Женский">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputPassword4" class="form-label">Дата рождения</label>
+                                    <input type="date" class="form-control" id="inputPassword4" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 row">
+                                <div class="col-md-6">
+                                    <label for="inputEmail4" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail4"
+                                           value="{{ $userData[1] }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputPassword4" class="form-label">Номер телефона</label>
+                                    <input type="text" class="form-control" id="inputPassword4"
+                                           placeholder="8-000-000-00-00" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <h3>Введите ваши паспортные данные</h3>
+                                <label for="inputAddress2" class="form-label">Гражданство</label>
+                                <input type="text" class="form-control" id="inputAddress2"
+                                       value="Российское" readonly required>
+                            </div>
+                            <div class="col-12 row">
+                                <div class="col-md-6">
+                                    <label for="inputEmail4" class="form-label">Серия</label>
+                                    <input type="text" class="form-control" id="inputEmail4" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputPassword4" class="form-label">Номер</label>
+                                    <input type="text" class="form-control" id="inputPassword4" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="inputAddress2" class="form-label">Кем выдан</label>
+                                <input type="text" class="form-control" id="inputAddress2"
+                                       placeholder="Наименование организации" required>
+                            </div>
+                        </div>
+                        @if((int)$dataBooking['count_adults'] > 1)
+                        {{ $i = $dataBooking['count_adults'] }}
+                            @while($i > 1)
+                                <div class="card-body p-4">
+                                    <div class="col-12">
+                                        <div class="bg-light rounded-2 px-4 py-3">
+                                            <h6 class="mb-0">Гость взрослый</h6>
+                                        </div>
+                                    </div>
+                                    <h3>Заполните данные о себе</h3>
+                                    <div class="row g-3">
+                                        <div class="col">
+                                            <label for="inputEmail4" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" placeholder="Фамилия" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="inputEmail4" class="form-label">Имя</label>
+                                            <input type="text" class="form-control" placeholder="Имя" value="{{ $userData[0] }}"
+                                                   required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="inputEmail4" class="form-label">Отчество</label>
+                                            <input type="text" class="form-control" placeholder="Отчество">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 row">
+                                        <div class="col-md-6">
+                                            <label for="inputEmail4" class="form-label">Пол</label>
+                                            <input type="text" class="form-control" id="inputEmail4" placeholder="Женский">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputPassword4" class="form-label">Дата рождения</label>
+                                            <input type="date" class="form-control" id="inputPassword4" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 row">
+                                        <div class="col-md-6">
+                                            <label for="inputEmail4" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="inputEmail4"
+                                                   value="{{ $userData[1] }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputPassword4" class="form-label">Номер телефона</label>
+                                            <input type="text" class="form-control" id="inputPassword4"
+                                                   placeholder="8-000-000-00-00" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <h3>Введите ваши паспортные данные</h3>
+                                        <label for="inputAddress2" class="form-label">Гражданство</label>
+                                        <input type="text" class="form-control" id="inputAddress2"
+                                               value="Российское" readonly required>
+                                    </div>
+                                    <div class="col-12 row">
+                                        <div class="col-md-6">
+                                            <label for="inputEmail4" class="form-label">Серия</label>
+                                            <input type="text" class="form-control" id="inputEmail4" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputPassword4" class="form-label">Номер</label>
+                                            <input type="text" class="form-control" id="inputPassword4" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="inputAddress2" class="form-label">Кем выдан</label>
+                                        <input type="text" class="form-control" id="inputAddress2"
+                                               placeholder="Наименование организации" required>
+                                    </div>
+                                </div>
+                                {{ $i - 1 }}
+                            @endwhile
+                        @endif
+                        @if((int)$dataBooking['count_children'] > 1)
+                            {{ $i = $dataBooking['count_children'] }}
+                            @while($i > 1)
+                                <div class="card-body p-4">
+                                    <div class="col-12">
+                                        <div class="bg-light rounded-2 px-4 py-3">
+                                            <h6 class="mb-0">Ребёнок</h6>
+                                        </div>
+                                    </div>
+                                    <h3>Заполните данные о себе</h3>
+                                    <div class="row g-3">
+                                        <div class="col">
+                                            <label for="inputEmail4" class="form-label">Фамилия</label>
+                                            <input type="text" class="form-control" placeholder="Фамилия" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="inputEmail4" class="form-label">Имя</label>
+                                            <input type="text" class="form-control" placeholder="Имя" value="{{ $userData[0] }}"
+                                                   required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="inputEmail4" class="form-label">Отчество</label>
+                                            <input type="text" class="form-control" placeholder="Отчество">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 row">
+                                        <div class="col-md-6">
+                                            <label for="inputEmail4" class="form-label">Пол</label>
+                                            <input type="text" class="form-control" id="inputEmail4" placeholder="Женский">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputPassword4" class="form-label">Дата рождения</label>
+                                            <input type="date" class="form-control" id="inputPassword4" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 row">
+                                        <div class="col-md-6">
+                                            <label for="inputEmail4" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="inputEmail4"
+                                                   value="{{ $userData[1] }}">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputPassword4" class="form-label">Номер телефона</label>
+                                            <input type="text" class="form-control" id="inputPassword4"
+                                                   placeholder="8-000-000-00-00" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <h3>Введите ваши паспортные данные</h3>
+                                        <label for="inputAddress2" class="form-label">Гражданство</label>
+                                        <input type="text" class="form-control" id="inputAddress2"
+                                               value="Российское" readonly required>
+                                    </div>
+                                    <div class="col-12 row">
+                                        <div class="col-md-6">
+                                            <label for="inputEmail4" class="form-label">Серия</label>
+                                            <input type="text" class="form-control" id="inputEmail4" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputPassword4" class="form-label">Номер</label>
+                                            <input type="text" class="form-control" id="inputPassword4" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="inputAddress2" class="form-label">Кем выдан</label>
+                                        <input type="text" class="form-control" id="inputAddress2"
+                                               placeholder="Наименование организации" required>
+                                    </div>
+                                </div>
+                                {{ $i - 1 }}
+                            @endwhile
+                        @endif
                         <div class="col-12">
-                            <div class="bg-light rounded-2 px-4 py-3">
-                                <h6 class="mb-0">Главный гость</h6>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                                <label class="form-check-label" for="gridCheck">
+                                    Согласие на обработку персональный данных
+                                </label>
                             </div>
                         </div>
-                        <h3>Заполните данные о себе</h3>
-                        <div class="row g-3">
-                            <div class="col">
-                                <label for="inputEmail4" class="form-label">Фамилия</label>
-                                <input type="text" class="form-control" placeholder="Фамилия" required>
-                            </div>
-                            <div class="col">
-                                <label for="inputEmail4" class="form-label">Имя</label>
-                                <input type="text" class="form-control" placeholder="Имя" required>
-                            </div>
-                            <div class="col">
-                                <label for="inputEmail4" class="form-label">Отчество</label>
-                                <input type="text" class="form-control" placeholder="Отчество">
-                            </div>
-                        </div>
-
-                        <div class="col-12 row">
-                            <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">Пол</label>
-                                <input type="text" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Дата рождения</label>
-                                <input type="date" class="form-control" id="inputPassword4" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 row">
-                            <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Номер телефона</label>
-                                <input type="text" class="form-control" id="inputPassword4" required>
-                            </div>
-                        </div>
-
                         <div class="col-12">
-                            <h3>Введите ваши паспортные данные</h3>
-                            <label for="inputAddress2" class="form-label">Гражданство</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                   value="Российское" readonly required>
+                            <button type="submit" class="btn btn-primary">Бронировать</button>
                         </div>
-                        <div class="col-12 row">
-                            <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">Серия</label>
-                                <input type="text" class="form-control" id="inputEmail4" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputPassword4" class="form-label">Номер</label>
-                                <input type="text" class="form-control" id="inputPassword4" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Кем выдан</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                   placeholder="Apartment, studio, or floor" required>
-                        </div>
-
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="gridCheck" required>
-                            <label class="form-check-label" for="gridCheck">
-                                Согласие на обработку персональный данных
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Бронировать</button>
-                    </div>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                    </form>
+                </section>
             </div>
-            </section>
+
+            <aside class="col-xl-4">
+                <div class="col-md-6 col-xl-12 m-tb-1">
+                    <div class="card shadow rounded-2">
+                        <div class="card-header border-bottom">
+                            <h5 class="card-title mb-0">Цена</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-borderless">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="h6 fw-light mb-0">Цена номера за сутки</span>
+                                    <span class="fs-5">{{ $room->price }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="h6 fw-light mb-0">Количество суток</span>
+                                    <span class="fs-5">{{ $countNight }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="h6 fw-light mb-0">Общая цена</span>
+                                    <span class="fs-5">{{ $sumPrice }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xl-12 m-tb-1">
+                    <div class="card shadow rounded-2">
+                        <div class="card-header border-bottom">
+                            <h5 class="card-title mb-0">Why Sign up or Log in</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-borderless">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                    </svg>
+                                    <span class="h6 fw-light mb-0"></span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path
+                                            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                    </svg>
+                                    <span class="h6 fw-light mb-0"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
-
-        <aside class="col-xl-4">
-            <div class="col-md-6 col-xl-12 m-tb-1">
-                <div class="card shadow rounded-2">
-                    <div class="card-header border-bottom">
-                        <h5 class="card-title mb-0">Цена</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-borderless">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="h6 fw-light mb-0"></span>
-                                <span class="fs-5"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="h6 fw-light mb-0"></span>
-                                <span class="fs-5"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="h6 fw-light mb-0"></span>
-                                <span class="fs-5"></span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-footer border-top">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="h5 mb-0"></span>
-                            <span class="h5 mb-0"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-12 m-tb-1">
-                <div class="card shadow rounded-2">
-                    <div class="card-header border-bottom">
-                        <h5 class="card-title mb-0">Why Sign up or Log in</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-borderless">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-check-lg" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                </svg>
-                                <span class="h6 fw-light mb-0"></span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-check-lg" viewBox="0 0 16 16">
-                                    <path
-                                        d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                </svg>
-                                <span class="h6 fw-light mb-0"></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </aside>
-    </div>
     </div>
 @endsection

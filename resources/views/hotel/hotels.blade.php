@@ -46,40 +46,13 @@
                         <span class="mb-0 me-2">/день</span>
                     </div>
                     <div class="mt-2 mt-sm-0 z-index-2">
-                        <form method="POST" action="{{ route('hotels.list.search', $hotel->id) }}"
-                              class="btn btn-lg btn-primary btn-base mb-0">
-                            @csrf
-                            <input id="city" name="city" type="text"
-                                   @if(isset($dataBooking['city'])) value="{{ $dataBooking['city'] }}"
-                                   @else value="Краснодар" @endif
-                                   hidden="hidden">
-                            <input name="arrival_date" id="arrival_date" type="date"
-                                   @if(isset($dataBooking['arrival_date'])) value="{{ $dataBooking['arrival_date'] }}"
-                                   @else value="{{ config('global.DATE_ARRIVAL') }}" @endif
-                                   hidden="hidden">
-                            <input
-                                name="date_departure" id="date_departure" type="date"
-                                placeholder="Дата вызда"
-                                @if(isset($dataBooking['date_departure'])) value="{{ config('global.DATE_DEPARTURE') }}"
-                                @else value="2023-05-17" @endif hidden="hidden">
-                            <input id="count_adults" name="count_adults" type="text"
-                                   @if(isset($dataBooking['count_adults'])) value="{{ $dataBooking['count_adults'] }}"
-                                   @else value="1"
-                                   @endif
-                                   hidden="hidden">
-                            <input id="count_children" name="count_children" type="text"
-                                   @if(isset($dataBooking['count_children'])) value="{{ $dataBooking['count_children'] }}"
-                                   @else value="0"
-                                   @endif
-                                   hidden="hidden">
-                            <button type="submit" class="btn-default">Детали</button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                            </svg>
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                        </form>
+                        <a type="submit" href="{{ route('hotels.list.search', $hotel->id)}}" class="btn btn-lg btn-primary btn-base mb-0">Детали
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg>
+                        </a>
                     </div>
                 </div>
             </div>
