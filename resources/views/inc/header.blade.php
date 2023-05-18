@@ -1,63 +1,64 @@
-<header class="p-2 header-container">
-    <div class="container header-content">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="container">
         <div class="container-long-logo">
-            <a href="/">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <img class="bi me-2" src="{{ Vite::asset('resources/img/logo-mini/mini-logo.jpg') }}" alt="logo">
             </a>
         </div>
-        {{--            @if (Route::has('login'))--}}
-        {{--                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">--}}
-        {{--                    @auth--}}
-        {{--                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>--}}
-        {{--                    @else--}}
-        {{--                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>--}}
 
-        {{--                        @if (Route::has('register'))--}}
-        {{--                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>--}}
-        {{--                        @endif--}}
-        {{--                    @endauth--}}
-        {{--                </div>--}}
-        {{--            @endif--}}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <ul class="navigation-core align-items-center">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav me-auto">
+                <li class="li-mag-l-30"><a href="/" class="nav-link px-2 text-rest-dark">Главная</a></li>
+                <li class="li-mag-l-30"><a href="{{ route('favorites-hotels.index') }}" class="nav-link px-2 text-rest-dark">Изобранные</a></li>
+                <li class="li-mag-l-30"><a href="#" class="nav-link px-2 text-rest-dark">Бронирования</a></li>
+            </ul>
 
-{{--            <li class="li-mag-l-30"><a href="#" class="nav-link px-2 text-rest-dark">Мои бронирования</a></li>--}}
-            <li class="li-mag-l-30"><a href="/" class="nav-link px-2 text-rest-dark">Главная</a></li>
-            @if (Route::has('login'))
-                @auth
-                    <li class="li-mag-l-30"><a href="{{ url('/home') }}"
-                                               class="nav-link px-2 text-rest-dark">Личный кабинет</a>
-                    </li>
-                    <li class="li-mag-l-30"><a href="#" class="nav-link px-2 text-rest-dark">Изобранные</a></li>
-                    <li class="li-mag-l-30"><a href="#" class="nav-link px-2 text-rest-dark">Бронирования</a></li>
-                @else
-                    <li class="li-mag-l-30"><a href="{{ route('login') }}"
-                                               class="nav-link px-2 text-rest-dark">Вход</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="li-mag-l-30"><a href="{{ route('register') }}"
-                                                   class="nav-link px-2 text-rest-dark">Регистрация</a>
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ms-auto">
+                <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Авторизация') }}</a>
                         </li>
                     @endif
-                @endauth
-            @endif
-        </ul>
-        {{--            <div class="dropdown text-end">--}}
-        {{--                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"--}}
-        {{--                   aria-expanded="false">--}}
-        {{--                    <img src="Headers%20%C2%B7%20Bootstrap%20v5.3_files/98681.jpeg" alt="mdo" class="rounded-circle"--}}
-        {{--                         width="32" height="32">--}}
-        {{--                </a>--}}
-        {{--                <ul class="dropdown-menu text-small">--}}
-        {{--                    <li><a class="dropdown-item" href="#">Аккаунт</a></li>--}}
-        {{--                    <li><a class="dropdown-item" href="#">Избранное</a></li>--}}
-        {{--                    <li><a class="dropdown-item" href="#">Бронирования</a></li>--}}
-        {{--                    <li>--}}
-        {{--                        <hr class="dropdown-divider">--}}
-        {{--                    </li>--}}
-        {{--                    <li><a class="dropdown-item" href="#">Выход</a></li>--}}
-        {{--                </ul>--}}
-        {{--            </div>--}}
 
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Личный кабинет') }}
+                            </a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Выход') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
+            </ul>
+        </div>
     </div>
-</header>
+</nav>

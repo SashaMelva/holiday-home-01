@@ -1,7 +1,6 @@
-@extends('layouts.welcome')
+@extends('layouts.app')
 
 @section('content')
-
     <section class="py-0 container block-center">
         <div class="card bg-light overflow-hidden px-sm-5">
             <div class="row align-items-center g-4">

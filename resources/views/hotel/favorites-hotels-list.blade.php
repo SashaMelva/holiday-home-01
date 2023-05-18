@@ -1,15 +1,15 @@
 <section class="container row g-4 container-list-hotel">
-    @foreach($hotels as $hotel)
+    @foreach($favorites as $favorite)
         <article class="card shadow p-2 pb-0 h-100">
-            @if(count($hotel->img) > 0)
-                <img src="{{ Storage::url($hotel->img[0]->img) }}" alt="{{ $hotel->img[0]->description }}">
+            @if(count($favorite->hotel->img) > 0)
+                <img src="{{ Storage::url($favorite->hotel->img[0]->img) }}" alt="{{ $favorite->hotel->img[0]->description }}">
             @else
                 <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
             @endif
             <div class="card-body px-3 pb-0">
                 <div class="d-flex justify-content-between mb-3">
                     <a class="badge bg-dark text-white">
-                        @for($i = 0; $i < $hotel->star; $i++)
+                        @for($i = 0; $i < $favorite->hotel->star; $i++)
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path
@@ -18,18 +18,18 @@
                         @endfor
                         4.8
                     </a>
-                    <a class="h6 mb-0 z-index-2 favorites-hotels" href="{{ route('favorites.hotels.save', $hotel->id) }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+                    <a class="h6 mb-0 z-index-2 " href="{{ route('favorites.hotels.delete', $favorite->hotel->id) }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-fill favorites-hotels-focus" viewBox="0 0 16 16">
                             <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
                         </svg>
                     </a>
                 </div>
                 <h5 class="card-title">
-                    <a href="#">{{ $hotel->full_title }}</a>
+                    <a href="#">{{ $favorite->hotel->full_title }}</a>
                 </h5>
                 <ul class="nav mb-2 mb-sm-3">
                     @foreach($servicesList as $list)
-                        @if(isset($list->hotel->id) && $list->hotel->id == $hotel->id)
+                        @if(isset($list->hotel->id) && $list->hotel->id == $favorite->hotel->id)
                             <li class="nav-item nav-divider">
                                 <div class="point"></div>
                                 <p>{{ $list->service->name }}</p></li>
@@ -44,12 +44,12 @@
                         <span class="mb-0 me-2">/день</span>
                     </div>
                     <div class="mt-2 mt-sm-0 z-index-2">
-                        <a type="submit" href="{{ route('hotels.list.search', $hotel->id) }}" class="btn btn-lg btn-primary btn-base mb-0">Детали
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-arrow-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg>
+                        <a type="submit" href="{{ route('hotels.list.search', $favorite->hotel->id) }}" class="btn btn-lg btn-primary btn-base mb-0">Детали
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                            </svg>
                         </a>
                     </div>
                 </div>

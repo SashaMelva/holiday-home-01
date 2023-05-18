@@ -136,6 +136,9 @@ a {
     background-color: var(--basic-white-white);
 }
 
+.favorites-hotels-focus {
+    color: var(--primary-focus);
+}
 /*LOGO*/
 .container-logo {
     width: 80px;

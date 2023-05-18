@@ -24,3 +24,5 @@ document.querySelector('#plus-adults').onclick = function() {
         inputAdults.value = inputAdults.value - 0  + 1;
     }
 };
+
+

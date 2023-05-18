@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\FavoritesHotelController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\PreviewController;
@@ -41,10 +42,14 @@ Route::resource('booking', BookingController::class);
 
 Route::post('/hotels-search', [HotelsController::class, 'searchHotels'])->name('hotels.search');
 
-Route::get('/room-for-search-hotel/{id}', [HotelsController::class, 'showHotels'])->name('hotels.list.search');
+Route::get('/room-for-search-hotel/{id}', [HotelsController::class, 'showHotel'])->name('hotels.list.search');
 
 Route::middleware('auth')->group(function () {
     Route::get('/booking-review/{id}', [BookingController::class, 'bookingReview'])->name('booking.review');
+    Route::get('/favorites-hotels/save/{id}', [FavoritesHotelController::class, 'save'])->name('favorites.hotels.save');
+    Route::resource('favorites-hotels', FavoritesHotelController::class);
+    Route::get('/favorites-hotels/delete/{id}', [FavoritesHotelController::class, 'delete'])->name('favorites.hotels.delete');
+
 });
 
 Auth::routes();

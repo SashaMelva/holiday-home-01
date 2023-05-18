@@ -22,12 +22,12 @@ class HotelsController extends Controller
      */
     public function index()
     {
-//        $hotels = Hotel::all();
-//        $categories = HotelCategories::all();
-//        $services = HotelServices::all();
-//        $servicesList = HotelServicesList::all();
-//
-//        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList]);
+        $hotels = Hotel::all();
+        $categories = HotelCategories::all();
+        $services = HotelServices::all();
+        $servicesList = HotelServicesList::all();
+
+        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList]);
     }
 
     /**
@@ -49,7 +49,7 @@ class HotelsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function showHotels(string $id)
+    public function showHotel(string $id)
     {
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
@@ -109,4 +109,5 @@ class HotelsController extends Controller
 
         return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate]);
     }
+
 }
