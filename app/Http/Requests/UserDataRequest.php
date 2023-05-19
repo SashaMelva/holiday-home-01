@@ -26,7 +26,8 @@ class UserDataRequest extends FormRequest
             'name' => 'required|string|max:100',
             'patronymic' => 'required|string|max:100',
             'phone_number' => 'required',
-            'date_birth' => 'required|date'
+            'date_birth' => 'required|date',
+            'gender' => 'required|in:male,female'
         ];
     }
 

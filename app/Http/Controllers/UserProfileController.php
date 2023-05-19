@@ -6,7 +6,7 @@ use App\Http\Requests\UserDataPassordRequest;
 use App\Http\Requests\UserDataRequest;
 use App\Models\DataUsers;
 use App\Models\PassportDataUsers;
-use http\Client\Curl\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,34 +15,29 @@ class UserProfileController extends Controller
     public function show()
     {
         $id = Auth::user()->id;
-        $user = \App\Models\User::find($id);
-        $userData = DataUsers::where('user_id', $id);
-        $userPassportData = PassportDataUsers::where('user_id', $id);
+        $user = User::find($id);
+        $userData = DataUsers::where('id_user', $id)->get();
+        $userPassportData = PassportDataUsers::where('data_user_id', $id)->get();
+
         return view('user/profile', ['userData' => $userData, 'userPassportData' => $userPassportData, 'user' => $user]);
     }
 
     public function saveUserData(UserDataRequest $request)
     {
         $valid = $request->validated();
-        $gender = "female";
-
-        if ($valid["gender_male"] == "on") {
-            $gender = "male";
-        }
-
-        $usersData = DataUsers::where('user_id', Auth::user()->id);
-
-        if (empty($usersData)) {
+        $usersData = DataUsers::where('id_user', Auth::user()->id)->get();
+        $id = (int)Auth::user()->id;
+        if (!isset($usersData->id)) {
             DataUsers::create([
-                'user_id' => Auth::user()->id,
+                'id_user' => $id,
                 'surname' => $valid["surname"],
                 'name' => $valid["name"],
-                'gender' => $gender,
+                'gender' => $valid["gender"],
                 'patronymic' => $valid["patronymic"],
                 'phone_number' => $valid["phone_number"],
                 'date_birth' => $valid["date_birth"]
             ]);
-        }else{
+        } else {
             $usersData->surname = $valid["surname"];
             $usersData->name = $valid["name"];
             $usersData->gender = $valid["gender"];
@@ -52,17 +47,18 @@ class UserProfileController extends Controller
             $usersData->save();
         }
 
-        return redirect()->route('profile.show');
+        return back()->withInput();//redirect()->route('profile.show');
     }
 
     public function saveUserPassportData(UserDataPassordRequest $request)
     {
         $valid = $request->validated();
-        $passportData = PassportDataUsers::where('user_id', Auth::user()->id);
+        $passportData = PassportDataUsers::where('data_user_id', Auth::user()->id)->get();
 
-        if (empty($passportData)) {
+
+        if (!isset($passportData->id)) {
             PassportDataUsers::create([
-                'user_id' => Auth::user()->id,
+                'data_user_id' => Auth::user()->id,
                 'citizenship' => $valid["citizenship"],
                 'passport_series' => $valid["passport_series"],
                 'passport_number' => $valid["passport_number"],
