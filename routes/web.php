@@ -54,7 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
     Route::post('/save-user-data', [UserProfileController::class, 'saveUserData'])->name('user.data.save');
     Route::post('/save-user-password-data', [UserProfileController::class, 'saveUserPassportData'])->name('user.passport.save');
-
+    Route::get('/check-booking', [BookingController::class, 'checkBooking'])->name('check.booking');
+    Route::get('/ticket-booking', [BookingController::class, 'getTicketBooking'])->name('ticket.booking');
 });
 
 Auth::routes();

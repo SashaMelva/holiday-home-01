@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchHotelRequest;
+use App\Models\City;
 use App\Models\Hotel\Hotel;
 use App\Models\Hotel\HotelCategories;
 use App\Models\Hotel\HotelServices;
@@ -96,7 +97,8 @@ class HotelsController extends Controller
     {
         $validate = $request->validated();
 
-        $hotels = Hotel::where('city', $validate['city'])->get();;
+        $city = City::where('title', $validate['city'])->get();
+        $hotels = Hotel::where('city_id', $city[0]->id)->get();
         $categories = HotelCategories::all();
         $services = HotelServices::all();
         $servicesList = HotelServicesList::all();

@@ -2,7 +2,7 @@
     @foreach($hotels as $hotel)
         <article class="card shadow p-2 pb-0 h-100">
             @if(count($hotel->img) > 0)
-                <img src="{{ Storage::url($hotel->img[0]->img) }}" alt="{{ $hotel->img[0]->description }}">
+                <img src="{{ Storage::url($hotel->img[0]->img_url) }}" alt="{{ $hotel->img[0]->description }}">
             @else
                 <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
             @endif

@@ -38,7 +38,7 @@
                     <input name="date_departure" id="date_departure" type="date" class="form-control"
                            placeholder="Дата вызда"
                            @if(isset($dataBooking['date_departure']))value="{{ $dataBooking['date_departure'] }}"
-                           @else value="{{config('global.DATE_DEPARTURE') }}" @endif
+                           @else value="{{ config('global.DATE_DEPARTURE') }}" @endif
                            min="{{ config('global.DATE_ARRIVAL') }}" max="2023-12-01" required>
                 </div>
             </div>

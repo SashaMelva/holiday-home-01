@@ -25,9 +25,10 @@
                         <div class="card mb-4">
                             <div class="row align-items-center">
                                 <div class="col-sm-6 col-md-5">
+
                                     <img class="card-img d-block w-100 rounded-4"
-                                         src="{{ Storage::url($room->img[0]->img_url) }}"
-                                         alt="{{ $room->img[0]->description }}">
+                                         @if(isset($room->img[0]->img_url)) src="{{ Storage::url($room->img[0]->img_url) }}"
+                                         alt="{{ $room->img[0]->description }}" @endif>
                                 </div>
                                 <div class="col-sm-6 col-md-7">
                                     <div class="card-body pt-3 pt-sm-0 p-0">
@@ -41,7 +42,7 @@
                                                 <path
                                                     d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                                             </svg>
-                                            {{ $hotel->city }}, {{ $hotel->address }}
+                                            {{ $hotel->city->title }}, {{ $hotel->address }}
                                         </p>
                                         <ul class="list-inline mb-0">
                                             @for($i = 0; $i < $hotel->star; $i++)
@@ -108,10 +109,9 @@
                         </div>
                         <div class="card border mt-4">
                             <div class="card-header border-bottom d-md-flex justify-content-md-between">
-                                <h5 class="card-title mb-0"></h5>
+                                <h5 class="card-title mb-0">Техника в номере</h5>
                             </div>
                             <div class="card-body">
-                                <h6>Удобства</h6>
                                 <ul class="list-group list-group-borderless mt-2 mb-0">
                                     @foreach($roomEquipmentLists as $equipmentList)
                                         @if(isset($equipmentList->room->id) && $equipmentList->room->id == $room->id)
@@ -132,263 +132,134 @@
                         </div>
                     </div>
                 </section>
-                <section class="card shadow p-4 m-tb-1">
-                    <form method="POST">
-                        @csrf
-                        <div class="card-header p-4 border-bottom">
-                            <h3 class="mb-0">Информация о гостях</h3>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="col-12">
-                                <div class="bg-light rounded-2 px-4 py-3">
-                                    <h6 class="mb-0">Главный гость (авторизованный)</h6>
-                                </div>
-                            </div>
-                            <h3>Заполните данные о себе</h3>
+                <section class="card border m-tb-1">
+                    <!-- Card header -->
+                    <div class="card-header border-bottom">
+                        <h4 class="card-header-title">Персональная информация о вас</h4>
+                    </div>
+
+                    <!-- Card body START -->
+                    <div class="card-body">
+                        <!-- Form START -->
+                        <form class="row g-3" method="POST" action="{{ route('user.data.save') }}">
+                            @csrf
+                            <!-- Name -->
                             <div class="row g-3">
                                 <div class="col">
-                                    <label for="inputEmail4" class="form-label">Фамилия</label>
-                                    <input type="text" class="form-control" placeholder="Фамилия" required>
+                                    <label  for="surname" class="form-label">Фамилия</label>
+                                    <input id="surname" name="surname" type="text" class="form-control" placeholder="Фамилия" value="@if(isset($userData['surname'])){{ $userData['surname'] }}@endif" required>
                                 </div>
                                 <div class="col">
-                                    <label for="inputEmail4" class="form-label">Имя</label>
-                                    <input type="text" class="form-control" placeholder="Имя" value="{{ $userData[0] }}"
+                                    <label  for="name" class="form-label">Имя</label>
+                                    <input id="name" name="name" type="text" class="form-control" placeholder="Имя" value="@if(isset($userData['name'])){{ $userData['name'] }}@endif"
                                            required>
                                 </div>
                                 <div class="col">
-                                    <label for="inputEmail4" class="form-label">Отчество</label>
-                                    <input type="text" class="form-control" placeholder="Отчество">
+                                    <label  for="patronymic" class="form-label">Отчество</label>
+                                    <input id="patronymic" name="patronymic" type="text" class="form-control" placeholder="Отчество" value="@if(isset($userData['patronymic'])){{ $userData['patronymic'] }}@endif">
                                 </div>
                             </div>
-
-                            <div class="col-12 row">
-                                <div class="col-md-6">
-                                    <label for="inputEmail4" class="form-label">Пол</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Женский">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="inputPassword4" class="form-label">Дата рождения</label>
-                                    <input type="date" class="form-control" id="inputPassword4" required>
-                                </div>
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <input id="email" name="email" type="email" class="form-control"
+                                       value="@if(isset($user['email'])){{ $user['email'] }}@endif" required>
                             </div>
 
-                            <div class="col-12 row">
-                                <div class="col-md-6">
-                                    <label for="inputEmail4" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail4"
-                                           value="{{ $userData[1] }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="inputPassword4" class="form-label">Номер телефона</label>
-                                    <input type="text" class="form-control" id="inputPassword4"
-                                           placeholder="8-000-000-00-00" required>
-                                </div>
+                            <!-- Mobile -->
+                            <div class="col-md-6">
+                                <label for="phone_number" class="form-label">Номер телефона</label>
+                                <input type="text" class="form-control" name="phone_number" id="phone_number"
+                                       placeholder="8-000-000-00-00" value="@if(isset($userData['phone_number'])){{ $userData['phone_number'] }}@endif" required>
                             </div>
 
+                            <!-- Date of birth -->
+                            <div class="col-md-6">
+                                <label for="date_birth" class="form-label">Дата рождения<span class="text-danger">*</span></label>
+                                <input id="date_birth" name="date_birth" type="date" class="form-control flatpickr flatpickr-input"  value="@if(isset($userData['date_birth'])){{ $userData['date_birth'] }}@else {{ config('global.DATE_ARRIVAL') }} @endif" required>
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="col-md-6">
+                                <label class="form-label">Выберете пол<span class="text-danger">*</span></label>
+                                <div class="d-flex gap-4">
+                                    <div class="form-check radio-bg-light">
+                                        <input class="form-check-input" type="radio" name="gender"
+                                               id="gender_male" checked="" value="male">
+                                        <label class="form-check-label" for="gender_male">
+                                            Мужской
+                                        </label>
+                                    </div>
+                                    <div class="form-check radio-bg-light">
+                                        <input class="form-check-input" type="radio" name="gender"
+                                               id="gender_female" value="female">
+                                        <label class="form-check-label" for="gender_female">
+                                            Женский
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-primary mb-0">Сохранить изменения</button>
+                            </div>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        </form>
+                        <!-- Form END -->
+                    </div>
+                    <!-- Card body END -->
+                </section>
+
+                <!-- Personal info END -->
+                <section class="card border m-tb-1">
+                    <!-- Card header -->
+                    <div class="card-header border-bottom">
+                        <h4 class="card-header-title">Введите ваши паспортные данные</h4>
+                    </div>
+
+                    <!-- Card body START -->
+                    <div class="card-body">
+                        <!-- Form START -->
+                        <form class="row g-3" method="POST" action="{{ route('user.passport.save') }}">
+                            @csrf
+                            <!-- Passport -->
                             <div class="col-12">
-                                <h3>Введите ваши паспортные данные</h3>
-                                <label for="inputAddress2" class="form-label">Гражданство</label>
-                                <input type="text" class="form-control" id="inputAddress2"
+                                <label for="citizenship" class="form-label">Гражданство</label>
+                                <input type="text" class="form-control" id="citizenship" name="citizenship"
                                        value="Российское" readonly required>
                             </div>
                             <div class="col-12 row">
-                                <div class="col-md-6">
-                                    <label for="inputEmail4" class="form-label">Серия</label>
-                                    <input type="text" class="form-control" id="inputEmail4" required>
+                                <div class="col-md-4">
+                                    <label for="passport_series" class="form-label">Серия</label>
+                                    <input type="text" class="form-control" id="passport_series" name="passport_series" value="@if(isset($userPassportData[0]['passport_series'])){{ $userPassportData[0]['passport_series'] }} @endif" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="inputPassword4" class="form-label">Номер</label>
-                                    <input type="text" class="form-control" id="inputPassword4" required>
+                                <div class="col-md-4">
+                                    <label for="passport_number" class="form-label">Номер</label>
+                                    <input type="text" class="form-control" id="passport_number" name="passport_number" value="@if(isset($userPassportData[0]['passport_number'])) {{ $userPassportData[0]['passport_number'] }} @endif" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="date_registration" class="form-label">Дата вдачи<span class="text-danger">*</span></label>
+                                    <input id="date_registration" name="date_registration" type="date" class="form-control flatpickr flatpickr-input" @if(isset($userPassportData[0]['date_registration'])) value="{{ $userPassportData[0]['date_registration'] }}" @else value="{{ config('global.DATE_ARRIVAL') }}" @endif" required>
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <label for="inputAddress2" class="form-label">Кем выдан</label>
-                                <input type="text" class="form-control" id="inputAddress2"
-                                       placeholder="Наименование организации" required>
+                                <label for="issued_by" class="form-label">Кем выдан</label>
+                                <input type="text" class="form-control" id="issued_by" name="issued_by"
+                                       placeholder="Наименование организации"  value="@if(isset($userPassportData[0]['issued_by'])){{ $userPassportData[0]['issued_by'] }} @endif"  required>
                             </div>
-                        </div>
-                        @if((int)$dataBooking['count_adults'] > 1)
-                        {{ $i = $dataBooking['count_adults'] }}
-                            @while($i > 1)
-                                <div class="card-body p-4">
-                                    <div class="col-12">
-                                        <div class="bg-light rounded-2 px-4 py-3">
-                                            <h6 class="mb-0">Гость взрослый</h6>
-                                        </div>
-                                    </div>
-                                    <h3>Заполните данные о себе</h3>
-                                    <div class="row g-3">
-                                        <div class="col">
-                                            <label for="inputEmail4" class="form-label">Фамилия</label>
-                                            <input type="text" class="form-control" placeholder="Фамилия" required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="inputEmail4" class="form-label">Имя</label>
-                                            <input type="text" class="form-control" placeholder="Имя" value="{{ $userData[0] }}"
-                                                   required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="inputEmail4" class="form-label">Отчество</label>
-                                            <input type="text" class="form-control" placeholder="Отчество">
-                                        </div>
-                                    </div>
 
-                                    <div class="col-12 row">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Выберете пол<span class="text-danger">*</span></label>
-                                            <div class="d-flex gap-4">
-                                                <div class="form-check radio-bg-light">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                           id="flexRadioDefault1" checked="">
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Мужской
-                                                    </label>
-                                                </div>
-                                                <div class="form-check radio-bg-light">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                                           id="flexRadioDefault2">
-                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                        Женский
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword4" class="form-label">Дата рождения</label>
-                                            <input type="date" class="form-control" id="inputPassword4" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 row">
-                                        <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail4"
-                                                   value="{{ $userData[1] }}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword4" class="form-label">Номер телефона</label>
-                                            <input type="text" class="form-control" id="inputPassword4"
-                                                   placeholder="8-000-000-00-00" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <h3>Введите ваши паспортные данные</h3>
-                                        <label for="inputAddress2" class="form-label">Гражданство</label>
-                                        <input type="text" class="form-control" id="inputAddress2"
-                                               value="Российское" readonly required>
-                                    </div>
-                                    <div class="col-12 row">
-                                        <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Серия</label>
-                                            <input type="text" class="form-control" id="inputEmail4" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword4" class="form-label">Номер</label>
-                                            <input type="text" class="form-control" id="inputPassword4" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <label for="inputAddress2" class="form-label">Кем выдан</label>
-                                        <input type="text" class="form-control" id="inputAddress2"
-                                               placeholder="Наименование организации" required>
-                                    </div>
-                                </div>
-                                {{ $i - 1 }}
-                            @endwhile
-                        @endif
-                        @if((int)$dataBooking['count_children'] > 1)
-                            {{ $i = $dataBooking['count_children'] }}
-                            @while($i > 1)
-                                <div class="card-body p-4">
-                                    <div class="col-12">
-                                        <div class="bg-light rounded-2 px-4 py-3">
-                                            <h6 class="mb-0">Ребёнок</h6>
-                                        </div>
-                                    </div>
-                                    <h3>Заполните данные о себе</h3>
-                                    <div class="row g-3">
-                                        <div class="col">
-                                            <label for="inputEmail4" class="form-label">Фамилия</label>
-                                            <input type="text" class="form-control" placeholder="Фамилия" required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="inputEmail4" class="form-label">Имя</label>
-                                            <input type="text" class="form-control" placeholder="Имя" value="{{ $userData[0] }}"
-                                                   required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="inputEmail4" class="form-label">Отчество</label>
-                                            <input type="text" class="form-control" placeholder="Отчество">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 row">
-                                        <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Пол</label>
-                                            <input type="text" class="form-control" id="inputEmail4" placeholder="Женский">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword4" class="form-label">Дата рождения</label>
-                                            <input type="date" class="form-control" id="inputPassword4" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12 row">
-                                        <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail4"
-                                                   value="{{ $userData[1] }}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword4" class="form-label">Номер телефона</label>
-                                            <input type="text" class="form-control" id="inputPassword4"
-                                                   placeholder="8-000-000-00-00" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <h3>Введите ваши паспортные данные</h3>
-                                        <label for="inputAddress2" class="form-label">Гражданство</label>
-                                        <input type="text" class="form-control" id="inputAddress2"
-                                               value="Российское" readonly required>
-                                    </div>
-                                    <div class="col-12 row">
-                                        <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Серия</label>
-                                            <input type="text" class="form-control" id="inputEmail4" required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword4" class="form-label">Номер</label>
-                                            <input type="text" class="form-control" id="inputPassword4" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-12">
-                                        <label for="inputAddress2" class="form-label">Кем выдан</label>
-                                        <input type="text" class="form-control" id="inputAddress2"
-                                               placeholder="Наименование организации" required>
-                                    </div>
-                                </div>
-                                {{ $i - 1 }}
-                            @endwhile
-                        @endif
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck" required>
-                                <label class="form-check-label" for="gridCheck">
-                                    Согласие на обработку персональный данных
-                                </label>
+                            <!-- Button -->
+                            <div class="col-12 text-end">
+                                <button type="submit" class="btn btn-primary mb-0">Сохранить изменения</button>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Бронировать</button>
-                        </div>
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    </form>
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        </form>
+                        <!-- Form END -->
+                    </div>
+                    <!-- Card body END -->
                 </section>
+
             </div>
 
             <aside class="col-xl-4">
@@ -412,6 +283,9 @@
                                     <span class="fs-5">{{ $sumPrice }}</span>
                                 </li>
                             </ul>
+                        </div>
+                        <div>
+                            <a href="{{ route('check.booking') }}">Подтвердить бронирование</a>
                         </div>
                     </div>
                 </div>
