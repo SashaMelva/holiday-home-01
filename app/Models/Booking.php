@@ -22,4 +22,20 @@ class Booking extends Model
     {
         return $this->hasMany(ListBookingDataUsers::class);
     }
+
+    public function childrens()
+    {
+        return $this->hasMany(Children::class);
+    }
+
+    public function guests()
+    {
+        return $this->hasMany(Guest::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(BookingStatus::class);
+    }
+
 }

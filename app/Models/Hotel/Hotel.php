@@ -2,6 +2,7 @@
 
 namespace App\Models\Hotel;
 
+use App\Models\City;
 use App\Models\FavoritesHotels;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,5 +42,10 @@ class Hotel extends Model
     public function favoritesHotels()
     {
         return $this->hasMany(FavoritesHotels::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 }

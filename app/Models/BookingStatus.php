@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class BookingStatus extends Model
 {
     use HasFactory;
+
+    protected $table = 'booking_statuses';
+
+    protected $fillable = [
+        'title',
+        'description'
+    ];
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
