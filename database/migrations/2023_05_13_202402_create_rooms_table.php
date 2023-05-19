@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('description');
             $table->float('price');
             $table->integer('category_id');
+            $table->string('check_in_time');
+            $table->string('check_out_time');
             $table->timestamps();
         });
     }

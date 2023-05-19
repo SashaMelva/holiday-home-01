@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('list_booking_data_users', function (Blueprint $table) {
+        Schema::create('booking_statuses', function (Blueprint $table) {
             $table->id();
-            $table->integer('booking_id');
-            $table->integer('userData_id');
-            $table->boolean('child');
+            $table->string('title');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('list_booking_data_users');
+        Schema::dropIfExists('booking_statuses');
     }
 };

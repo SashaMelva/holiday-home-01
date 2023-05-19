@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Room;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +13,7 @@ class RoomCategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('room_categories')->insert([
-            'name' => 'разное',
+            'name' => 'другое',
             'description' => ''
         ]);
 

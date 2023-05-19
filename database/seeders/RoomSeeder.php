@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Room;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +21,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 5000,
             'category_id' => 2,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -32,6 +34,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 4460,
             'category_id' => 2,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -43,6 +47,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 8000,
             'category_id' => 3,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -54,6 +60,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 5500,
             'category_id' => 4,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -65,6 +73,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 11000,
             'category_id' => 3,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -76,6 +86,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 1600,
             'category_id' => 5,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -87,6 +99,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 1500,
             'category_id' => 5,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -98,6 +112,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 4600,
             'category_id' => 2,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
 
         DB::table('rooms')->insert([
@@ -109,6 +125,8 @@ class RoomSeeder extends Seeder
             'description' => '',
             'price' => 5300,
             'category_id' => 2,
+            'check_in_time' =>'14:00',
+            'check_out_time' => '12:00',
         ]);
     }
 }

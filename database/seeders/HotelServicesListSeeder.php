@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Hotel;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -26,5 +26,6 @@ class HotelServicesListSeeder extends Seeder
             'hotel_id' => 1,
             'service_id' => 3
         ]);
+
     }
 }

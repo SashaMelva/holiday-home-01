@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Hotel;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -47,19 +47,13 @@ class HotelServicesSeeder extends Seeder
             'type' => 'unique'
         ]);
         DB::table('hotel_services')->insert([
+            'name' => 'спортзал',
+            'description' => '',
+            'price' => 0,
+            'type' => 'unique'
+        ]);
+        DB::table('hotel_services')->insert([
             'name' => 'трансфер',
-            'description' => '',
-            'price' => 0,
-            'type' => 'unique'
-        ]);
-        DB::table('hotel_services')->insert([
-            'name' => 'билеты на культурные мероприятия',
-            'description' => '',
-            'price' => 0,
-            'type' => 'unique'
-        ]);
-        DB::table('hotel_services')->insert([
-            'name' => 'билеты на канатные дороги',
             'description' => '',
             'price' => 0,
             'type' => 'unique'
