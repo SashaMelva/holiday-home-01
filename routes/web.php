@@ -6,6 +6,7 @@ use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,14 @@ Route::post('/hotels-search', [HotelsController::class, 'searchHotels'])->name('
 Route::get('/room-for-search-hotel/{id}', [HotelsController::class, 'showHotel'])->name('hotels.list.search');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/booking-review/{id}', [BookingController::class, 'bookingReview'])->name('booking.review');
+    Route::get('/booking-review/{id}', [BookingController::class, 'viewBookingReview'])->name('booking.review');
     Route::get('/favorites-hotels/save/{id}', [FavoritesHotelController::class, 'save'])->name('favorites.hotels.save');
     Route::resource('favorites-hotels', FavoritesHotelController::class);
     Route::get('/favorites-hotels/delete/{id}', [FavoritesHotelController::class, 'delete'])->name('favorites.hotels.delete');
+
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
+    Route::post('/save-user-data', [UserProfileController::class, 'saveUserData'])->name('user.data.save');
+    Route::post('/save-user-password-data', [UserProfileController::class, 'saveUserPassportData'])->name('user.passport.save');
 
 });
 

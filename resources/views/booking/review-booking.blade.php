@@ -236,8 +236,23 @@
 
                                     <div class="col-12 row">
                                         <div class="col-md-6">
-                                            <label for="inputEmail4" class="form-label">Пол</label>
-                                            <input type="text" class="form-control" id="inputEmail4" placeholder="Женский">
+                                            <label class="form-label">Выберете пол<span class="text-danger">*</span></label>
+                                            <div class="d-flex gap-4">
+                                                <div class="form-check radio-bg-light">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                           id="flexRadioDefault1" checked="">
+                                                    <label class="form-check-label" for="flexRadioDefault1">
+                                                        Мужской
+                                                    </label>
+                                                </div>
+                                                <div class="form-check radio-bg-light">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                                           id="flexRadioDefault2">
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Женский
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="inputPassword4" class="form-label">Дата рождения</label>
