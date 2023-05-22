@@ -71,7 +71,7 @@
                                             <path
                                                 d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
                                         </svg>
-                                        12:30
+                                        {{ $room['check_in_time'] }}
                                     </small>
                                 </div>
                             </div>
@@ -87,15 +87,15 @@
                                             <path
                                                 d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1h-3zm1.038 3.018a6.093 6.093 0 0 1 .924 0 6 6 0 1 1-.924 0zM0 3.5c0 .753.333 1.429.86 1.887A8.035 8.035 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5zM13.5 1c-.753 0-1.429.333-1.887.86a8.035 8.035 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1z"/>
                                         </svg>
-                                        16:30
+                                        {{ $room['check_out_time'] }}
                                     </small>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="bg-light py-3 px-4 rounded-3">
                                     <h6 class="fw-light small mb-1">Гости</h6>
-                                    <h5 class="mb-1">{{ $dataBooking['count_adults'] }} К
-                                        - {{ $dataBooking['count_children'] }}Г</h5>
+                                    <h5 class="mb-1">{{ $dataBooking['count_adults'] }} взрослых</h5>
+                                    <h5 class="mb-1">{{ $dataBooking['count_children'] }} детей</h5>
                                     <small>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor" class="bi bi-brightness-high" viewBox="0 0 16 16">
@@ -146,17 +146,23 @@
                             <!-- Name -->
                             <div class="row g-3">
                                 <div class="col">
-                                    <label  for="surname" class="form-label">Фамилия</label>
-                                    <input id="surname" name="surname" type="text" class="form-control" placeholder="Фамилия" value="@if(isset($userData['surname'])){{ $userData['surname'] }}@endif" required>
-                                </div>
-                                <div class="col">
-                                    <label  for="name" class="form-label">Имя</label>
-                                    <input id="name" name="name" type="text" class="form-control" placeholder="Имя" value="@if(isset($userData['name'])){{ $userData['name'] }}@endif"
+                                    <label for="surname" class="form-label">Фамилия</label>
+                                    <input id="surname" name="surname" type="text" class="form-control"
+                                           placeholder="Фамилия"
+                                           value="@if(isset($userData[0]['surname'])){{ $userData[0]['surname'] }}@endif"
                                            required>
                                 </div>
                                 <div class="col">
-                                    <label  for="patronymic" class="form-label">Отчество</label>
-                                    <input id="patronymic" name="patronymic" type="text" class="form-control" placeholder="Отчество" value="@if(isset($userData['patronymic'])){{ $userData['patronymic'] }}@endif">
+                                    <label for="name" class="form-label">Имя</label>
+                                    <input id="name" name="name" type="text" class="form-control" placeholder="Имя"
+                                           value="@if(isset($userData[0]['name'])){{ $userData[0]['name'] }}@endif"
+                                           required>
+                                </div>
+                                <div class="col">
+                                    <label for="patronymic" class="form-label">Отчество</label>
+                                    <input id="patronymic" name="patronymic" type="text" class="form-control"
+                                           placeholder="Отчество"
+                                           value="@if(isset($userData[0]['patronymic'])){{ $userData[0]['patronymic'] }}@endif">
                                 </div>
                             </div>
                             <!-- Email -->
@@ -170,13 +176,19 @@
                             <div class="col-md-6">
                                 <label for="phone_number" class="form-label">Номер телефона</label>
                                 <input type="text" class="form-control" name="phone_number" id="phone_number"
-                                       placeholder="8-000-000-00-00" value="@if(isset($userData['phone_number'])){{ $userData['phone_number'] }}@endif" required>
+                                       placeholder="8-000-000-00-00"
+                                       value="@if(isset($userData[0]['phone_number'])){{ $userData[0]['phone_number'] }}@endif"
+                                       required>
                             </div>
 
                             <!-- Date of birth -->
                             <div class="col-md-6">
-                                <label for="date_birth" class="form-label">Дата рождения<span class="text-danger">*</span></label>
-                                <input id="date_birth" name="date_birth" type="date" class="form-control flatpickr flatpickr-input"  value="@if(isset($userData['date_birth'])){{ $userData['date_birth'] }}@else {{ config('global.DATE_ARRIVAL') }} @endif" required>
+                                <label for="date_birth" class="form-label">Дата рождения<span
+                                        class="text-danger">*</span></label>
+                                <input id="date_birth" name="date_birth" type="date"
+                                       class="form-control flatpickr flatpickr-input"
+                                       value="@if(isset($userData[0]['date_birth'])){{ $userData[0]['date_birth'] }}@else {{ config('global.DATE_ARRIVAL') }} @endif"
+                                       required>
                             </div>
 
                             <!-- Gender -->
@@ -185,14 +197,18 @@
                                 <div class="d-flex gap-4">
                                     <div class="form-check radio-bg-light">
                                         <input class="form-check-input" type="radio" name="gender"
-                                               id="gender_male" checked="" value="male">
+                                               id="gender_male"
+                                               @if(isset($userData[0]['gender']) && $userData[0]['gender'] == "male" || is_null($userData[0]['gender'])) checked=""
+                                               @endif  value="male">
                                         <label class="form-check-label" for="gender_male">
                                             Мужской
                                         </label>
                                     </div>
                                     <div class="form-check radio-bg-light">
                                         <input class="form-check-input" type="radio" name="gender"
-                                               id="gender_female" value="female">
+                                               id="gender_female"
+                                               @if(isset($userData[0]['gender']) && $userData[0]['gender'] == "female") checked=""
+                                               @endif value="female">
                                         <label class="form-check-label" for="gender_female">
                                             Женский
                                         </label>
@@ -231,22 +247,32 @@
                             <div class="col-12 row">
                                 <div class="col-md-4">
                                     <label for="passport_series" class="form-label">Серия</label>
-                                    <input type="text" class="form-control" id="passport_series" name="passport_series" value="@if(isset($userPassportData[0]['passport_series'])){{ $userPassportData[0]['passport_series'] }} @endif" required>
+                                    <input type="text" class="form-control" id="passport_series" name="passport_series"
+                                           value="@if(isset($userPassportData[0]['passport_series'])){{ $userPassportData[0]['passport_series'] }} @endif"
+                                           required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="passport_number" class="form-label">Номер</label>
-                                    <input type="text" class="form-control" id="passport_number" name="passport_number" value="@if(isset($userPassportData[0]['passport_number'])) {{ $userPassportData[0]['passport_number'] }} @endif" required>
+                                    <input type="text" class="form-control" id="passport_number" name="passport_number"
+                                           value="@if(isset($userPassportData[0]['passport_number'])) {{ $userPassportData[0]['passport_number'] }} @endif"
+                                           required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="date_registration" class="form-label">Дата вдачи<span class="text-danger">*</span></label>
-                                    <input id="date_registration" name="date_registration" type="date" class="form-control flatpickr flatpickr-input" @if(isset($userPassportData[0]['date_registration'])) value="{{ $userPassportData[0]['date_registration'] }}" @else value="{{ config('global.DATE_ARRIVAL') }}" @endif" required>
+                                    <label for="date_registration" class="form-label">Дата вдачи<span
+                                            class="text-danger">*</span></label>
+                                    <input id="date_registration" name="date_registration" type="date"
+                                           class="form-control flatpickr flatpickr-input"
+                                           @if(isset($userPassportData[0]['date_registration'])) value="{{ $userPassportData[0]['date_registration'] }}"
+                                           @else value="{{ config('global.DATE_ARRIVAL') }}" @endif" required>
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <label for="issued_by" class="form-label">Кем выдан</label>
                                 <input type="text" class="form-control" id="issued_by" name="issued_by"
-                                       placeholder="Наименование организации"  value="@if(isset($userPassportData[0]['issued_by'])){{ $userPassportData[0]['issued_by'] }} @endif"  required>
+                                       placeholder="Наименование организации"
+                                       value="@if(isset($userPassportData[0]['issued_by'])){{ $userPassportData[0]['issued_by'] }} @endif"
+                                       required>
                             </div>
 
                             <!-- Button -->
@@ -285,7 +311,7 @@
                             </ul>
                         </div>
                         <div>
-                            <a href="{{ route('check.booking') }}">Подтвердить бронирование</a>
+                            <a href="{{ route('check.booking', $dataBooking->id) }}">Подтвердить бронирование</a>
                         </div>
                     </div>
                 </div>

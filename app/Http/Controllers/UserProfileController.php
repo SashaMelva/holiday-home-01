@@ -27,7 +27,8 @@ class UserProfileController extends Controller
         $valid = $request->validated();
         $usersData = DataUsers::where('id_user', Auth::user()->id)->get();
         $id = (int)Auth::user()->id;
-        if (!isset($usersData->id)) {
+
+        if (!isset($usersData->id) && count($usersData) == 0) {
             DataUsers::create([
                 'id_user' => $id,
                 'surname' => $valid["surname"],
@@ -38,13 +39,13 @@ class UserProfileController extends Controller
                 'date_birth' => $valid["date_birth"]
             ]);
         } else {
-            $usersData->surname = $valid["surname"];
-            $usersData->name = $valid["name"];
-            $usersData->gender = $valid["gender"];
-            $usersData->patronymic = $valid["patronymic"];
-            $usersData->phone_number = $valid["phone_number"];
-            $usersData->date_birth = $valid["date_birth"];
-            $usersData->save();
+            $usersData[0]->surname = $valid["surname"];
+            $usersData[0]->name = $valid["name"];
+            $usersData[0]->gender = $valid["gender"];
+            $usersData[0]->patronymic = $valid["patronymic"];
+            $usersData[0]->phone_number = $valid["phone_number"];
+            $usersData[0]->date_birth = $valid["date_birth"];
+            $usersData[0]->save();
         }
 
         return back()->withInput();//redirect()->route('profile.show');
@@ -55,8 +56,7 @@ class UserProfileController extends Controller
         $valid = $request->validated();
         $passportData = PassportDataUsers::where('data_user_id', Auth::user()->id)->get();
 
-
-        if (!isset($passportData->id)) {
+        if (!isset($passportData->id) && count($passportData) == 0) {
             PassportDataUsers::create([
                 'data_user_id' => Auth::user()->id,
                 'citizenship' => $valid["citizenship"],
@@ -66,12 +66,12 @@ class UserProfileController extends Controller
                 'issued_by' => $valid["issued_by"]
             ]);
         } else {
-            $passportData->citizenship = $valid["citizenship"];
-            $passportData->passport_series = $valid["passport_series"];
-            $passportData->passport_number = $valid["passport_number"];
-            $passportData->date_registration = $valid["date_registration"];
-            $passportData->issued_by = $valid["issued_by"];
-            $passportData->save();
+            $passportData[0]->citizenship = $valid["citizenship"];
+            $passportData[0]->passport_series = $valid["passport_series"];
+            $passportData[0]->passport_number = $valid["passport_number"];
+            $passportData[0]->date_registration = $valid["date_registration"];
+            $passportData[0]->issued_by = $valid["issued_by"];
+            $passportData[0]->save();
         }
 
         return redirect()->route('profile.show');

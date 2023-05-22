@@ -12,6 +12,7 @@ class DataUsers extends Model
     protected $table = 'data_users';
 
     protected $fillable = [
+        'id_user',
         'surname',
         'name',
         'patronymic',

@@ -17,7 +17,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="li-mag-l-30"><a href="/" class="nav-link px-2 text-rest-dark">Главная</a></li>
                 <li class="li-mag-l-30"><a href="{{ route('favorites-hotels.index') }}" class="nav-link px-2 text-rest-dark">Изобранные</a></li>
-                <li class="li-mag-l-30"><a href="#" class="nav-link px-2 text-rest-dark">Бронирования</a></li>
+                <li class="li-mag-l-30"><a href="{{ route('index.booking') }}" class="nav-link px-2 text-rest-dark">Бронирования</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

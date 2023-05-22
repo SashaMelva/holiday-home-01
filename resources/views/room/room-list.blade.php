@@ -3,7 +3,7 @@
         <article class="card shadow p-3 m-tb-1">
             <div class="row g-4">
                 <div class="col-md-5">
-                    <div id="carouselExampleInterval{{$room->id}}" class="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselExampleInterval{{ $room->id }}" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach($room->img as $img)
                                 <div class="carousel-item active" data-bs-interval="2000">

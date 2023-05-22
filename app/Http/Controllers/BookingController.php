@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchHotelRequest;
 use App\Models\Booking;
+use App\Models\Children;
 use App\Models\DataUsers;
+use App\Models\Guest;
 use App\Models\Hotel\Hotel;
 use App\Models\PassportDataUsers;
 use App\Models\Room\Room;
@@ -21,54 +23,47 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('booking/review-booking');
+        //dd(Auth::user()->bookings);
+        $booking = Auth::user()->bookings;
+        return view('booking/list-booking');
     }
-
-    public function bookingRoom(Request $request) {
+    public function bookingRoom(Request $request)
+    {
         $validate = $request->validated();
     }
 
-    private function addUserData() {
+    private function addUserData()
+    {
 
     }
 
-    public function viewBookingReview(string $id)
+    public function viewBookingReview(string $roomId)
     {
-        $validate = [
-            'city' => Redis::get('city'),
-            'arrival_date' => Redis::get('arrival_date'),
-            'date_departure' => Redis::get('date_departure'),
-            'count_adults' => Redis::get('count_adults'),
-            'count_children' => Redis::get('count_children')
-        ];
+        $booking = $this->creatBookingDefault($roomId);
+        $booking['count_adults'] = Redis::get('count_adults');
+        $booking['count_children'] = Redis::get('count_children');
 
-        $this->creatBookingDefault($id);
-        $room = Room::find((int)$id);
-        $roomEquipmentLists = RoomEquipmentList::where('room_id', (int)$id)->get();
+        $room = Room::find((int)$roomId);
+        $roomEquipmentLists = RoomEquipmentList::where('room_id', (int)$roomId)->get();
         $hotel = Hotel::find($room->id);
 
-        $timeArrival = strtotime($validate['arrival_date']);
-        $timeDeparture = strtotime($validate['date_departure']);
+        $timeArrival = strtotime($booking['arrival_date']);
+        $timeDeparture = strtotime($booking['date_departure']);
         $countNight = ($timeDeparture - $timeArrival) / (60 * 60 * 24);
 
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        $userData = DataUsers::where('id_user', $id)->get();
-        $userPassportData = PassportDataUsers::where('data_user_id', $id)->get();
-
-        if (isset(Auth::user()->userData->name)) {
-            $userData = Auth::user()->userData->all;
-        }
+        $roomId = Auth::user()->id;
+        $user = User::find($roomId);
+        $userData = DataUsers::where('id_user', $roomId)->get();
+        $userPassportData = PassportDataUsers::where('data_user_id', $roomId)->get();
 
         $sumPrice = $room->price * $countNight;
         return view('booking/review-booking', [
                 'room' => $room,
                 'roomEquipmentLists' => $roomEquipmentLists,
                 'hotel' => $hotel,
-                'dataBooking' => $validate,
+                'dataBooking' => $booking,
                 'countNight' => $countNight,
                 'sumPrice' => $sumPrice,
-                'countGuest' => $sumPrice,
                 'userData' => $userData,
                 'userPassportData' => $userPassportData,
                 'user' => $user
@@ -76,25 +71,40 @@ class BookingController extends Controller
         );
     }
 
-    public function checkBooking() {
+    public function checkBooking(int $bookingId)
+    {
+        $booking = Booking::find($bookingId);
+        $guests = Guest::where('booking_id', $bookingId)->get();
+        $children = Children::where('booking_id', $bookingId)->get();
 
-        $booking = Booking::find(1);
+        if (count($guests) + 1 != (int)Redis::get('count_adults') || count($children) != (int)Redis::get('count_children')) {
+            return back()->exceptInput();
+        }
 
-        return redirect()->route('ticket.booking');
+        $booking->booking_status_id = 2;
+        $booking->save();
+        return redirect()->route('ticket.booking', $bookingId);
     }
 
-    public function getTicketBooking() {
-        return view('booking/ticket-booking');
+    public function getTicketBooking(int $bookingId)
+    {
+        $booking = Booking::find($bookingId);
+        $timeArrival = strtotime($booking['arrival_date']);
+        $timeDeparture = strtotime($booking['date_departure']);
+        $countNight = ($timeDeparture - $timeArrival) / (60 * 60 * 24);
+
+        return view('booking/ticket-booking', ['booking' => $booking, 'countNight' => $countNight]);
     }
 
-    private function creatBookingDefault(int $id) {
-        Booking::create([
+    private function creatBookingDefault(int $roomId)
+    {
+        return Booking::create([
             'id_user' => Auth::user()->id,
-            'arrival_date' =>  Redis::get('arrival_date'),
+            'arrival_date' => Redis::get('arrival_date'),
             'date_departure' => Redis::get('date_departure'),
             'count_night' => Redis::get('count_adults'),
-            'room_id' => $id,
-            'booking_status_id' => 0
+            'room_id' => $roomId,
+            'booking_status_id' => 1
         ]);
     }
 }

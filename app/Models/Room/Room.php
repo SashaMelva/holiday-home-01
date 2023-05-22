@@ -2,6 +2,8 @@
 
 namespace App\Models\Room;
 
+use App\Models\Booking;
+use App\Models\Hotel\Hotel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +28,10 @@ class Room extends Model
     {
         return $this->belongsTo(RoomCategory::class);
     }
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class);
+    }
 
     public function equipmentsList()
     {
@@ -35,5 +41,10 @@ class Room extends Model
     public function img()
     {
         return $this->hasMany(RoomImg::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
     }
 }

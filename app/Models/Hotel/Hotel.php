@@ -4,6 +4,7 @@ namespace App\Models\Hotel;
 
 use App\Models\City;
 use App\Models\FavoritesHotels;
+use App\Models\Room\Room;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -47,5 +48,10 @@ class Hotel extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
     }
 }

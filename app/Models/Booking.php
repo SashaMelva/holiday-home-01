@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Room\Room;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,10 +13,12 @@ class Booking extends Model
     protected $table = 'bookings';
 
     protected $fillable = [
+        'id_user',
         'arrival_date',
         'date_departure',
         'count_night',
-        'room_id'
+        'room_id',
+        'booking_status_id'
     ];
 
     public function bookingList()
@@ -26,6 +29,15 @@ class Booking extends Model
     public function childrens()
     {
         return $this->hasMany(Children::class);
+    }
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function guests()
