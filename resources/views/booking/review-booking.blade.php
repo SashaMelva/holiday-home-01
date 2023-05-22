@@ -286,6 +286,265 @@
                     <!-- Card body END -->
                 </section>
 
+                @if($dataBooking['count_adults'] > 1)
+                    <p hidden="">{{ $i = 1 }}</p>
+                    @while($i < (int)$dataBooking['count_adults'])
+                        <p hidden=""> {{ $i++ }}</p>
+                        <section class="card border m-tb-1">
+                            <!-- Card header -->
+                            <div class="card-header border-bottom">
+                                <h4 class="card-header-title">Персональная информация о госте номер {{ $i }}</h4>
+                            </div>
+
+                            <!-- Card body START -->
+                            <div class="card-body">
+                                <!-- Form START -->
+                                <form class="row g-3" method="POST" action="{{ route('user.data.save') }}">
+                                    @csrf
+                                    <!-- Name -->
+                                    <div class="row g-3">
+                                        <div class="col">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input id="surname" name="surname" type="text" class="form-control"
+                                                   placeholder="Фамилия"
+                                                   value=""
+                                                   required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="name" class="form-label">Имя</label>
+                                            <input id="name" name="name" type="text" class="form-control" placeholder="Имя"
+                                                   value=""
+                                                   required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="patronymic" class="form-label">Отчество</label>
+                                            <input id="patronymic" name="patronymic" type="text" class="form-control"
+                                                   placeholder="Отчество"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input id="email" name="email" type="email" class="form-control"
+                                               value="" required>
+                                    </div>
+
+                                    <!-- Mobile -->
+                                    <div class="col-md-6">
+                                        <label for="phone_number" class="form-label">Номер телефона</label>
+                                        <input type="text" class="form-control" name="phone_number" id="phone_number"
+                                               placeholder="8-000-000-00-00"
+                                               value=""
+                                               required>
+                                    </div>
+
+                                    <!-- Date of birth -->
+                                    <div class="col-md-6">
+                                        <label for="date_birth" class="form-label">Дата рождения<span
+                                                class="text-danger">*</span></label>
+                                        <input id="date_birth" name="date_birth" type="date"
+                                               class="form-control flatpickr flatpickr-input"
+                                               value="{{ config('global.DATE_ARRIVAL') }}"
+                                               required>
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">Выберете пол<span class="text-danger">*</span></label>
+                                        <div class="d-flex gap-4">
+                                            <div class="form-check radio-bg-light">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="gender_male"
+                                                       checked=""
+                                                       value="male">
+                                                <label class="form-check-label" for="gender_male">
+                                                    Мужской
+                                                </label>
+                                            </div>
+                                            <div class="form-check radio-bg-light">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="gender_female"
+                                                        value="female">
+                                                <label class="form-check-label" for="gender_female">
+                                                    Женский
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-primary mb-0">Сохранить изменения</button>
+                                    </div>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                </form>
+                                <!-- Form END -->
+                            </div>
+                            <!-- Card body END -->
+                        </section>
+
+                        <!-- Personal info END -->
+                        <section class="card border m-tb-1">
+                            <!-- Card header -->
+                            <div class="card-header border-bottom">
+                                <h4 class="card-header-title">Введите паспортные данные гостя номер {{ $i }}</h4>
+                            </div>
+
+                            <!-- Card body START -->
+                            <div class="card-body">
+                                <!-- Form START -->
+                                <form class="row g-3" method="POST" action="{{ route('user.passport.save') }}">
+                                    @csrf
+                                    <!-- Passport -->
+                                    <div class="col-12">
+                                        <label for="citizenship" class="form-label">Гражданство</label>
+                                        <input type="text" class="form-control" id="citizenship" name="citizenship"
+                                               value="Российское" readonly required>
+                                    </div>
+                                    <div class="col-12 row">
+                                        <div class="col-md-4">
+                                            <label for="passport_series" class="form-label">Серия</label>
+                                            <input type="text" class="form-control" id="passport_series" name="passport_series"
+                                                   value=""
+                                                   required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="passport_number" class="form-label">Номер</label>
+                                            <input type="text" class="form-control" id="passport_number" name="passport_number"
+                                                   value=""
+                                                   required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="date_registration" class="form-label">Дата вдачи<span
+                                                    class="text-danger">*</span></label>
+                                            <input id="date_registration" name="date_registration" type="date"
+                                                   class="form-control flatpickr flatpickr-input"
+                                                   value="{{ config('global.DATE_ARRIVAL') }}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="issued_by" class="form-label">Кем выдан</label>
+                                        <input type="text" class="form-control" id="issued_by" name="issued_by"
+                                               placeholder="Наименование организации"
+                                               value=""
+                                               required>
+                                    </div>
+
+                                    <!-- Button -->
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-primary mb-0">Сохранить изменения</button>
+                                    </div>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                </form>
+                                <!-- Form END -->
+                            </div>
+                            <!-- Card body END -->
+                        </section>
+
+                    @endwhile
+                @endif
+
+                <h5>Введите данные о детях</h5>
+
+                @if($dataBooking['count_children'] > 0)
+                   <p hidden=""> {{ $j = 0 }} </p>
+                    @while($j < (int)$dataBooking['count_children'])
+                        <p hidden="">{{ $j++ }}</p>
+                        <section class="card border m-tb-1">
+                            <!-- Card header -->
+                            <div class="card-header border-bottom">
+                                <h4 class="card-header-title">Персональная информация о ребёнке номер {{ $j }}</h4>
+                            </div>
+
+                            <!-- Card body START -->
+                            <div class="card-body">
+                                <!-- Form START -->
+                                <form class="row g-3" method="POST" action="{{ route('user.data.save') }}">
+                                    @csrf
+                                    <!-- Name -->
+                                    <div class="row g-3">
+                                        <div class="col">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input id="surname" name="surname" type="text" class="form-control"
+                                                   placeholder="Фамилия"
+                                                   value=""
+                                                   required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="name" class="form-label">Имя</label>
+                                            <input id="name" name="name" type="text" class="form-control" placeholder="Имя"
+                                                   value=""
+                                                   required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="patronymic" class="form-label">Отчество</label>
+                                            <input id="patronymic" name="patronymic" type="text" class="form-control"
+                                                   placeholder="Отчество"
+                                                   value="">
+                                        </div>
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input id="email" name="email" type="email" class="form-control"
+                                               value="" required>
+                                    </div>
+
+                                    <!-- Mobile -->
+                                    <div class="col-md-6">
+                                        <label for="phone_number" class="form-label">Номер телефона</label>
+                                        <input type="text" class="form-control" name="phone_number" id="phone_number"
+                                               placeholder="8-000-000-00-00"
+                                               value=""
+                                               required>
+                                    </div>
+
+                                    <!-- Date of birth -->
+                                    <div class="col-md-6">
+                                        <label for="date_birth" class="form-label">Дата рождения<span
+                                                class="text-danger">*</span></label>
+                                        <input id="date_birth" name="date_birth" type="date"
+                                               class="form-control flatpickr flatpickr-input"
+                                               value="{{ config('global.DATE_ARRIVAL') }}"
+                                               required>
+                                    </div>
+
+                                    <!-- Gender -->
+                                    <div class="col-md-6">
+                                        <label class="form-label">Выберете пол<span class="text-danger">*</span></label>
+                                        <div class="d-flex gap-4">
+                                            <div class="form-check radio-bg-light">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="gender_male"
+                                                       checked=""
+                                                       value="male">
+                                                <label class="form-check-label" for="gender_male">
+                                                    Мужской
+                                                </label>
+                                            </div>
+                                            <div class="form-check radio-bg-light">
+                                                <input class="form-check-input" type="radio" name="gender"
+                                                       id="gender_female"
+                                                       value="female">
+                                                <label class="form-check-label" for="gender_female">
+                                                    Женский
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Button -->
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-primary mb-0">Сохранить изменения</button>
+                                    </div>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                </form>
+                                <!-- Form END -->
+                            </div>
+                            <!-- Card body END -->
+                        </section>
+                    @endwhile
+                @endif
             </div>
 
             <aside class="col-xl-4">

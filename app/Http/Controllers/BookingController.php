@@ -40,8 +40,11 @@ class BookingController extends Controller
     public function viewBookingReview(string $roomId)
     {
         $booking = $this->creatBookingDefault($roomId);
-        $booking['count_adults'] = Redis::get('count_adults');
-        $booking['count_children'] = Redis::get('count_children');
+        $booking['count_adults'] = session('count_adults');
+        $booking['count_children'] = session('count_children');
+
+//        $booking['count_adults'] = Redis::get('count_adults');
+//        $booking['count_children'] = Redis::get('count_children');
 
         $room = Room::find((int)$roomId);
         $roomEquipmentLists = RoomEquipmentList::where('room_id', (int)$roomId)->get();
@@ -77,32 +80,33 @@ class BookingController extends Controller
         $guests = Guest::where('booking_id', $bookingId)->get();
         $children = Children::where('booking_id', $bookingId)->get();
 
-        if (count($guests) + 1 != (int)Redis::get('count_adults') || count($children) != (int)Redis::get('count_children')) {
+        if (count($guests) + 1 != (int)session('count_adults') || count($children) != (int)session('count_children')) {
             return back()->exceptInput();
         }
 
+//        if (count($guests) + 1 != (int)Redis::get('count_adults') || count($children) != (int)Redis::get('count_children')) {
+//            return back()->exceptInput();
+//        }
+
         $booking->booking_status_id = 2;
         $booking->save();
-        return redirect()->route('ticket.booking', $bookingId);
-    }
 
-    public function getTicketBooking(int $bookingId)
-    {
-        $booking = Booking::find($bookingId);
+
         $timeArrival = strtotime($booking['arrival_date']);
         $timeDeparture = strtotime($booking['date_departure']);
         $countNight = ($timeDeparture - $timeArrival) / (60 * 60 * 24);
 
+        session()->flush();
         return view('booking/ticket-booking', ['booking' => $booking, 'countNight' => $countNight]);
     }
 
     private function creatBookingDefault(int $roomId)
     {
         return Booking::create([
-            'id_user' => Auth::user()->id,
-            'arrival_date' => Redis::get('arrival_date'),
-            'date_departure' => Redis::get('date_departure'),
-            'count_night' => Redis::get('count_adults'),
+            'user_id' => Auth::user()->id,
+            'arrival_date' => session('arrival_date'),
+            'date_departure' => session('date_departure'),
+            'count_night' => session('count_adults'),
             'room_id' => $roomId,
             'booking_status_id' => 1
         ]);

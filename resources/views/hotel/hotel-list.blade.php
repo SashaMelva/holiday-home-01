@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="container block-center">
+    <section class="container block-center m-tb-1">
         <div class="content-mini-search rounded-3 bg-black">
             <div class="img-fon-mini container-search">
                 <div class="img-fon-mini">
@@ -39,23 +39,5 @@
 
         @include('inc.support-filters')
         @include('hotel.hotels')
-
-        <nav aria-label="Page navigation example">
-            <ul class="pagination content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
     </section>
 @endsection

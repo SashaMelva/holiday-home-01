@@ -1,7 +1,7 @@
 <section class="container row g-4 container-list-hotel">
     @foreach($hotels as $hotel)
         <article class="card shadow p-2 pb-0 h-100">
-            @if(count($hotel->img) > 0)
+            @if(isset($hotel->img[0]->img_url))
                 <img src="{{ Storage::url($hotel->img[0]->img_url) }}" alt="{{ $hotel->img[0]->description }}">
             @else
                 <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
@@ -44,7 +44,7 @@
                         <span class="mb-0 me-2">/день</span>
                     </div>
                     <div class="mt-2 mt-sm-0 z-index-2">
-                        <a type="submit" href="{{ route('hotels.list.search', $hotel->id) }}" class="btn btn-lg btn-primary btn-base mb-0">Детали
+                        <a type="submit" href="{{ route('hotels.list.search', $hotel->hotel_id) }}" class="btn btn-lg btn-primary btn-base mb-0">Детали
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
