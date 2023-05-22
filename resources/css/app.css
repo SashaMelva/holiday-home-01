@@ -353,3 +353,9 @@ a {
 .card {
     border: 0 solid;
 }
+
+/*ADMIN*/
+.admin-grid-template{
+    display: grid;
+    grid-template-columns: 1fr 7fr;
+}

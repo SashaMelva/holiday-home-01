@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\BookingAdminController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FavoritesHotelController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\HotelAccommodationController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelsController;
 use App\Http\Controllers\PreviewController;
@@ -36,6 +41,9 @@ Route::get('/error404', function () {
 });
 
 
+Route::get('/hotel-accommodation', [HotelAccommodationController::class, 'index'])->name('hotel-accommodation.index');
+
+
 Route::resource('hotels', HotelsController::class);
 Route::resource('rooms', RoomController::class);
 Route::resource('booking', BookingController::class);
@@ -57,8 +65,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/check-booking/{id}', [BookingController::class, 'checkBooking'])->name('check.booking');
     Route::get('/ticket-booking/{id}', [BookingController::class, 'getTicketBooking'])->name('ticket.booking');
     Route::get('/booking', [BookingController::class, 'index'])->name('index.booking');
+
+
+    Route::get('/admin-panel', [AdminController::class, 'showPanel'])->name('admin.panel');
+    Route::resource('admin', AdminController::class);
+    Route::resource('guests', GuestController::class);
+    Route::resource('admin-booking', BookingAdminController::class);
+    Route::resource('agents', AgentController::class);
+
+    });
+
+Route::middleware('auth', 'admin')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
