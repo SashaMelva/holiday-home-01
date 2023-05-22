@@ -28,7 +28,7 @@
         <div class="col-6 col-md-2 mb-3">
             <h5>Партнёрам</h5>
             <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Размещение отеля</a></li>
+                <li class="nav-item mb-2"><a href="{{ route('hotel-accommodation.index') }}" class="nav-link p-0 text-body-secondary">Размещение отеля</a></li>
             </ul>
         </div>
     </div>

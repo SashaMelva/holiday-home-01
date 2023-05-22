@@ -139,6 +139,10 @@ a {
 .favorites-hotels-focus {
     color: var(--primary-focus);
 }
+
+.h-70px{
+    height: 70px !important;
+}
 /*LOGO*/
 .container-logo {
     width: 80px;

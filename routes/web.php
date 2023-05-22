@@ -30,19 +30,13 @@ Route::get('/', [PreviewController::class, 'welcomeView']);
 
 //
 
-Route::get('/about', function () {
-    return view('main/about')->name('about');
-});
-Route::get('/contact', function () {
-    return view('main/contact')->name('contact');
-});
-Route::get('/error404', function () {
-    return view('main/error404')->name('error404');
-});
-
+Route::get('/about', function () {return view('main/about')->name('about');});
+Route::get('/contact', function () {return view('main/contact')->name('contact');});
+Route::get('/error404', function () {return view('main/error404')->name('error404');});
 
 Route::get('/hotel-accommodation', [HotelAccommodationController::class, 'index'])->name('hotel-accommodation.index');
-
+Route::get('/hotel-accommodation/basic-information', [HotelAccommodationController::class, 'viewAddHotel'])->name('hotel-accommodation.add');
+Route::get('/hotel-accommodation/detailed-information', [HotelAccommodationController::class, 'viewDetailedInformationHotel'])->name('basic-information.add');
 
 Route::resource('hotels', HotelsController::class);
 Route::resource('rooms', RoomController::class);
@@ -66,14 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/ticket-booking/{id}', [BookingController::class, 'getTicketBooking'])->name('ticket.booking');
     Route::get('/booking', [BookingController::class, 'index'])->name('index.booking');
 
-
     Route::get('/admin-panel', [AdminController::class, 'showPanel'])->name('admin.panel');
     Route::resource('admin', AdminController::class);
     Route::resource('guests', GuestController::class);
     Route::resource('admin-booking', BookingAdminController::class);
     Route::resource('agents', AgentController::class);
-
-    });
+});
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
