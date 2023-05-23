@@ -23,10 +23,13 @@ class BookingController extends Controller
      */
     public function index()
     {
+        $this->checkBookingStatus();
         //dd(Auth::user()->bookings);
-        $booking = Auth::user()->bookings;
-        return view('booking/list-booking');
+        $bookings = Auth::user()->bookings;
+        $userData = DataUsers::where('user_id', Auth::user()->id)->get();
+        return view('booking/list-booking', ['bookings' => $bookings, 'userData' => $userData[0]]);
     }
+
     public function bookingRoom(Request $request)
     {
         $validate = $request->validated();
@@ -42,9 +45,6 @@ class BookingController extends Controller
         $booking = $this->creatBookingDefault($roomId);
         $booking['count_adults'] = session('count_adults');
         $booking['count_children'] = session('count_children');
-
-//        $booking['count_adults'] = Redis::get('count_adults');
-//        $booking['count_children'] = Redis::get('count_children');
 
         $room = Room::find((int)$roomId);
         $roomEquipmentLists = RoomEquipmentList::where('room_id', (int)$roomId)->get();
@@ -84,13 +84,8 @@ class BookingController extends Controller
             return back()->exceptInput();
         }
 
-//        if (count($guests) + 1 != (int)Redis::get('count_adults') || count($children) != (int)Redis::get('count_children')) {
-//            return back()->exceptInput();
-//        }
-
         $booking->booking_status_id = 2;
         $booking->save();
-
 
         $timeArrival = strtotime($booking['arrival_date']);
         $timeDeparture = strtotime($booking['date_departure']);
@@ -108,7 +103,22 @@ class BookingController extends Controller
             'date_departure' => session('date_departure'),
             'count_night' => session('count_adults'),
             'room_id' => $roomId,
-            'booking_status_id' => 1
+            'status_id' => 1
         ]);
+    }
+
+    private function checkBookingStatus()
+    {
+        $dataNow = config('global.DATE_ARRIVAL');
+        $bookings = Booking::where('status_id', 2)->where('user_id', Auth::user()->id)->get();
+
+        if (count($bookings) > 0) {
+            foreach ($bookings as $booking) {
+                if($booking['date_departure'] <= $dataNow) {
+                    $booking->status_id = 3;
+                    $booking->save();
+                }
+            }
+        }
     }
 }

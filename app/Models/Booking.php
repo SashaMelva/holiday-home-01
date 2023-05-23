@@ -18,7 +18,7 @@ class Booking extends Model
         'date_departure',
         'count_night',
         'room_id',
-        'booking_status_id'
+        'status_id'
     ];
 
     public function bookingList()

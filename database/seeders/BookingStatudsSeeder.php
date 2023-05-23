@@ -27,5 +27,10 @@ class BookingStatudsSeeder extends Seeder
             'title' => 'исполенн',
             'description' => ''
         ]);
+
+        DB::table('booking_statuses')->insert([
+            'title' => 'отменён',
+            'description' => ''
+        ]);
     }
 }
