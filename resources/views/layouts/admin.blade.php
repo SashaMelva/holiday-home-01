@@ -19,7 +19,7 @@
 <body>
 <main class="admin-grid-template">
     @include('inc.admin-header')
-    <div class="page-content">
+    <div class="page-content m-tb-1">
         @yield('content')
     </div>
 </main>

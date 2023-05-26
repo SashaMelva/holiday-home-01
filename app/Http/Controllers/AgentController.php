@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAccount;
+use App\Models\Admin;
 use App\Models\Agents;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
 {
@@ -13,7 +17,7 @@ class AgentController extends Controller
     public function index()
     {
         $agents = Agents::all();
-        return view('admin/agent-list', ['agents' => $agents]);
+        return view('admin/account/list_admin', ['users' => $agents, 'title' => 'Агентов', 'route' => 'agents.create', 'destroy' => 'agents.delete']);
     }
 
     /**
@@ -21,15 +25,28 @@ class AgentController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/account/add_new_account', ['route' => 'agents.index', 'routeStore' => 'agents.store']);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAccount $request)
     {
-        //
+        $validate = $request->validated();
+
+        $user = User::create([
+            'name' => $validate['name'],
+            'email' => $validate['email'],
+            'password' => Hash::make($validate['password']),
+        ]);
+
+
+        Agents::create([
+            'user_id' => $user["id"],
+        ]);
+
+        return redirect()->route('agents.index');
     }
 
     /**
@@ -60,8 +77,13 @@ class AgentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
-        //
+        $dataUser = User::find((int)$id);
+
+        Agents::where('user_id', $dataUser->id)->delete();
+        $dataUser->delete();
+
+        return redirect()->route('agents.index');
     }
 }

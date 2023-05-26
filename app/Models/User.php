@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'created_at'
     ];
 
     /**
@@ -59,6 +60,6 @@ class User extends Authenticatable
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->hasOne(User::class);
     }
 }

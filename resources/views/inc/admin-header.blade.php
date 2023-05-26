@@ -13,7 +13,7 @@
         <!-- Sidebar menu START -->
         <ul class="navbar-nav flex-column" id="navbar-sidebar">
             <!-- Menu item -->
-            <li class="nav-item"><a href="{{ route('admin.index') }}" class="nav-link active">Главная</a>
+            <li class="nav-item"><a href="{{ route('admin.panel') }}" class="nav-link active">Главная</a>
             </li>
 
 
@@ -21,68 +21,60 @@
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#collapsebooking" role="button"
                    aria-expanded="false" aria-controls="collapsebooking">
-                    Бронирования
+                    Заявки
                 </a>
                 <!-- Submenu -->
                 <ul class="nav collapse flex-column" id="collapsebooking"
                     data-bs-parent="#navbar-sidebar">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin-booking.index') }}">Список
-                            бронирований</a></li>
-                    <li class="nav-item"><a class="nav-link" href="admin-booking-detail.html">Booking
-                            Detail</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin-booking.index') }}">Новые заявки</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-booking-detail.html">Все заявки</a></li>
                 </ul>
             </li>
 
+            <!-- Menu item -->
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#collapsesusers" role="button"
+                   aria-expanded="false" aria-controls="collapsesusers">
+                    Аккаунты
+                </a>
+                <!-- Submenu -->
+                <ul class="nav collapse flex-column" id="collapsesusers"
+                    data-bs-parent="#navbar-sidebar">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Администраторы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('guests.index') }}">Клиеты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('agents.index') }}">Агенты</a></li>
+                </ul>
+            </li>
             <!-- Menu item -->
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#collapseguest" role="button"
                    aria-expanded="false" aria-controls="collapseguest">
-                    Гости
+                    Истории входа
                 </a>
                 <!-- Submenu -->
                 <ul class="nav collapse flex-column" id="collapseguest"
                     data-bs-parent="#navbar-sidebar">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('guests.index') }}">Список
-                            гостей</a></li>
-                    <li class="nav-item"><a class="nav-link" href="admin-guest-detail.html">Guest
-                            Detail</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-guest-detail.html">Администраторы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('guests.index') }}">Клиеты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-guest-detail.html">Агенты</a></li>
                 </ul>
             </li>
-
             <!-- Menu item -->
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#collapseagent" role="button"
                    aria-expanded="false" aria-controls="collapseagent">
-                    Агенты
+                    Просмотр данных
                 </a>
                 <!-- Submenu -->
                 <ul class="nav collapse flex-column" id="collapseagent"
                     data-bs-parent="#navbar-sidebar">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('agents.index') }}">Список
-                            агнтов</a></li>
-                    <li class="nav-item"><a class="nav-link" href="admin-agent-detail.html">Добавить
-                            агента</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#collapseadmin" role="button"
-                   aria-expanded="false" aria-controls="collapseagent">
-                    Администраторы
-                </a>
-                <!-- Submenu -->
-                <ul class="nav collapse flex-column" id="collapseadmin"
-                    data-bs-parent="#navbar-sidebar">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.index') }}">Список
-                            адмнистраторов</a></li>
-                    <li class="nav-item"><a class="nav-link" href="admin-agent-detail.html">Добавить
-                            адмнистратора</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('agents.index') }}">Отели</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin-agent-detail.html">Номера</a></li>
                 </ul>
             </li>
 
             <!-- Menu item -->
-            <li class="nav-item"><a class="nav-link" href="admin-settings.html">Настойки
-                    адмнинстратоа</a></li>
+            <li class="nav-item"><a class="nav-link" href="admin-settings.html">Аккаунт</a></li>
 
         </ul>
         <!-- Sidebar menu end -->

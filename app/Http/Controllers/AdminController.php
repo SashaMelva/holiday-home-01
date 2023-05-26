@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAccount;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function showPanel() {
+    public function showPanel()
+    {
         return view('admin/dasboard');
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $admins = Admin::all();
-        return view('admin-list', ['admins' => $admins]);
+        return view('admin/account/list_admin', ['users' => $admins, 'title' => 'Администраторов', 'route' => 'admin.create', 'destroy' => 'admin.delete']);
     }
 
     /**
@@ -24,15 +29,28 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/account/add_new_account', ['route' => 'admin.index', 'routeStore' => 'admin.store']);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAccount $request)
     {
-        //
+        $validate = $request->validated();
+
+        $user = User::create([
+            'name' => $validate['name'],
+            'email' => $validate['email'],
+            'password' => Hash::make($validate['password']),
+        ]);
+
+
+        Admin::create([
+            'user_id' => $user["id"],
+        ]);
+
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -62,8 +80,13 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(string $id)
     {
-        //
+        $dataUser = User::find((int)$id);
+
+        Admin::where('user_id', $dataUser->id)->delete();
+        $dataUser->delete();
+
+        return redirect()->route('admin.index');
     }
 }

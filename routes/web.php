@@ -60,13 +60,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/booking', [BookingController::class, 'index'])->name('index.booking');
 
     Route::get('/admin-panel', [AdminController::class, 'showPanel'])->name('admin.panel');
+
+    Route::get('/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+    Route::get('/guests/delete/{id}', [GuestController::class, 'delete'])->name('guests.delete');
+    Route::get('/agents/delete/{id}', [AgentController::class, 'delete'])->name('agents.delete');
     Route::resource('admin', AdminController::class);
     Route::resource('guests', GuestController::class);
-    Route::resource('admin-booking', BookingAdminController::class);
     Route::resource('agents', AgentController::class);
+    Route::resource('admin-booking', BookingAdminController::class);
 });
 
-Route::middleware('auth', 'admin')->group(function () {
+Route::middleware('auth', 'admin', 'agent')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 

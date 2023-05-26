@@ -85,7 +85,7 @@
                                             <!-- Listing Name -->
                                             <div class="col-12">
                                                 <label class="form-label">Полное название отеля *</label>
-                                                <input class="form-control" type="text"
+                                                <input id="full_title" name="full_title" class="form-control" type="text"
                                                        placeholder="Гостиница Интурист-Краснодар в Краснодаре">
                                                 <small>Включает в себя тип и название вашего жилья для туризма и город в
                                                     котором она находится</small>
@@ -94,7 +94,7 @@
                                             <!-- Listing Name -->
                                             <div class="col-12">
                                                 <label class="form-label">Кароткое название отеля *</label>
-                                                <input class="form-control" type="text"
+                                                <input id="short_title" name="short_title" class="form-control" type="text"
                                                        placeholder="Интурист-Краснодар">
                                                 <small>Маркировачное название отеля</small>
                                             </div>
@@ -102,7 +102,7 @@
                                             <!-- Short description -->
                                             <div class="col-12">
                                                 <label class="form-label">Опсание отеля *</label>
-                                                <textarea class="form-control" rows="2"
+                                                <textarea id="description" name="description" class="form-control" rows="2"
                                                           placeholder="Enter keywords"></textarea>
                                             </div>
                                         </div>
@@ -127,16 +127,14 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <label class="form-label">Выберите город из списка</label>
-                                                        <select class="form-select" aria-label="Default select example">
+                                                        <select id="city" name="city" class="form-select" aria-label="Default select example">
                                                             <option selected>Сущесствующие города</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            <option value="city_1">One</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label class="form-label">или добавте новый</label>
-                                                        <input class="form-control" type="text"
+                                                        <input id="city_add" name="city_add" class="form-control" type="text"
                                                                placeholder="Введите название города">
                                                     </div>
                                                 </div>
@@ -145,7 +143,7 @@
                                             <!-- Street -->
                                             <div class="col-12">
                                                 <label class="form-label">Адресс *</label>
-                                                <input class="form-control" type="text" placeholder="Введите адресс">
+                                                <input id="address" name="address" class="form-control" type="text" placeholder="Введите адресс">
                                             </div>
                                         </div>
                                     </div>
@@ -167,16 +165,16 @@
                                             <!-- Thumbnail image -->
                                             <div class="col-12">
                                                 <label class="form-label">Загрузите изображения *</label>
-                                                <input class="form-control m-tb-1" type="file" name="my-image"
+                                                <input class="form-control m-tb-1" type="file" name="hotel-image"
                                                        id="image"
                                                        accept="image/gif, image/jpeg, image/png">
-                                                <input class="form-control m-tb-1" type="file" name="my-image"
+                                                <input class="form-control m-tb-1" type="file" name="hotel-image"
                                                        id="image"
                                                        accept="image/gif, image/jpeg, image/png">
-                                                <input class="form-control m-tb-1" type="file" name="my-image"
+                                                <input class="form-control m-tb-1" type="file" name="hotel-image"
                                                        id="image"
                                                        accept="image/gif, image/jpeg, image/png">
-                                                <input class="form-control m-tb-1" type="file" name="my-image"
+                                                <input class="form-control m-tb-1" type="file" name="hotel-image"
                                                        id="image"
                                                        accept="image/gif, image/jpeg, image/png">
                                                 <p class="small mb-0 mt-2"><b>Примечание: </b>Только JPG, JPEG и PNG.
@@ -192,7 +190,7 @@
 
                                 <!-- Step 1 button -->
                                 <div class="text-end">
-                                    <a class="btn btn-primary next-btn mb-0" href="{{ route('basic-information.add') }}">Далее</a>
+                                    <a class="btn btn-primary next-btn mb-0" href="{{ route('basic-information.add') }}">Сохранить</a>
                                 </div>
                             </div>
                         </div>

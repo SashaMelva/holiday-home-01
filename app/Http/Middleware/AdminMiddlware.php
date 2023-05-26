@@ -18,6 +18,6 @@ class AdminMiddlware
     public function handle(Request $request, Closure $next)
     {
         $admin = Admin::where('user_id', Auth::user()->id)->get();
-        return count($admin) == 1 ? redirect()->route('admin.index') : $next($request);
+        return count($admin) == 1 ? redirect()->route('admin.panel') : $next($request);
     }
 }
