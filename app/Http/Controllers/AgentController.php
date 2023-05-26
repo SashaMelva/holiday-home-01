@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
 {
+
+    public function showPanel()
+    {
+        return view('agent/dashboard');
+    }
+
+    public function showListing()
+    {
+        return view('agent/listing');
+    }
+    public function showBooking()
+    {
+        return view('agent/booking');
+    }
     /**
      * Display a listing of the resource.
      */

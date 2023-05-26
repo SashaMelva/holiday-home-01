@@ -68,6 +68,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('guests', GuestController::class);
     Route::resource('agents', AgentController::class);
     Route::resource('admin-booking', BookingAdminController::class);
+
+    Route::get('/agent/dashboard', [AgentController::class, 'showPanel'])->name('agent.panel');
+    Route::get('/agent/listing', [AgentController::class, 'showListing'])->name('agent.listing');
+    Route::get('/agent/booking', [AgentController::class, 'showBooking'])->name('agent.booking');
 });
 
 Route::middleware('auth', 'admin', 'agent')->group(function () {

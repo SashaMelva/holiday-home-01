@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Admin;
+use App\Models\Agents;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class AgentMiddlware
      */
     public function handle(Request $request, Closure $next): Response
     {
-//        $admin = Admin::
-//        return Auth::user()->id ==  ? : $next($request);
+        $agent = Agents::where('user_id', Auth::user()->id)->get();
+        return count($agent) == 1 ? redirect()->route('agent.panel') : $next($request);
     }
 }
