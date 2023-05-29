@@ -15,7 +15,7 @@ Main Banner START -->
                     <p class="mb-4">Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise
                         joy man children rejoiced.</p>
                     <!-- Button -->
-                    <a href="{{ route('hotel-accommodation.add') }}" class="btn btn-primary-soft mb-4">Добавте
+                    <a href="{{ route('agent.information.add') }}" class="btn btn-primary-soft mb-4">Добавте
                         объявление
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-arrow-right" viewBox="0 0 16 16">

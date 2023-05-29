@@ -60,20 +60,11 @@ class HotelsController extends Controller
             'count_adults' => session('count_adults'),
             'count_children' => session('count_children')
         ];
-
-//        $validate = [
-//            'city' => Redis::get('city'),
-//            'arrival_date' => Redis::get('arrival_date'),
-//            'date_departure' => Redis::get('date_departure'),
-//            'count_adults' => Redis::get('count_adults'),
-//            'count_children' => Redis::get('count_children')
-//        ];
         $countGuest  = $validate['count_children'] + $validate['count_adults'];
 
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
 
-       // $rooms= $hotel->rooms;//->where('number_beds', "="  ,$countGuest);
         $rooms = Room::where('hotel_id', $id)->where('number_beds', $countGuest)->get();
 
         $roomEquipmentLists = RoomEquipmentList::all();
@@ -130,12 +121,6 @@ class HotelsController extends Controller
         session(['date_departure' =>  $validate['date_departure']]);
         session(['count_adults' => $validate['count_adults']]);
         session(['count_children' => $validate['count_children']]);
-//        Redis::set('city', $validate['city']);
-//        Redis::set('arrival_date', $validate['arrival_date']);
-//        Redis::set('date_departure', $validate['date_departure']);
-//        Redis::set('count_adults', $validate['count_adults']);
-//        Redis::set('count_children', $validate['count_children']);
-
         return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate]);
     }
 

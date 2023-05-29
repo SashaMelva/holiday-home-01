@@ -4,7 +4,7 @@
             @if(isset($hotel->img[0]->img_url))
                 <img src="{{ Storage::url($hotel->img[0]->img_url) }}" alt="{{ $hotel->img[0]->description }}">
             @else
-                <img class="rounded-2" src="{{ Vite::asset('resources/img/city/luchshie2.jpg') }}" alt="hotel img">
+                <img class="rounded-2" src="{{ Vite::asset('resources/img/logo/img.png') }}" alt="hotel img">
             @endif
             <div class="card-body px-3 pb-0">
                 <div class="d-flex justify-content-between mb-3">

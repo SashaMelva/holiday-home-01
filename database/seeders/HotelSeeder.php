@@ -13,6 +13,7 @@ class HotelSeeder extends Seeder
     public function run(): void
     {
         DB::table('hotels')->insert([
+            'agent_id' => 1,
             'full_title' => 'Гостиница Интурист-Краснодар в Краснодаре',
             'short_title' => 'Интурист-Краснодар',
             'city_id' => 5,
@@ -24,6 +25,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Платан южный в Краснодаре',
             'short_title' => 'Платан южный',
             'city_id' => 5,
@@ -35,6 +37,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Бизнес-отель "Форум" в Краснодаре',
             'short_title' => 'Форум',
             'city_id' => 5,
@@ -46,6 +49,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Турист в Москве',
             'short_title' => 'Турист',
             'city_id' => 1,
@@ -57,6 +61,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница SunFlower Парк в Москве',
             'short_title' => 'SunFlower',
             'city_id' => 1,
@@ -68,6 +73,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Шератон Палас в Москве',
             'short_title' => 'Шератон Палас',
             'city_id' => 1,
@@ -79,6 +85,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Метрополь в Москве',
             'short_title' => 'Метрополь',
             'city_id' => 1,
@@ -90,6 +97,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Center Hotel Kazan Kremlin в Казани',
             'short_title' => 'Center Hotel Kazan Kremlin',
             'city_id' => 4,
@@ -101,6 +109,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Татарстан Казань в Казани',
             'short_title' => 'Татарстан Казань',
             'city_id' => 4,
@@ -112,6 +121,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Гостиница Ривьера в Казани',
             'short_title' => 'Ривьера',
             'city_id' => 4,
@@ -123,6 +133,7 @@ class HotelSeeder extends Seeder
         ]);
 
         DB::table('hotels')->insert([
+            'agent_id' => 0,
             'full_title' => 'Отель AMAKS Сафар в Казани',
             'short_title' => 'AMAKS Сафар Отель',
             'city_id' => 4,

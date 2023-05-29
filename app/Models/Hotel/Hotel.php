@@ -5,6 +5,7 @@ namespace App\Models\Hotel;
 use App\Models\City;
 use App\Models\FavoritesHotels;
 use App\Models\Room\Room;
+use App\Models\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,12 +18,14 @@ class Hotel extends Model
     protected $fillable = [
         'full_title',
         'short_title',
-        'city',
+        'city_id',
         'address',
         'number_rooms',
         'description',
         'star',
-        'category_id'
+        'category_id',
+        'status_id',
+        'agent_id'
     ];
 
     public function category()
@@ -53,5 +56,15 @@ class Hotel extends Model
     public function rooms()
     {
         return $this->hasMany(Room::class);
+    }
+
+//    public function agent()
+//    {
+//        return $this->hasMany(Room::class);
+//    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

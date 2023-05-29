@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AgentController;
-use App\Http\Controllers\BookingAdminController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminHotelController;
+use App\Http\Controllers\Admin\BookingAdminController;
+use App\Http\Controllers\Admin\GuestController;
+use App\Http\Controllers\Agent\AgentController;
+use App\Http\Controllers\Agent\ListController;
+use App\Http\Controllers\Agent\SettingsAccountController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\FavoritesHotelController;
-use App\Http\Controllers\GuestController;
-use App\Http\Controllers\HotelAccommodationController;
-use App\Http\Controllers\HotelController;
 use App\Http\Controllers\HotelsController;
+use App\Http\Controllers\NewHotelController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserProfileController;
@@ -34,9 +36,19 @@ Route::get('/about', function () {return view('main/about')->name('about');});
 Route::get('/contact', function () {return view('main/contact')->name('contact');});
 Route::get('/error404', function () {return view('main/error404')->name('error404');});
 
-Route::get('/hotel-accommodation', [HotelAccommodationController::class, 'index'])->name('hotel-accommodation.index');
-Route::get('/hotel-accommodation/basic-information', [HotelAccommodationController::class, 'viewAddHotel'])->name('hotel-accommodation.add');
-Route::get('/hotel-accommodation/detailed-information', [HotelAccommodationController::class, 'viewDetailedInformationHotel'])->name('basic-information.add');
+Route::get('/hotel-accommodation', [NewHotelController::class, 'index'])->name('hotel-accommodation.index');
+Route::get('/hotel-accommodation/agent-information', [NewHotelController::class, 'viewAgentInformation'])->name('agent.information.add');
+Route::get('/hotel-accommodation/hotel-information', [NewHotelController::class, 'viewAddHotel'])->name('hotel.information.add');
+Route::get('/hotel-accommodation/rooms-information', [NewHotelController::class, 'viewAddRoomsForHotel'])->name('rooms.information.add');
+Route::get('/hotel-accommodation/end', [NewHotelController::class, 'viewEndAccommodationHotel'])->name('hotel-accommodation.end');
+
+Route::post('/hotel-accommodation/agent-information/store', [NewHotelController::class, 'storeAgentInformation'])->name('agent.information.store');
+Route::post('/hotel-accommodation/hotel-information/store', [NewHotelController::class, 'storeAddHotel'])->name('hotel.information.store');
+Route::post('/hotel-accommodation/hotel-service/store', [NewHotelController::class, 'storeAddHotelService'])->name('hotel.service.store');
+Route::post('/hotel-accommodation/rooms-information/store', [NewHotelController::class, 'storeAddRoomInformationForHotel'])->name('rooms.information.store');
+Route::post('/hotel-accommodation/rooms-equipment/store', [NewHotelController::class, 'storeAddRoomEquipmentForHotel'])->name('rooms.equipment.store');
+Route::post('/hotel-accommodation/rooms-image/store', [NewHotelController::class, 'storeAddRoomImageForHotel'])->name('rooms.image.store');
+
 
 Route::resource('hotels', HotelsController::class);
 Route::resource('rooms', RoomController::class);
@@ -61,6 +73,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin-panel', [AdminController::class, 'showPanel'])->name('admin.panel');
 
+    Route::get('/admin/hotels', [AdminHotelController::class, 'index'])->name('admin.hotels');
+    Route::get('/admin/hotels/new', [AdminHotelController::class, 'newHotels'])->name('admin.hotels.new');
+    Route::get('/admin/hotel/{id}', [AdminHotelController::class, 'show'])->name('admin.hotel.info');
+    Route::post('/admin/hotel/save/status/{id}', [AdminHotelController::class, 'statusSave'])->name('status.hotel.save');
+
     Route::get('/admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
     Route::get('/guests/delete/{id}', [GuestController::class, 'delete'])->name('guests.delete');
     Route::get('/agents/delete/{id}', [AgentController::class, 'delete'])->name('agents.delete');
@@ -69,8 +86,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('agents', AgentController::class);
     Route::resource('admin-booking', BookingAdminController::class);
 
+    Route::resource('lists', ListController::class);
+
+    Route::get('/agent/settings', [SettingsAccountController::class, 'index'])->name('agent.settings');
     Route::get('/agent/dashboard', [AgentController::class, 'showPanel'])->name('agent.panel');
-    Route::get('/agent/listing', [AgentController::class, 'showListing'])->name('agent.listing');
     Route::get('/agent/booking', [AgentController::class, 'showBooking'])->name('agent.booking');
 });
 
