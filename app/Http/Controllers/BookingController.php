@@ -24,7 +24,6 @@ class BookingController extends Controller
     public function index()
     {
         $this->checkBookingStatus();
-        //dd(Auth::user()->bookings);
         $bookings = Auth::user()->bookings;
         $userData = DataUsers::where('user_id', Auth::user()->id)->get();
         return view('booking/list-booking', ['bookings' => $bookings, 'userData' => $userData[0]]);

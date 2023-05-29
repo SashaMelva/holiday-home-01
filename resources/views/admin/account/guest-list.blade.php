@@ -57,6 +57,7 @@
                 </div>
 
                 @foreach($users as $user)
+                    @if(isset($user->user->id))
                     <!-- Table data -->
                     <div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
                         <!-- Data item -->
@@ -85,8 +86,9 @@
                         </div>
 
                         <!-- Data item -->
-                        <div class="col"><a href="{{ route($destroy,  $user->user->id) }}" class="btn btn-sm btn-light mb-0">View</a></div>
+                        <div class="col"><a href="{{ route($destroy,  $user->user->id) }}" class="btn btn-sm btn-light mb-0">Просмотр</a></div>
                     </div>
+                    @endif
                 @endforeach
             </div>
             <!-- Card body END -->
