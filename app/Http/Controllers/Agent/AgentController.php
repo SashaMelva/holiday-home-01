@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Agent;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAccount;
-use App\Models\Admin;
 use App\Models\Agents;
+use App\Models\Hotel\Hotel;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
@@ -17,10 +19,6 @@ class AgentController extends Controller
         return view('agent/dashboard');
     }
 
-    public function showListing()
-    {
-        return view('agent/listing');
-    }
     public function showBooking()
     {
         return view('agent/booking');
