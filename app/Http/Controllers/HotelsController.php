@@ -65,8 +65,10 @@ class HotelsController extends Controller
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
 
-        $rooms = Room::where('hotel_id', $id)->where('number_beds', $countGuest)->get();
-
+        $rooms = Room::where('hotel_id', $id)->where('number_beds', '>=' , $countGuest)->get();
+//dd($rooms[2]->img);
+        //$imgs = \App\Models\Room\RoomImg::where('room_id', 1)->get();
+           // dd($imgs);
         $roomEquipmentLists = RoomEquipmentList::all();
 
         return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists' => $roomEquipmentLists, 'dataBooking' => $validate]);

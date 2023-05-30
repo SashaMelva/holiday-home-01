@@ -1,8 +1,9 @@
 <section class="container row g-4 container-list-hotel">
     @foreach($hotels as $hotel)
         <article class="card shadow p-2 pb-0 h-100">
-            @if(isset($hotel->img[0]->img_url))
-                <img src="{{ Storage::url($hotel->img[0]->img_url) }}" alt="{{ $hotel->img[0]->description }}">
+            <?php $img =\App\Models\Hotel\HotelImg::where('hotel_id', $hotel->hotel_id)->get() ?>
+            @if(isset($img[0]->img_url))
+                <img src="{{ Storage::url($img[0]->img_url) }}" alt="{{ $img[0]->description }}">
             @else
                 <img class="rounded-2" src="{{ Vite::asset('resources/img/logo/img.png') }}" alt="hotel img">
             @endif
@@ -40,11 +41,11 @@
             <div class="card-footer pt-6">
                 <div class="d-sm-flex justify-content-sm-between align-items-center">
                     <div class="d-flex align-items-center">
-                        <h5 class="fw-normal text-success mb-0 me-1 prise">2000руб</h5>
+                        <h5 class="fw-normal text-success mb-0 me-1 prise">{{ $hotel->price }} руб</h5>
                         <span class="mb-0 me-2">/день</span>
                     </div>
                     <div class="mt-2 mt-sm-0 z-index-2">
-                        <a type="submit" href="{{ route('hotels.list.search', $hotel->id) }}" class="btn btn-lg btn-primary btn-base mb-0">Детали
+                        <a type="submit" href="{{ route('hotels.list.search', $hotel->hotel_id) }}" class="btn btn-lg btn-primary btn-base mb-0">Детали
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd"
