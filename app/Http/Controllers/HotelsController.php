@@ -60,7 +60,7 @@ class HotelsController extends Controller
             'count_adults' => session('count_adults'),
             'count_children' => session('count_children')
         ];
-        $countGuest  = $validate['count_children'] + $validate['count_adults'];
+        $countGuest = $validate['count_children'] + $validate['count_adults'];
 
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
@@ -100,15 +100,16 @@ class HotelsController extends Controller
     {
         $validate = $request->validated();
 
-        $countGuest  = $validate['count_children'] + $validate['count_adults'];
+        $countGuest = $validate['count_children'] + $validate['count_adults'];
         $city = City::where('title', $validate['city'])->get();
 
         $hotelsWithRooms = DB::table('hotels')
-            ->join('rooms', 'hotels.id', '=', 'rooms.hotel_id')
-            ->where('rooms.number_beds', $countGuest)
-            ->where('hotels.city_id', $city[0]->id)
+            ->rightJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')
+            ->where([
+                ['number_beds', '>=', $countGuest],
+                ['city_id', '=', (int)$city[0]->id],
+            ])
             ->get();
-
 
         $hotels = $hotelsWithRooms->unique("hotel_id");
 
@@ -118,10 +119,107 @@ class HotelsController extends Controller
 
         session(['city' => $validate['city']]);
         session(['arrival_date' => $validate['arrival_date']]);
-        session(['date_departure' =>  $validate['date_departure']]);
+        session(['date_departure' => $validate['date_departure']]);
         session(['count_adults' => $validate['count_adults']]);
         session(['count_children' => $validate['count_children']]);
+
         return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate]);
     }
 
+
+    public function searchHotelsForCity(int $id)
+    {
+        $city = City::find($id);
+
+        $hotelsWithRooms = DB::table('hotels')
+            ->rightJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')
+            ->where([
+                ['number_beds', '>=', 1],
+                ['city_id', '=', (int)$city->id],
+            ])
+            ->get();
+
+        $hotels = $hotelsWithRooms->unique("hotel_id");
+
+        $categories = HotelCategories::all();
+        $services = HotelServices::all();
+        $servicesList = HotelServicesList::all();
+
+        session(['city' => $city->title]);
+        $dataBooking = ['city' => $city->title];
+
+        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $dataBooking]);
+    }
+
+    public function searchSupportHotels(Request $request)
+    {
+        $validate = [
+            'city' => session('city'),
+            'arrival_date' => session('arrival_date'),
+            'date_departure' => session('date_departure'),
+            'count_adults' => session('count_adults'),
+            'count_children' => session('count_children')
+        ];
+
+        $countGuest = $validate['count_children'] + $validate['count_adults'];
+        $city = City::where('title', $validate['city'])->get();
+
+        $hotelsWithRooms = DB::table('hotels')
+            ->rightJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')
+            ->where([
+                ['number_beds', '>=', $countGuest],
+                ['city_id', '=', (int)$city[0]->id],
+            ])
+            ->get();
+        $hotels = $hotelsWithRooms->unique("hotel_id");
+
+        foreach ($hotels as $key => $hotel) {
+            if ($hotel->short_title != $request->title && !is_null($request->title)) {
+                unset($hotels[$key]);
+            }
+            if ($hotel->category_id != $request->category) {
+                unset($hotels[$key]);
+            }
+
+            if ($hotel->star != (float)$request->star && isset($request->star)) {
+                unset($hotels[$key]);
+            }
+        }
+
+        $categories = HotelCategories::all();
+        $services = HotelServices::all();
+        $servicesList = HotelServicesList::all();
+
+
+        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate, 'dataFilter' => $request]);
+    }
+
+    public function searchSupportDisableHotels() {
+        $validate = [
+            'city' => session('city'),
+            'arrival_date' => session('arrival_date'),
+            'date_departure' => session('date_departure'),
+            'count_adults' => session('count_adults'),
+            'count_children' => session('count_children')
+        ];
+
+        $countGuest = $validate['count_children'] + $validate['count_adults'];
+        $city = City::where('title', $validate['city'])->get();
+
+        $hotelsWithRooms = DB::table('hotels')
+            ->rightJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')
+            ->where([
+                ['number_beds', '>=', $countGuest],
+                ['city_id', '=', (int)$city[0]->id],
+            ])
+            ->get();
+        $hotels = $hotelsWithRooms->unique("hotel_id");
+        $categories = HotelCategories::all();
+        $services = HotelServices::all();
+        $servicesList = HotelServicesList::all();
+
+
+        return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate]);
+
+    }
 }

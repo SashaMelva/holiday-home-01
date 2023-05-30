@@ -25,6 +25,13 @@ document.querySelector('#plus-adults').onclick = function() {
     }
 };
 
-
+let contentFilters = document.querySelector('#support-filters-content');
+document.querySelector('#support-filters').onclick = function() {
+    if (contentFilters.style.display !== "block") {
+        contentFilters.style.display = "block";
+    } else {
+        contentFilters.style.display = "none";
+    }
+};
 
 

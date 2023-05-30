@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-between m-4">
-            <button class="btn btn-lg btn-primary btn-base mb-0">
+            <button id="support-filters" class="btn btn-lg btn-primary btn-base mb-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sliders"
                      viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -23,18 +23,6 @@
                 </svg>
                 Фильтр
             </button>
-            <ul class="nav nav-pills nav-pills-dark" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link rounded-start rounded-0 mb-0">
-                        <i class="bi fa-fw bi-list-ul"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link rounded-start rounded-0 mb-0">
-                        <i class="bi fa-fw bi-grid-fill"></i>
-                    </a>
-                </li>
-            </ul>
         </div>
 
         @include('inc.support-filters')

@@ -1,9 +1,10 @@
-<div class="card card-body p-4 mt-4 z-index-9 bg-light-card rounded-3">
-    <form class="row g-4">
+<div id="support-filters-content" class="card card-body p-4 mt-4 z-index-9 bg-light-card rounded-3" style="display : none">
+    <form method="POST" action="{{ route('hotels.search.support') }}" class="row g-4">
+        @csrf
         <div class="col-md-6 col-lg-4">
             <div class="form-control-borderless">
-                <label class="form-label">Название отеля</label>
-                <input class="form-control-lg base-input" type="text">
+                <label for="title" class="form-label">Название отеля</label>
+                <input id="title" name="title" class="form-control-lg base-input" type="text" value="@if(isset($dataFilter)) {{ $dataFilter['title'] }} @endif">
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
@@ -38,41 +39,41 @@
         </div>
         <div class="col-md-6 col-lg-4">
             <div class="form-size-lg form-control-borderless">
-                <label class="form-label">Фильтрция по популярности</label>
-                <select class="form-control-lg base-input" type="text">
-                    <option>Самые популярные</option>
-                    <option>Сначала дорогие</option>
-                    <option>Сначала дешёвые</option>
-                    <option>Больше всего отзывов</option>
+                <label for="sort" class="form-label">Фильтрция по популярности</label>
+                <select id="sort" name="sort" class="form-control-lg base-input" type="text">
+                    <option value="popular">Самые популярные</option>
+                    <option value="max_price">Сначала дорогие</option>
+                    <option value="min_price">Сначала дешёвые</option>
+{{--                    <option value="">Больше всего отзывов</option>--}}
                 </select>
             </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-            <label class="form-label">Рейтинг клиентов</label>
-            <ul class="list-inline mb-0 g-3">
-                <li class="list-inline-item">
-                    <input id="rating-3" class="btn-check" type="checkbox">
-                    <label for="rating-3" class="btn btn-white btn-primary-soft-check">3+</label>
-                </li>
-                <li class="list-inline-item">
-                    <input id="rating-3-5" class="btn-check" type="checkbox">
-                    <label for="rating-3-5" class="btn btn-white btn-primary-soft-check">3.5+</label>
-                </li>
-                <li class="list-inline-item">
-                    <input id="rating-4" class="btn-check" type="checkbox">
-                    <label for="rating-4" class="btn btn-white btn-primary-soft-check">4+</label>
-                </li>
-                <li class="list-inline-item">
-                    <input id="rating-5" class="btn-check" type="checkbox">
-                    <label for="rating-5" class="btn btn-white btn-primary-soft-check">4.5+</label>
-                </li>
-            </ul>
-        </div>
+{{--        <div class="col-md-6 col-lg-4">--}}
+{{--            <label class="form-label">Рейтинг клиентов</label>--}}
+{{--            <ul class="list-inline mb-0 g-3">--}}
+{{--                <li class="list-inline-item">--}}
+{{--                    <input id="rating-3" class="btn-check" type="checkbox">--}}
+{{--                    <label for="rating-3" class="btn btn-white btn-primary-soft-check">3+</label>--}}
+{{--                </li>--}}
+{{--                <li class="list-inline-item">--}}
+{{--                    <input id="rating-3-5" class="btn-check" type="checkbox">--}}
+{{--                    <label for="rating-3-5" class="btn btn-white btn-primary-soft-check">3.5+</label>--}}
+{{--                </li>--}}
+{{--                <li class="list-inline-item">--}}
+{{--                    <input id="rating-4" class="btn-check" type="checkbox">--}}
+{{--                    <label for="rating-4" class="btn btn-white btn-primary-soft-check">4+</label>--}}
+{{--                </li>--}}
+{{--                <li class="list-inline-item">--}}
+{{--                    <input id="rating-5" class="btn-check" type="checkbox">--}}
+{{--                    <label for="rating-5" class="btn btn-white btn-primary-soft-check">4.5+</label>--}}
+{{--                </li>--}}
+{{--            </ul>--}}
+{{--        </div>--}}
         <div class="col-md-6 col-lg-4">
             <label class="form-label">Рейтинг звёзд</label>
             <ul class="list-inline mb-0 g-3">
                 <li class="list-inline-item">
-                    <input id="star-1" class="btn-check" type="checkbox">
+                    <input id="star-1" name="star" value="1" class="btn-check" @if(isset($dataFilter) && !is_null($dataFilter->star) && $dataFilter->star == "1") checked @endif type="radio">
                     <label for="star-1" class="btn btn-white btn-primary-soft-check">1
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                              class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -82,7 +83,7 @@
                     </label>
                 </li>
                 <li class="list-inline-item">
-                    <input id="star-2" class="btn-check" type="checkbox">
+                    <input id="star-2" name="star" value="2" class="btn-check" type="radio" @if(isset($dataFilter) && !is_null($dataFilter->star) && $dataFilter->star == "2") checked @endif>
                     <label for="star-2" class="btn btn-white btn-primary-soft-check">2
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                              class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -92,7 +93,7 @@
                     </label>
                 </li>
                 <li class="list-inline-item">
-                    <input id="star-3" class="btn-check" type="checkbox">
+                    <input id="star-3" name="star" value="3" class="btn-check" type="radio" @if(isset($dataFilter) && !is_null($dataFilter->star) && $dataFilter->star == "3") checked @endif>
                     <label for="star-3" class="btn btn-white btn-primary-soft-check">3
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                              class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -102,7 +103,7 @@
                     </label>
                 </li>
                 <li class="list-inline-item">
-                    <input id="star-4" class="btn-check" type="checkbox">
+                    <input id="star-4" name="star" value="4" class="btn-check" type="radio" @if(isset($dataFilter) && !is_null($dataFilter->star) && $dataFilter->star == "4") checked @endif>
                     <label for="star-4" class="btn btn-white btn-primary-soft-check">4
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                              class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -112,7 +113,7 @@
                     </label>
                 </li>
                 <li class="list-inline-item">
-                    <input id="star-5" class="btn-check" type="checkbox">
+                    <input id="star-5" name="star" value="5" class="btn-check" type="radio" @if(isset($dataFilter) && !is_null($dataFilter->star) && $dataFilter->star == "5") checked @endif>
                     <label for="star-5" class="btn btn-white btn-primary-soft-check">5
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                              class="bi bi-star-fill" viewBox="0 0 16 16">
@@ -125,25 +126,25 @@
         </div>
         <div class="col-md-6 col-lg-4">
             <div class="form-size-lg form-control-borderless">
-                <label class="form-label">Тип отеля</label>
-                <select class="form-control-lg base-input" type="text">
+                <label for="category" class="form-label">Тип отеля</label>
+                <select id="category" name="category" class="form-control-lg base-input" type="text">
                     @foreach($categories as $category)
-                    <option value="category-{{ $category->id }}">{{ $category->name }}</option>
+                    <option @if(isset($dataFilter) && $dataFilter->category == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
-        <div class="col-12">
-            <label class="form-label">Удобства</label>
-            <div>
-                @foreach($services as $service)
-                    <input type="checkbox" id="service-{{ $service->id }}" value="service-{{ $service->id }}" name="{{ $service->name }}">
-                    <label for="service-{{ $service->id }}">{{ $service->name }}</label>
-                @endforeach
-            </div>
-        </div>
+{{--        <div class="col-12">--}}
+{{--            <label class="form-label">Удобства</label>--}}
+{{--            <div>--}}
+{{--                @foreach($services as $service)--}}
+{{--                    <input type="checkbox" id="service-{{ $service->id }}" name="service-{{ $service->id }}">--}}
+{{--                    <label for="service-{{ $service->id }}">{{ $service->name }}</label>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="text-end align-items-center">
-            <button type="button" class="btn btn-lg btn-link custom-lik p-0 mb-0">Сброс</button>
+            <a href="{{ route('hotels.search.support.disable') }}" type="button" class="btn btn-lg btn-link custom-lik p-0 mb-0">Сброс</a>
             <button type="submit" class="btn btn-lg btn-primary btn-base">Применить</button>
         </div>
     </form>
