@@ -82,7 +82,7 @@
 
                     <!-- Data item -->
                     <div class="col">
-                        <h6 class="mb-0 fw-normal">{{ $hotel->city->title }}, {{ $hotel->address }}</h6>
+                        <h6 class="mb-0 fw-normal">@if(isset($hotel->city->title)) {{ $hotel->city->title }},  @endif{{ $hotel->address }}</h6>
                     </div>
 
                     <!-- Data item -->

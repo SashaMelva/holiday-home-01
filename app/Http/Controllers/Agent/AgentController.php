@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Agent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAccount;
 use App\Models\Agents;
+use App\Models\Booking;
+use App\Models\BookingStatus;
 use App\Models\Hotel\Hotel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +23,12 @@ class AgentController extends Controller
 
     public function showBooking()
     {
-        return view('agent/booking');
+        $agent = Agents::where('user_id', Auth::user()->id)->get();
+        $hotel = Hotel::where('agent_id', $agent[0]->id)->get();
+        $bookings = Booking::where('hotel_id', $hotel[0]->id )->get();
+        $statusBookings = BookingStatus::all();
+
+        return view('agent/booking', ['bookings' => $bookings, 'statusBookings' => $statusBookings]);
     }
     /**
      * Display a listing of the resource.
