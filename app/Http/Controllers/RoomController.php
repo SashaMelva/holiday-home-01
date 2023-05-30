@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddBaseInformationRoomRequest;
+use App\Models\Hotel\HotelServices;
+use App\Models\Room\Room;
+use App\Models\Room\RoomCategory;
+use App\Models\Room\RoomEquipment;
+use App\Models\Room\RoomEquipmentList;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -19,15 +25,15 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddBaseInformationRoomRequest $request)
     {
-        //
+
     }
 
     /**
@@ -35,7 +41,7 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        //
+       // return view('agent/edit-room');
     }
 
     /**
@@ -43,15 +49,14 @@ class RoomController extends Controller
      */
     public function edit(string $id)
     {
-        //
-    }
+           }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**

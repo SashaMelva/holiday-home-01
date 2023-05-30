@@ -39,15 +39,10 @@ Route::get('/error404', function () {return view('main/error404')->name('error40
 Route::get('/hotel-accommodation', [NewHotelController::class, 'index'])->name('hotel-accommodation.index');
 Route::get('/hotel-accommodation/agent-information', [NewHotelController::class, 'viewAgentInformation'])->name('agent.information.add');
 Route::get('/hotel-accommodation/hotel-information', [NewHotelController::class, 'viewAddHotel'])->name('hotel.information.add');
-Route::get('/hotel-accommodation/rooms-information', [NewHotelController::class, 'viewAddRoomsForHotel'])->name('rooms.information.add');
 Route::get('/hotel-accommodation/end', [NewHotelController::class, 'viewEndAccommodationHotel'])->name('hotel-accommodation.end');
 
 Route::post('/hotel-accommodation/agent-information/store', [NewHotelController::class, 'storeAgentInformation'])->name('agent.information.store');
 Route::post('/hotel-accommodation/hotel-information/store', [NewHotelController::class, 'storeAddHotel'])->name('hotel.information.store');
-Route::post('/hotel-accommodation/hotel-service/store', [NewHotelController::class, 'storeAddHotelService'])->name('hotel.service.store');
-Route::post('/hotel-accommodation/rooms-information/store', [NewHotelController::class, 'storeAddRoomInformationForHotel'])->name('rooms.information.store');
-Route::post('/hotel-accommodation/rooms-equipment/store', [NewHotelController::class, 'storeAddRoomEquipmentForHotel'])->name('rooms.equipment.store');
-Route::post('/hotel-accommodation/rooms-image/store', [NewHotelController::class, 'storeAddRoomImageForHotel'])->name('rooms.image.store');
 
 
 Route::resource('hotels', HotelsController::class);

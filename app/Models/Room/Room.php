@@ -21,7 +21,9 @@ class Room extends Model
         'area_square_meters',
         'description',
         'price',
-        'category_id'
+        'category_id',
+        'check_in_time',
+        'check_out_time'
     ];
 
     public function category()

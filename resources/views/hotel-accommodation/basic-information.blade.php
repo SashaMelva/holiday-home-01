@@ -17,6 +17,15 @@
                                 <!-- Title -->
                                 <h4 class="mb-0">Информация об отеле</h4>
                                 <!-- Card body END -->
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                             <!-- Listing category START -->
                             <div class="card shadow m-tb-1">
@@ -46,7 +55,7 @@
                                         <div class="col-12">
                                             <label class="form-label">Полное название отеля *</label>
                                             <input id="full_title" name="full_title" class="form-control" type="text"
-                                                   placeholder="Гостиница Интурист-Краснодар в Краснодаре" required>
+                                                   placeholder="Гостиница Интурист-Краснодар в Краснодаре" value="{{ old('full_title') }}" required>
                                             <small>Включает в себя тип и название вашего жилья для туризма и город в
                                                 котором она находится</small>
                                         </div>
@@ -55,7 +64,7 @@
                                         <div class="col-12">
                                             <label class="form-label">Кароткое название отеля *</label>
                                             <input id="short_title" name="short_title" class="form-control" type="text"
-                                                   placeholder="Интурист-Краснодар" required>
+                                                   placeholder="Интурист-Краснодар" value="{{ old('short_title') }}" required>
                                             <small>Маркировачное название отеля</small>
                                         </div>
                                         <!-- Size of listing START -->
@@ -65,13 +74,13 @@
                                                 <!-- Total Floor -->
                                                 <div class="col-md-4">
                                                     <label for="number_rooms" class="form-label">Общее количество номеров *</label>
-                                                    <input id="number_rooms" name="number_rooms" type="text" class="form-control" required>
+                                                    <input id="number_rooms" name="number_rooms" type="text" class="form-control"  value="{{ old('number_rooms') }}" required>
                                                 </div>
 
                                                 <!-- Total Floor -->
                                                 <div class="col-md-4">
                                                     <label for="star" class="form-label">Количество звёзд отеля *</label>
-                                                    <input id="star" name="star" type="text" class="form-control" required>
+                                                    <input id="star" name="star" type="text" class="form-control"  value="{{ old('star') }}" required>
                                                 </div>
                                             </div>
 
@@ -81,7 +90,7 @@
                                         <div class="col-12">
                                             <label for="description" class="form-label">Опсание отеля *</label>
                                             <textarea id="description" name="description" class="form-control" rows="2"
-                                                      placeholder="Enter keywords"></textarea>
+                                                      placeholder="Enter keywords" value="{{ old('description') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -126,13 +135,39 @@
                                         <div class="col-12">
                                             <label class="form-label">Адресс *</label>
                                             <input id="address" name="address" class="form-control" type="text"
-                                                   placeholder="Введите адресс" required>
+                                                   placeholder="Введите адресс"  value="{{ old('address') }}" required>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Card body END -->
                             </div>
                             <!-- Listing location END -->
+                            <div class="card shadow m-tb-1">
+                                <!-- Card header -->
+                                <div class="card-header border-bottom">
+                                    <h5 class="mb-0">Добавте удобства</h5>
+                                </div>
+
+                                <!-- Card body START -->
+                                <div class="card-body">
+                                        <div class="row g-4">
+                                            <!-- Select Amenities -->
+                                            <div class="col-12">
+                                                <label class="form-label">Выберете удобства отеля *</label>
+                                                @foreach($services as $service)
+                                                    <input type="checkbox" id="service-{{ $service->id }}"
+                                                           name="{{ $service->id }}">
+                                                    <label
+                                                        for="service-{{ $service->id }}">{{ $service->name }}</label>
+                                                @endforeach
+                                                <small>Максимум 14 ключевых слов. Ключевые слова должны быть
+                                                    написаны
+                                                    строчными буквами и разделены запятыми.</small>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
 
                             <!-- Upload image START -->
                             <div class="card shadow m-tb-1">
@@ -179,6 +214,7 @@
                     </form>
                 </div>
                 <!-- Step 1 content END -->
+
             </div>
         </div>
         <!-- Main content END -->

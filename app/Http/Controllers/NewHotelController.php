@@ -10,6 +10,7 @@ use App\Models\City;
 use App\Models\Hotel\Hotel;
 use App\Models\Hotel\HotelCategories;
 use App\Models\Hotel\HotelServices;
+use App\Models\Hotel\HotelServicesList;
 use App\Models\Room\Room;
 use App\Models\Room\RoomCategory;
 use App\Models\Room\RoomEquipment;
@@ -34,17 +35,8 @@ class NewHotelController extends Controller
     {
         $cities = City::all();
         $typeHotels = HotelCategories::all();
-        return view('hotel-accommodation/basic-information', ['cities' => $cities, 'typeHotels' => $typeHotels]);
-    }
-
-    public function viewAddRoomsForHotel()
-    {
-        $hotelId = session('hotelId');
         $services = HotelServices::all();
-        $roomCategories = RoomCategory::all();
-        $roomEquipments = RoomEquipment::all();
-
-        return view('hotel-accommodation/detailed-information', ['services' => $services, 'roomCategories' => $roomCategories, 'roomEquipments' => $roomEquipments, 'hotelId' => $hotelId]);
+        return view('hotel-accommodation/basic-information', ['cities' => $cities, 'typeHotels' => $typeHotels, 'services' => $services]);
     }
 
     public function viewEndAccommodationHotel()
@@ -73,14 +65,17 @@ class NewHotelController extends Controller
 
     public function storeAddHotel(AddBaseInformationHotelRequest $request)
     {
+        $data = $request->all();
         $validate = $request->validated();
         $cityId = $validate['city_id'];
 
         if ($validate['city_id'] == 0 && !is_null($validate['city_add'])) {
-            $cityId = City::create([
+            $city = City::create([
                 'type' => 'город',
                 'title' => $validate['city_add'],
             ]);
+
+            $cityId = $city->id;
         }
 
         $hotel = Hotel::create([
@@ -96,44 +91,34 @@ class NewHotelController extends Controller
             'status_id' => 1
         ]);
 
-        session(['hotelId' => $hotel["id"]]);
+        $hotelId = $hotel->id;
+        $services = HotelServices::all();
+        for ($i = 0; $i < $services[count($services) - 1]->id; $i++) {
+            if (isset($data[$i]) && $data[$i] == "on") {
+                HotelServicesList::create([
+                    'hotel_id' => $hotelId,
+                    'service_id' => $i
+                ]);
+            }
+        }
 
-        return redirect()->route('rooms.information.add');
-    }
-
-    public function storeAddHotelService(Request $request)
-    {
-        return back()->withInput();
+        return redirect()->route('hotel-accommodation.end');
     }
 
     public function storeAddRoomInformationForHotel(AddBaseInformationRoomRequest $request)
     {
-        $validate = $request->validated();
 
-        $room = Room::create([
-            'hotel_id' => $validate['hotel_id'],
-            'title' => $validate['title'],
-            'category_id' => $validate['category_id'],
-            'number_beds' => $validate['number_beds'],
-            'area_square_meters' => $validate['area_square_meters'],
-            'number_rooms' => $validate['number_rooms'],
-            'description' => $validate['description'],
-            'price' => $validate['price'],
-            'check_in_time' => $validate['check_in_time'],
-            'check_out_time' => $validate['check_out_time']
-        ]);
-
-        session(['roomIdForNumber' . $validate['room_number'] => $room["id"]]);
-        return back()->withInput();
     }
 
     public function storeAddRoomEquipmentForHotel(Request $request)
     {
         $roomId = session('roomIdForNumber' . $request['room_number']);
+
         $equipment = RoomEquipment::all();
 
+        $data = $request->all();
         for ($i = 0; $i < $equipment[count($equipment) - 1]->id; $i++) {
-            if (isset($request[$i]) && $request[$i] == "on") {
+            if (isset($data[$i]) && $data[$i] == "on") {
                 RoomEquipmentList::create([
                     'room_id' => $roomId,
                     'equipment_id' => $i
@@ -146,6 +131,8 @@ class NewHotelController extends Controller
 
     public function storeAddRoomImageForHotel(Request $request)
     {
+        $roomId = session('roomIdForNumber' . $request['room_number']);
+
         return back()->withInput();
     }
 }

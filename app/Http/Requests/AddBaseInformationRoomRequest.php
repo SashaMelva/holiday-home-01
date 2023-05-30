@@ -22,8 +22,6 @@ class AddBaseInformationRoomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'hotel_id' => '',
-            'room_number' => '',
             'title' => 'required|string|max:100',
             'category_id' => 'required|integer',
             'number_beds' => 'required|integer',
