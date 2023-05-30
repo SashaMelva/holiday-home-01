@@ -3,7 +3,7 @@
         <div class="card rounded-3 border p-3 pb-2">
             <!-- Avatar and info START -->
             <div class="d-sm-flex align-items-center">
-                <h4 class="mb-2 mb-sm-0 ms-sm-3"><span class="fw-light">Здравствуй, </span> ФИО</h4>
+                <h4 class="mb-2 mb-sm-0 ms-sm-3"><span class="fw-light">Здравствуй, </span> {{ \Illuminate\Support\Facades\Auth::user()->name }}</h4>
             </div>
             <!-- Avatar and info START -->
 

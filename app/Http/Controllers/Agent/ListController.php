@@ -22,6 +22,7 @@ class ListController extends Controller
     {
         $agent = Agents::where('user_id', Auth::user()->id)->get();
         $hotel = Hotel::where('agent_id', $agent[0]->id)->get();
+
         $rooms = $hotel[0]->rooms;
         return view('agent/listing', ['hotel' => $hotel[0], 'rooms' => $rooms]);
     }
@@ -43,11 +44,15 @@ class ListController extends Controller
      */
     public function store(AddBaseInformationRoomRequest $request)
     {
+        $data = $request->all();
         $validate = $request->validated();
         $equipment = RoomEquipment::all();
+        $agent = Agents::where('user_id', Auth::user()->id)->get();
+        $hotel = Hotel::where('agent_id', $agent[0]->id)->get();
+        $hotelId = $hotel[0]->id;
 
         $room = Room::create([
-            'hotel_id' => $validate['hotel_id'],
+            'hotel_id' => $hotelId,
             'title' => $validate['title'],
             'category_id' => $validate['category_id'],
             'number_beds' => $validate['number_beds'],
@@ -60,7 +65,6 @@ class ListController extends Controller
         ]);
 
         $roomId = $room->id;
-        $data = $request->all();
 
         for ($i = 0; $i < $equipment[count($equipment) - 1]->id; $i++) {
             if (isset($data[$i]) && $data[$i] == "on") {
@@ -71,7 +75,7 @@ class ListController extends Controller
             }
         }
 
-        return back()->withInput();
+        return redirect()->route('lists.index');
     }
 
     /**
@@ -97,9 +101,24 @@ class ListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AddBaseInformationRoomRequest $request, string $id)
     {
-        dd($request);
+        $data = $request->all();
+        $validate = $request->validated();
+        $room = Room::find($id);
+
+        $room->title = $validate['title'];
+        $room->category_id = $validate['category_id'];
+        $room->number_beds = $validate['number_beds'];
+        $room->area_square_meters = $validate['area_square_meters'];
+        $room->number_rooms = $validate['number_rooms'];
+        $room->description = $validate['description'];
+        $room->price = $validate['price'];
+        $room->check_in_time = $validate['check_in_time'];
+        $room->check_out_time = $validate['check_out_time'];
+        $room->save();
+
+        return redirect()->route('lists.index');
     }
 
     /**
@@ -107,6 +126,7 @@ class ListController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Room::find($id)->delete();
+        return redirect()->route('lists.index');
     }
 }

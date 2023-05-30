@@ -13,6 +13,15 @@
 
                 <!-- Card body START -->
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('lists.update', $room->id) }}">
                         @csrf
                         @method('PUT')
@@ -21,7 +30,7 @@
                             <div class="col-md-6">
                                 <label for="title" class="form-label">Название номера *</label>
                                 <input id="title" name="title" type="text" class="form-control"
-                                       placeholder="Enter name" value="{{ $room->title }}">
+                                  value="{{ $room->title }}" required>
                             </div>
 
                             <div class="col-md-6">
@@ -29,8 +38,7 @@
                                 <select id="category_id" name="category_id" class="form-select"
                                         aria-label="Default select example">
                                     @foreach($roomCategories as $category)
-                                        <option
-                                            value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option @if($room->category->id == $category->id) selected @endif value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -39,7 +47,7 @@
                             <div class="col-md-6">
                                 <label for="price" class="form-label">Цена номера за ночь *</label>
                                 <input id="price" name="price" type="text" class="form-control"
-                                       placeholder="Enter price">
+                                       value="{{ $room->price }}" required>
                             </div>
 
                             <div class="col-md-6">
@@ -48,13 +56,13 @@
                                         <label for="number_beds" class="form-label">Кол-во спальных
                                             мест</label>
                                         <input id="number_beds" name="number_beds" type="text"
-                                               class="form-control">
+                                               class="form-control"  value="{{ $room->number_beds }}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="number_rooms" class="form-label">Кол-во
                                             комнат</label>
                                         <input id="number_rooms" name="number_rooms" type="text"
-                                               class="form-control">
+                                               class="form-control"  value="{{ $room->number_rooms }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +72,7 @@
                                     квадратных
                                     метрах</label>
                                 <input id="area_square_meters" name="area_square_meters" type="text"
-                                       class="form-control">
+                                       class="form-control"  value="{{ $room->area_square_meters }}" required>
                             </div>
 
 
@@ -74,13 +82,13 @@
                                         <label for="check_in_time" class="form-label">Врмя
                                             выезда</label>
                                         <input id="check_in_time" name="check_in_time" type="text"
-                                               class="form-control">
+                                               class="form-control"  value="{{ $room->check_in_time }}" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="check_out_time" class="form-label">Время
                                             въезда</label>
                                         <input id="check_out_time" name="check_out_time" type="text"
-                                               class="form-control">
+                                               class="form-control"  value="{{ $room->check_out_time }}" required>
                                     </div>
                                 </div>
                             </div>

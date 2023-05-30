@@ -86,6 +86,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/agent/settings', [SettingsAccountController::class, 'index'])->name('agent.settings');
     Route::get('/agent/dashboard', [AgentController::class, 'showPanel'])->name('agent.panel');
     Route::get('/agent/booking', [AgentController::class, 'showBooking'])->name('agent.booking');
+    Route::get('/agent/hotel/settings', [SettingsAccountController::class, 'hotel'])->name('agent.settings.hotel');
+    Route::post('/agent/hotel/settings/update/{id}', [SettingsAccountController::class, 'updateHotel'])->name('hotel.information.update');
 });
 
 Route::middleware('auth', 'admin', 'agent')->group(function () {
