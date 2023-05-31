@@ -33,22 +33,6 @@ class HotelsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function showHotel(string $id)
@@ -65,51 +49,52 @@ class HotelsController extends Controller
         $hotel = Hotel::find((int)$id);
         $servicesList = HotelServicesList::where('hotel_id', $id)->get();
 
-        $rooms = Room::where('hotel_id', $id)->where('number_beds', '>=' , $countGuest)->get();
-//dd($rooms[2]->img);
-        //$imgs = \App\Models\Room\RoomImg::where('room_id', 1)->get();
-           // dd($imgs);
+        $bookingRooms = DB::table('rooms')
+            ->leftJoin('bookings', 'bookings.room_id', '=', 'rooms.id')
+            ->where([
+                ['arrival_date', '=', $validate['arrival_date']],
+                ['date_departure', '=', $validate['date_departure']],
+                ['bookings.status_id', '=', 2]
+            ])
+            ->get();
+
+        $bookingRooms = $bookingRooms->unique("room_id");
+
+        $rooms = Room::where('hotel_id', $id)->where('number_beds', '>=', $countGuest)->get();
+
+        foreach ($rooms as $key => $room){
+            foreach ($bookingRooms as $bookingRoom){
+                if ($room->id == $bookingRoom->room_id) {
+                    unset($rooms[$key]);
+                }
+            }
+        }
+
         $roomEquipmentLists = RoomEquipmentList::all();
 
-        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists' => $roomEquipmentLists, 'dataBooking' => $validate]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('hotel/hotel-about', ['hotel' => $hotel, 'servicesList' => $servicesList, 'rooms' => $rooms, 'roomEquipmentLists' => $roomEquipmentLists, 'dataBooking' => $validate, 'bookingRooms' => $bookingRooms]);
     }
 
     public function searchHotels(SearchHotelRequest $request)
     {
         $validate = $request->validated();
 
+        if ($validate['arrival_date'] >= $validate['date_departure']) {
+            return back()->withInput();
+        }
+
         $countGuest = $validate['count_children'] + $validate['count_adults'];
         $city = City::where('title', $validate['city'])->get();
 
         $hotelsWithRooms = DB::table('hotels')
-            ->rightJoin('rooms', 'rooms.hotel_id', '=', 'hotels.id')
+            ->join('rooms', 'rooms.hotel_id', '=', 'hotels.id')
+            ->leftJoin('bookings', 'bookings.room_id', '=', 'rooms.id')
             ->where([
                 ['number_beds', '>=', $countGuest],
                 ['city_id', '=', (int)$city[0]->id],
+                ['arrival_date', '=', $validate['arrival_date']],
+                ['date_departure', '=', $validate['date_departure']],
+                ['bookings.status_id', '=', 2]
             ])
             ->get();
 
@@ -196,7 +181,8 @@ class HotelsController extends Controller
         return view('hotel/hotel-list', ['hotels' => $hotels, 'categories' => $categories, 'services' => $services, 'servicesList' => $servicesList, 'dataBooking' => $validate, 'dataFilter' => $request]);
     }
 
-    public function searchSupportDisableHotels() {
+    public function searchSupportDisableHotels()
+    {
         $validate = [
             'city' => session('city'),
             'arrival_date' => session('arrival_date'),

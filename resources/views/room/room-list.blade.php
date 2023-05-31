@@ -1,6 +1,6 @@
 <section>
     @foreach($rooms as $room)
-        <article class="card shadow p-3 m-tb-1">
+        <article  class="card shadow p-3 m-tb-1">
             <div class="row g-4">
                 <div class="col-md-5">
                         <?php $imgs = \App\Models\Room\RoomImg::where('room_id', $room->id)->get() ?>
@@ -148,5 +148,6 @@
             </div>
 
         </article>
+
     @endforeach
 </section>
