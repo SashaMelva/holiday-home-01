@@ -24,14 +24,10 @@
             </div>
         </div>
         <div class="card shadow mt-5">
-{{--            @if(isset($historyUsers[0]->id))--}}
-{{--            @else--}}
                 @include('inc.table_history')
-{{--            @endif--}}
         </div>
     </div>
     <script>
-
         document.addEventListener('keyup', search);
 
         function search() {

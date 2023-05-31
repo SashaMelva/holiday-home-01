@@ -1,6 +1,6 @@
 
 <!-- Card body START -->
-<div class="card-body">
+<div id="content-table" class="card-body">
     <!-- Table head -->
     <div class="bg-light rounded p-3 d-none d-lg-block">
         <div class="row row-cols-7 g-4">
@@ -14,7 +14,7 @@
 
     @foreach($users as $user)
     <!-- Table data -->
-    <div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
+    <article  class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
         <!-- Data item -->
         <div class="col">
             <div class="d-flex align-items-center">
@@ -41,7 +41,7 @@
         </div>
         <!-- Data item -->
         <div class="col"><a href="{{ route($destroy,  $user->user->id) }}" class="btn btn-sm btn-light mb-0">Удалить</a></div>
-    </div>
+    </article>
     @endforeach
 </div>
 <!-- Card body END -->

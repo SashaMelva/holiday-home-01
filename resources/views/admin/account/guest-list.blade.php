@@ -33,18 +33,19 @@
             <!-- Search -->
             <div class="col-md-6 col-lg-3">
                 <form class="rounded position-relative">
-                    <input class="form-control bg-transparent" type="search" placeholder="Поиск по логину"
+                    <input id="inputSearch" class="form-control bg-transparent" type="search" placeholder="Поиск по логину"
                            aria-label="Search">
                     <button
-                        class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
-                        type="submit">
-                        <i class="fas fa-search fs-6"></i>
+                        class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
                     </button>
                 </form>
             </div>
         </div>
         <div class="card shadow mt-5">
-            <div class="card-body">
+            <div id="content-table" class="card-body">
                 <!-- Table head -->
                 <div class="bg-light rounded p-3 d-none d-lg-block">
                     <div class="row row-cols-7 g-4">
@@ -59,7 +60,7 @@
                 @foreach($users as $user)
                     @if(isset($user->user->id))
                     <!-- Table data -->
-                    <div class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
+                    <article class="row row-cols-xl-7 align-items-lg-center border-bottom g-4 px-2 py-4">
                         <!-- Data item -->
                         <div class="col">
                             <div class="d-flex align-items-center">
@@ -87,7 +88,7 @@
 
                         <!-- Data item -->
                         <div class="col"><a href="{{ route($destroy,  $user->user->id) }}" class="btn btn-sm btn-light mb-0">Просмотр</a></div>
-                    </div>
+                    </article>
                     @endif
                 @endforeach
             </div>
@@ -117,5 +118,23 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('keyup', search);
 
+            function search() {
+                let input = document.querySelector("#inputSearch");
+                let filter = input.value.toUpperCase();
+                let div = document.querySelector("#content-table");
+                let article = div.getElementsByTagName("article");
+
+                for (let i = 0; i < article.length; i++) {
+                    let span = article[i].getElementsByTagName("h6")[0];
+                    if (span.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        article[i].style.display = "";
+                    } else {
+                        article[i].style.display = "none";
+                    }
+                }
+            }
+        </script>
 @endsection
