@@ -198,7 +198,10 @@
                                     <div class="form-check radio-bg-light">
                                         <input class="form-check-input" type="radio" name="gender"
                                                id="gender_male"
-                                               @if(isset($userData[0]['gender']) && $userData[0]['gender'] == "male" || is_null($userData[0]['gender'])) checked=""
+                                               @if(isset($userData[0]['gender']) )
+                                                   @if($userData[0]['gender'] == "male" || is_null($userData[0]['gender']))
+                                                       checked=""
+                                                  @endif
                                                @endif  value="male">
                                         <label class="form-check-label" for="gender_male">
                                             Мужской
@@ -445,9 +448,8 @@
                     @endwhile
                 @endif
 
-                <h5>Введите данные о детях</h5>
-
                 @if($dataBooking['count_children'] > 0)
+                    <h5>Введите данные о детях</h5>
                    <p hidden=""> {{ $j = 0 }} </p>
                     @while($j < (int)$dataBooking['count_children'])
                         <p hidden="">{{ $j++ }}</p>
@@ -570,35 +572,7 @@
                             </ul>
                         </div>
                         <div>
-                            <a href="{{ route('check.booking', $dataBooking->id) }}">Подтвердить бронирование</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-xl-12 m-tb-1">
-                    <div class="card shadow rounded-2">
-                        <div class="card-header border-bottom">
-                            <h5 class="card-title mb-0">Why Sign up or Log in</h5>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-borderless">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-check-lg" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                    </svg>
-                                    <span class="h6 fw-light mb-0"></span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-check-lg" viewBox="0 0 16 16">
-                                        <path
-                                            d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                                    </svg>
-                                    <span class="h6 fw-light mb-0"></span>
-                                </li>
-                            </ul>
+                            <a class="btn btn-primary" href="{{ route('check.booking', $dataBooking->id) }}">Подтвердить бронирование</a>
                         </div>
                     </div>
                 </div>

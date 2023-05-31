@@ -25,38 +25,38 @@ class BookingController extends Controller
     {
         $this->checkBookingStatus();
         $bookings = Auth::user()->bookings;
-        $userData = DataUsers::where('user_id', Auth::user()->id)->get();
-        return view('booking/list-booking', ['bookings' => $bookings, 'userData' => $userData[0]]);
+        $userData = DataUsers::where('user_id', Auth::user()->id)->first();
+        return view('booking/list-booking', ['bookings' => $bookings, 'userData' => $userData]);
     }
 
-    public function bookingRoom(Request $request)
-    {
-        $validate = $request->validated();
-    }
 
-    private function addUserData()
+    public function bookingDisable(int $bookingId)
     {
-
+        $booking = Booking::find($bookingId);
+        $booking->status_id = 4;
+        $booking->save();
+        return redirect()->route('index.booking');
     }
 
     public function viewBookingReview(string $roomId)
     {
-        $booking = $this->creatBookingDefault($roomId);
+
         $booking['count_adults'] = session('count_adults');
         $booking['count_children'] = session('count_children');
 
         $room = Room::find((int)$roomId);
         $roomEquipmentLists = RoomEquipmentList::where('room_id', (int)$roomId)->get();
-        $hotel = Hotel::find($room->id);
+        $hotel = Hotel::find($room->hotel_id);
+        $booking = $this->creatBookingDefault($roomId, $room->hotel_id);
 
         $timeArrival = strtotime($booking['arrival_date']);
         $timeDeparture = strtotime($booking['date_departure']);
         $countNight = ($timeDeparture - $timeArrival) / (60 * 60 * 24);
 
-        $roomId = Auth::user()->id;
-        $user = User::find($roomId);
-        $userData = DataUsers::where('id_user', $roomId)->get();
-        $userPassportData = PassportDataUsers::where('data_user_id', $roomId)->get();
+        $userId = Auth::user()->id;
+        $user = User::find($userId);
+        $userData = DataUsers::where('user_id', $userId)->get();
+        $userPassportData = PassportDataUsers::where('data_user_id', $userId)->get();
 
         $sumPrice = $room->price * $countNight;
         return view('booking/review-booking', [
@@ -78,23 +78,24 @@ class BookingController extends Controller
         $booking = Booking::find($bookingId);
         $guests = Guest::where('booking_id', $bookingId)->get();
         $children = Children::where('booking_id', $bookingId)->get();
+        $userData = DataUsers::where('user_id', Auth::user()->id)->first();
 
-        if (count($guests) + 1 != (int)session('count_adults') || count($children) != (int)session('count_children')) {
+        if (!isset($userData) || count($guests) + 1 != (int)session('count_adults') || count($children) != (int)session('count_children')) {
             return back()->exceptInput();
         }
 
-        $booking->booking_status_id = 2;
+        $booking->status_id = 2;
         $booking->save();
 
         $timeArrival = strtotime($booking['arrival_date']);
         $timeDeparture = strtotime($booking['date_departure']);
         $countNight = ($timeDeparture - $timeArrival) / (60 * 60 * 24);
 
-        session()->flush();
+        // session()->flush();
         return view('booking/ticket-booking', ['booking' => $booking, 'countNight' => $countNight]);
     }
 
-    private function creatBookingDefault(int $roomId)
+    private function creatBookingDefault(int $roomId, int $hotelId)
     {
         return Booking::create([
             'user_id' => Auth::user()->id,
@@ -102,7 +103,8 @@ class BookingController extends Controller
             'date_departure' => session('date_departure'),
             'count_night' => session('count_adults'),
             'room_id' => $roomId,
-            'status_id' => 1
+            'status_id' => 1,
+            'hotel_id' => $hotelId
         ]);
     }
 
@@ -113,7 +115,7 @@ class BookingController extends Controller
 
         if (count($bookings) > 0) {
             foreach ($bookings as $booking) {
-                if($booking['date_departure'] <= $dataNow) {
+                if ($booking['date_departure'] <= $dataNow) {
                     $booking->status_id = 3;
                     $booking->save();
                 }

@@ -7,7 +7,7 @@
 
                 <div class="card shadow m-tb-1">
                     <!-- Image -->
-                    <img src="{{ Storage::url($booking->room->img[0]->img_url) }}" class="rounded-top" alt="">
+                    <img src="@if(isset($booking->room->img[0]->img_url)) {{ Storage::url($booking->room->img[0]->img_url) }}@endif" class="rounded-top" alt="">
 
                     <!-- Card body -->
                     <div class="card-body text-center p-4">
@@ -63,8 +63,8 @@
                         <div class="d-sm-flex justify-content-sm-end d-grid">
                             <!-- Share button with dropdown -->
                             <div class="dropdown me-sm-2 mb-2 mb-sm-0">
-                                <a href="/" class="btn btn-light mb-0 w-100" role="button" id="dropdownShare" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-share me-2"></i>Главная
+                                <a href="/" class="btn btn-light mb-0 w-100">
+                                    Главная
                                 </a>
                             </div>
                             <!-- Download button -->

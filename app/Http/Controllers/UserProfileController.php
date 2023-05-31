@@ -16,7 +16,7 @@ class UserProfileController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
-        $userData = DataUsers::where('id_user', $id)->get();
+        $userData = DataUsers::where('user_id', $id)->get();
         $userPassportData = PassportDataUsers::where('data_user_id', $id)->get();
 
         return view('user/profile', ['userData' => $userData, 'userPassportData' => $userPassportData, 'user' => $user]);
@@ -25,18 +25,19 @@ class UserProfileController extends Controller
     public function saveUserData(UserDataRequest $request)
     {
         $valid = $request->validated();
-        $usersData = DataUsers::where('id_user', Auth::user()->id)->get();
+        $usersData = DataUsers::where('user_id', Auth::user()->id)->get();
         $id = (int)Auth::user()->id;
 
         if (!isset($usersData->id) && count($usersData) == 0) {
             DataUsers::create([
-                'id_user' => $id,
+                'user_id' => $id,
                 'surname' => $valid["surname"],
                 'name' => $valid["name"],
                 'gender' => $valid["gender"],
                 'patronymic' => $valid["patronymic"],
                 'phone_number' => $valid["phone_number"],
-                'date_birth' => $valid["date_birth"]
+                'date_birth' => $valid["date_birth"],
+                'passport_data_id' => 0
             ]);
         } else {
             $usersData[0]->surname = $valid["surname"];
@@ -74,6 +75,6 @@ class UserProfileController extends Controller
             $passportData[0]->save();
         }
 
-        return redirect()->route('profile.show');
+        return back()->withInput();
     }
 }
