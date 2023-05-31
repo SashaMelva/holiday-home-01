@@ -39,7 +39,8 @@
                                 <!-- Search -->
                                 <div class="col-md-8">
                                     <form class="rounded position-relative">
-                                        <input class="form-control pe-5" type="search" placeholder="Писк по названию"
+                                        <input id="inputSearch" class="form-control pe-5"
+                                               placeholder="Писк по названию номера"
                                                aria-label="Search">
                                         <button
                                             class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y"
@@ -53,18 +54,18 @@
                                     </form>
                                 </div>
 
-                                <!-- Select option -->
-                                <div class="col-md-3">
-                                    <!-- Short by filter -->
-                                    <form>
-                                        <select name="status_id" class="form-control-lg base-input" type="text">
-                                            @foreach($statusBookings as $statusBooking)
-                                                <option
-                                                    name="{{ $statusBooking->id }}">{{ $statusBooking->title }}</option>
-                                            @endforeach
-                                        </select>
-                                    </form>
-                                </div>
+                                {{--                                <!-- Select option -->--}}
+                                {{--                                <div class="col-md-3">--}}
+                                {{--                                    <!-- Short by filter -->--}}
+                                {{--                                    <form>--}}
+                                {{--                                        <select name="status_id" class="form-control-lg base-input" type="text">--}}
+                                {{--                                            @foreach($statusBookings as $statusBooking)--}}
+                                {{--                                                <option--}}
+                                {{--                                                    name="{{ $statusBooking->id }}">{{ $statusBooking->title }}</option>--}}
+                                {{--                                            @endforeach--}}
+                                {{--                                        </select>--}}
+                                {{--                                    </form>--}}
+                                {{--                                </div>--}}
                             </div>
                             <!-- Search and select END -->
 
@@ -80,18 +81,18 @@
                                         <th scope="col" class="border-0">Дата</th>
                                         <th scope="col" class="border-0">Дата бронироания</th>
                                         <th scope="col" class="border-0">Статус</th>
-                                        <th scope="col" class="border-0 rounded-end">Действие</th>
                                     </tr>
                                     </thead>
 
                                     <!-- Table body START -->
-                                    <tbody class="border-top-0">
+                                    <tbody id="content-table" class="border-top-0">
                                     <!-- Table item -->
                                     @if(count($bookings) > 0)
                                         @foreach($bookings as $booking)
                                             <tr>
                                                 <td><h6 class="mb-0">{{ $booking->id }}</h6></td>
-                                                <td><h6 class="mb-0"><a href="#">{{ $booking->room->title }}</a></h6></td>
+                                                <td><h5 class="mb-0"><a href="#">{{ $booking->room->title }}</a></h5>
+                                                </td>
                                                 <td> {{ $booking->user->email }}</td>
                                                 <td><h6 class="mb-0 fw-light">{{ $booking->arrival_date }}
                                                         / {{ $booking->date_departure }}</h6></td>
@@ -120,7 +121,6 @@
                                                     @endif
 
                                                 </td>
-                                                <td><a href="#" class="btn btn-sm btn-light mb-0">Просмотр</a></td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -134,28 +134,28 @@
                         <!-- Card body END -->
 
                         <!-- Card footer START -->
-                        <div class="card-footer pt-0">
-                            <!-- Pagination and content -->
-                            <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-                                <!-- Content -->
-                                <p class="mb-sm-0 text-center text-sm-start">Показано с 1 по 8 из 20 записей</p>
-                                <!-- Pagination -->
-                                <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-                                    <ul class="pagination pagination-sm pagination-primary-soft mb-0">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Prev</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">15</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
+                        {{--                        <div class="card-footer pt-0">--}}
+                        {{--                            <!-- Pagination and content -->--}}
+                        {{--                            <div class="d-sm-flex justify-content-sm-between align-items-sm-center">--}}
+                        {{--                                <!-- Content -->--}}
+                        {{--                                <p class="mb-sm-0 text-center text-sm-start">Показано с 1 по 8 из 20 записей</p>--}}
+                        {{--                                <!-- Pagination -->--}}
+                        {{--                                <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">--}}
+                        {{--                                    <ul class="pagination pagination-sm pagination-primary-soft mb-0">--}}
+                        {{--                                        <li class="page-item disabled">--}}
+                        {{--                                            <a class="page-link" href="#" tabindex="-1">Prev</a>--}}
+                        {{--                                        </li>--}}
+                        {{--                                        <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
+                        {{--                                        <li class="page-item active"><a class="page-link" href="#">2</a></li>--}}
+                        {{--                                        <li class="page-item disabled"><a class="page-link" href="#">..</a></li>--}}
+                        {{--                                        <li class="page-item"><a class="page-link" href="#">15</a></li>--}}
+                        {{--                                        <li class="page-item">--}}
+                        {{--                                            <a class="page-link" href="#">Next</a>--}}
+                        {{--                                        </li>--}}
+                        {{--                                    </ul>--}}
+                        {{--                                </nav>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                         <!-- Card footer END -->
                     </div>
                 </div>
@@ -163,4 +163,23 @@
             <!-- Booking table END -->
         </div>
     </section>
+    <script>
+        document.addEventListener('keyup', search);
+
+        function search() {
+            let input = document.querySelector("#inputSearch");
+            let filter = input.value.toUpperCase();
+            let div = document.querySelector("#content-table");
+            let article = div.getElementsByTagName("tr");
+
+            for (let i = 0; i < article.length; i++) {
+                let span = article[i].getElementsByTagName("h5")[0];
+                if (span.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    article[i].style.display = "";
+                } else {
+                    article[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 @endsection

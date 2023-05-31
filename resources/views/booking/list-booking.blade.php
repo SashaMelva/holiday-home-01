@@ -2,13 +2,6 @@
 
 @section('content')
     <section class="container block-center m-tb-1">
-        <!-- Offcanvas menu button -->
-        <div class="d-grid mb-0 d-lg-none w-100">
-            <button class="btn btn-primary mb-4" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
-                <i class="fas fa-sliders-h"></i> Menu
-            </button>
-        </div>
 
         <div class="card border bg-transparent">
             <!-- Card header -->
@@ -64,7 +57,7 @@
 
                                         <!-- Button -->
                                         <div class="mt-2 mt-md-0">
-                                            <a href="#" class="btn btn-primary mb-0">Скачать билет</a>
+                                            <a href="{{route('booking.ticket', $booking->id)}}" class="btn btn-primary mb-0">Скачать билет</a>
                                         </div>
                                         <div class="mt-2 mt-md-0">
                                             <a href="{{ route('booking.disable', $booking->id) }}"

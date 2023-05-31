@@ -49,7 +49,7 @@ class UserProfileController extends Controller
             $usersData[0]->save();
         }
 
-        return back()->withInput();//redirect()->route('profile.show');
+        return back()->withInput();
     }
 
     public function saveUserPassportData(UserDataPassordRequest $request)

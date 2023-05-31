@@ -8,6 +8,7 @@ use App\Models\Agents;
 use App\Models\Booking;
 use App\Models\BookingStatus;
 use App\Models\Hotel\Hotel;
+use App\Models\Room\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,14 +19,21 @@ class AgentController extends Controller
 
     public function showPanel()
     {
-        return view('agent/dashboard');
+        $agent = Agents::where('user_id', Auth::user()->id)->get();
+        $hotel = Hotel::where('agent_id', $agent[0]->id)->first();
+        $rooms = Room::where('hotel_id', $hotel->id)->get();
+        $booking = Booking::where('hotel_id', $hotel->id)->get();
+        return view('agent/dashboard', ['hotel' => $hotel, 'rooms'=> $rooms, 'booking' => $booking]);
     }
 
     public function showBooking()
     {
         $agent = Agents::where('user_id', Auth::user()->id)->get();
         $hotel = Hotel::where('agent_id', $agent[0]->id)->get();
-        $bookings = Booking::where('hotel_id', $hotel[0]->id )->get();
+        $bookings = Booking::where([
+            ['hotel_id', $hotel[0]->id ],
+            ['status_id', '<>', 1]
+        ])->get();
         $statusBookings = BookingStatus::all();
 
         return view('agent/booking', ['bookings' => $bookings, 'statusBookings' => $statusBookings]);

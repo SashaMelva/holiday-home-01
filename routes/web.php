@@ -70,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/save-user-password-data', [UserProfileController::class, 'saveUserPassportData'])->name('user.passport.save');
     Route::get('/check-booking/{id}', [BookingController::class, 'checkBooking'])->name('check.booking');
     Route::get('/booking', [BookingController::class, 'index'])->name('index.booking');
+    Route::get('/booking/ticket/{id}', [BookingController::class, 'ticket'])->name('booking.ticket');
     Route::get('/booking/disable/{id}', [BookingController::class, 'bookingDisable'])->name('booking.disable');
 
     Route::get('/admin-panel', [AdminController::class, 'showPanel'])->name('admin.panel');

@@ -19,9 +19,9 @@
             <!-- Title END -->
 
             <!-- Counter START -->
-            <div class="row g-4">
+            <div class="row g-3">
                 <!-- Counter item -->
-                <div class="col-sm-6 col-xl-3">
+                <div class="col-sm-6 col-xl-4">
                     <div class="card card-body border">
                         <div class="d-flex align-items-center">
                             <!-- Icon -->
@@ -30,7 +30,7 @@
                             </div>
                             <!-- Content -->
                             <div class="ms-3">
-                                <h4>56</h4>
+                                <h4>{{ $hotel->number_rooms }}</h4>
                                 <span>Всего номеров</span>
                             </div>
                         </div>
@@ -38,24 +38,7 @@
                 </div>
 
                 <!-- Counter item -->
-                <div class="col-sm-6 col-xl-3">
-                    <div class="card card-body border">
-                        <div class="d-flex align-items-center">
-                            <!-- Icon -->
-                            <div class="icon-xl bg-info rounded-3 text-white">
-                                <i class="bi bi-graph-up-arrow"></i>
-                            </div>
-                            <!-- Content -->
-                            <div class="ms-3">
-                                <h4>$2,55,365</h4>
-                                <span>Бронирований</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Counter item -->
-                <div class="col-sm-6 col-xl-3">
+                <div class="col-sm-6 col-xl-4">
                     <div class="card card-body border">
                         <div class="d-flex align-items-center">
                             <!-- Icon -->
@@ -64,30 +47,30 @@
                             </div>
                             <!-- Content -->
                             <div class="ms-3">
-                                <h4>15K</h4>
-                                <span>Visitors</span>
+                                <h4>{{ count($rooms) }}</h4>
+                                <span>Типов номеров</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Counter item -->
-                <div class="col-sm-6 col-xl-3">
+                <div class="col-sm-6 col-xl-4">
                     <div class="card card-body border">
                         <div class="d-flex align-items-center">
                             <!-- Icon -->
-                            <div class="icon-xl bg-primary rounded-3 text-white">
-                                <i class="bi bi-star"></i>
+                            <div class="icon-xl bg-info rounded-3 text-white">
+                                <i class="bi bi-graph-up-arrow"></i>
                             </div>
                             <!-- Content -->
                             <div class="ms-3">
-                                <h4>12K</h4>
-                                <span>Total Reviews</span>
+                                <h4>{{ count($booking) }}</h4>
+                                <span>Бронирований</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
             <!-- Counter END -->
 
         </div>

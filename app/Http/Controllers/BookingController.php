@@ -15,6 +15,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
+use tFPDF;
 
 class BookingController extends Controller
 {
@@ -121,5 +122,30 @@ class BookingController extends Controller
                 }
             }
         }
+    }
+
+    public function ticket(int $bookingId) {
+        $booking = Booking::find($bookingId);
+        $hotel= Hotel::find($booking->hotel_id);
+        $userData = DataUsers::where('user_id', $booking->user->id)->first();
+
+        $pdf = new tFPDF('P', 'mm', 'A4');
+        $pdf->AddPage();
+        $pdf->AddFont('DejaVu', '', 'DejaVuSansCondensed.ttf', true);
+        $pdf->SetFont('DejaVu', '', 14);
+
+        $text = "Билет о бронировании отеля";
+        $pdf->Cell(40, 10, $text);
+
+        $text = "ФИО: " . $userData->surname . " " . $userData->name . " " .$userData->patronymic;
+        $pdf->Cell(10, 2, $text);
+        $text = $hotel->full_title . "номер: " . $booking->room->title;
+        $pdf->Cell(10, 40, $text);
+        $text = "Дата приезда:" . $booking->arrival_date;
+        $pdf->Cell(10, 80, $text);
+        $text = "Дата выезда:" . $booking->date_departure;
+        $pdf->Cell(10, 90, $text);
+
+        $pdf->Output('D', 'certificate.pdf');
     }
 }
