@@ -13,7 +13,7 @@
             <!-- Search -->
             <div class="col-md-6 col-lg-3">
                 <form class="rounded position-relative">
-                    <input class="form-control bg-transparent" type="search" placeholder="Поиск по логину"
+                    <input id="inputSearch" class="form-control bg-transparent" type="search" placeholder="Поиск по логину"
                            aria-label="Search">
                     <button
                         class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
@@ -24,7 +24,30 @@
             </div>
         </div>
         <div class="card shadow mt-5">
-            @include('inc.table_history')
+{{--            @if(isset($historyUsers[0]->id))--}}
+{{--            @else--}}
+                @include('inc.table_history')
+{{--            @endif--}}
         </div>
     </div>
+    <script>
+
+        document.addEventListener('keyup', search);
+
+        function search() {
+            let input = document.querySelector("#inputSearch");
+            let filter = input.value.toUpperCase();
+            let div = document.querySelector("#content-table");
+            let article = div.getElementsByTagName("article");
+
+            for (let i = 0; i < article.length; i++) {
+                let span = article[i].getElementsByTagName("h6")[0];
+                if (span.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    article[i].style.display = "";
+                } else {
+                    article[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 @endsection

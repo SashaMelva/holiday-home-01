@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminHotelController;
 use App\Http\Controllers\Admin\BookingAdminController;
 use App\Http\Controllers\Admin\GuestController;
+use App\Http\Controllers\Admin\LoginHistoryController;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\Agent\ListController;
 use App\Http\Controllers\Agent\SettingsAccountController;
@@ -71,6 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/booking', [BookingController::class, 'index'])->name('index.booking');
 
     Route::get('/admin-panel', [AdminController::class, 'showPanel'])->name('admin.panel');
+
+    Route::get('/admin/login-history', [LoginHistoryController::class, 'historyAdmin'])->name('admin.history');
+    Route::get('/admin/login-history/guests', [LoginHistoryController::class, 'historyGuests'])->name('admin.history.guests');
+    Route::get('/admin/login-history/agents', [LoginHistoryController::class, 'historyAgents'])->name('admin.history.agents');
 
     Route::get('/admin/hotels', [AdminHotelController::class, 'index'])->name('admin.hotels');
     Route::get('/admin/hotels/new', [AdminHotelController::class, 'newHotels'])->name('admin.hotels.new');
