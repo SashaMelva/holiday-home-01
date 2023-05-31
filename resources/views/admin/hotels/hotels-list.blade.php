@@ -17,18 +17,18 @@
                                 d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
                     </button>
-                    <form method="POST">
-                        @csrf
-                        <label for="status_id">Статус отеля</label>
-                        <select id="status_id" name="status_id">
-                            <option value="0" selected>Все</option>
-                            @foreach($statuses as $status)
-                                <option value="{{ $status->id }}">{{ $status->title }}</option>
-                            @endforeach
-                        </select>
-                        <button>Поиск</button>
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                    </form>
+                    {{--                    <form method="POST">--}}
+                    {{--                        @csrf--}}
+                    {{--                        <label for="status_id">Статус отеля</label>--}}
+                    {{--                        <select id="status_id" name="status_id">--}}
+                    {{--                            <option value="0" selected>Все</option>--}}
+                    {{--                            @foreach($statuses as $status)--}}
+                    {{--                                <option value="{{ $status->id }}">{{ $status->title }}</option>--}}
+                    {{--                            @endforeach--}}
+                    {{--                        </select>--}}
+                    {{--                        <button>Поиск</button>--}}
+                    {{--                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>--}}
+                    {{--                    </form>--}}
                     <button
                         class="bg-transparent p-2 position-absolute top-50 end-0 translate-middle-y border-0 text-primary-hover text-reset"
                         type="submit">
@@ -50,21 +50,21 @@
         <div id="content-table" class="shadow mt-5">
             <!-- Table head -->
             <div class="bg-light rounded p-3 d-none d-lg-block ">
-                <div class="row row-cols-6 justify-content-between g-4">
+                <div class="row row-cols-5 justify-content-between g-4">
                     <div class="col"><h6 class="mb-0">Изображение отеля</h6></div>
                     <div class="col"><h6 class="mb-0">Название отеля</h6></div>
-                    <div class="col"><h6 class="mb-0">Email менеджера</h6></div>
                     <div class="col"><h6 class="mb-0">Адресс</h6></div>
                     <div class="col"><h6 class="mb-0">Статус</h6></div>
                     <div class="col"><h6 class="mb-0">Действие</h6></div>
                 </div>
             </div>
-
             <hr>
-            <!-- Table data -->
-            <article
-                class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-2 g-sm-4 align-items-md-center justify-content-between px-2 py-4">
-                @foreach($hotels as $hotel)
+            @foreach($hotels as $hotel)
+                <!-- Table data -->
+                <article
+                    class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-2 g-sm-4 align-items-md-center justify-content-between px-2 py-4">
+
+
                     <div class="col">
                         <div class="w-80px flex-shrink-0">
                             @if(isset($hotel->img[0]->img_url))
@@ -79,12 +79,6 @@
                     <!-- Data item -->
                     <div class="col">
                         <h6 class="mb-0 ms-2"><span>{{ $hotel->short_title }}</span></h6>
-                    </div>
-
-
-                    <!-- Data item -->
-                    <div class="col">
-                        <h6 class="mb-0 fw-normal">{{ $hotel->short_title }}</h6>
                     </div>
 
                     <!-- Data item -->
@@ -115,8 +109,9 @@
                     <!-- Data item -->
                     <div class="col"><a href="{{ route('admin.hotel.info', $hotel->id) }}"
                                         class="btn btn-sm btn-light mb-0">Просмотреть</a></div>
-                @endforeach
-            </article>
+
+                </article>
+            @endforeach
         </div>
     </div>
     <script>
@@ -129,7 +124,7 @@
             let article = div.getElementsByTagName("article");
 
             for (let i = 0; i < article.length; i++) {
-                let span = article[i].getElementsByTagName("span")[0];
+                let span = article[i].getElementsByTagName("h6")[0];
                 if (span.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     article[i].style.display = "";
                 } else {

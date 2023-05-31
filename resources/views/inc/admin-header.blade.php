@@ -61,7 +61,7 @@
                 </ul>
             </li>
             <!-- Menu item -->
-            <li class="nav-item"><a class="nav-link" href="admin-settings.html">Аккаунт</a></li>
+{{--            <li class="nav-item"><a class="nav-link" href="admin-settings.html">Аккаунт</a></li>--}}
             <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -81,13 +81,13 @@
         <!-- Sidebar menu end -->
 
         <!-- Sidebar footer START -->
-        <div
-            class="d-flex align-items-center justify-content-between text-primary-hover mt-auto p-3">
-            <a class="h6 mb-0 text-body" href="admin-settings.html" data-bs-toggle="tooltip"
-               data-bs-placement="top" aria-label="Settings">
-                <i class="bi bi-gear-fill"></i>
-            </a>
-        </div>
+{{--        <div--}}
+{{--            class="d-flex align-items-center justify-content-between text-primary-hover mt-auto p-3">--}}
+{{--            <a class="h6 mb-0 text-body" href="admin-settings.html" data-bs-toggle="tooltip"--}}
+{{--               data-bs-placement="top" aria-label="Settings">--}}
+{{--                <i class="bi bi-gear-fill"></i>--}}
+{{--            </a>--}}
+{{--        </div>--}}
         <!-- Sidebar footer END -->
     </div>
 </nav>

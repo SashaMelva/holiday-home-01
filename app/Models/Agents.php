@@ -12,6 +12,7 @@ class Agents extends Model
     protected $table = 'agents';
 
     protected $fillable = [
+        'id',
         'user_id'
     ];
 

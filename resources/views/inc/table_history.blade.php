@@ -33,28 +33,3 @@
         </article>
     @endforeach
 </div>
-<!-- Card body END -->
-
-<!-- Card footer START -->
-<div class="card-footer pt-0">
-    <!-- Pagination and content -->
-    <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-        <!-- Content -->
-        <p class="mb-sm-0 text-center text-sm-start">Показано с 1 по 8 из 20 записей</p>
-        <!-- Pagination -->
-        <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-            <ul class="pagination pagination-sm pagination-primary-soft mb-0">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Prev</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                <li class="page-item"><a class="page-link" href="#">15</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>

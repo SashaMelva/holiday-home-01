@@ -1,4 +1,3 @@
-
 <!-- Card body START -->
 <div id="content-table" class="card-body">
     <!-- Table head -->
@@ -6,9 +5,8 @@
         <div class="row row-cols-7 g-4">
             <div class="col"><h6 class="mb-0">Логин</h6></div>
             <div class="col"><h6 class="mb-0">Email</h6></div>
-            <div class="col"><h6 class="mb-0">Статус</h6></div>
             <div class="col"><h6 class="mb-0">Дата регистрации</h6></div>
-            <div class="col"><h6 class="mb-0">Просмотр</h6></div>
+            <div class="col"><h6 class="mb-0">Действие</h6></div>
         </div>
     </div>
 
@@ -24,17 +22,10 @@
                 </div>
             </div>
         </div>
-
         <!-- Data item -->
         <div class="col">
             <h6 class="mb-0 fw-normal">{{ $user->user->email }}</h6>
         </div>
-
-        <!-- Data item -->
-        <div class="col">
-            <h6 class="mb-0 fw-normal">22 Dec 2022</h6>
-        </div>
-
         <!-- Data item -->
         <div class="col">
             <h6 class="mb-0 fw-normal">{{ $user->user->created_at }}</h6>
@@ -44,30 +35,3 @@
     </article>
     @endforeach
 </div>
-<!-- Card body END -->
-
-<!-- Card footer START -->
-<div class="card-footer pt-0">
-    <!-- Pagination and content -->
-    <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-        <!-- Content -->
-        <p class="mb-sm-0 text-center text-sm-start">Показано с 1 по 8 из 20 записей</p>
-        <!-- Pagination -->
-        <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-            <ul class="pagination pagination-sm pagination-primary-soft mb-0">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Prev</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                <li class="page-item"><a class="page-link" href="#">15</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</div>
-<!-- Card footer END -->
-

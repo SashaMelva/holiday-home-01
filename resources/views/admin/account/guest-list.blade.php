@@ -12,24 +12,6 @@
             </div>
         </div>
         <div class="row g-4 align-items-center">
-            <!-- Tabs -->
-            <div class="col-lg-6">
-                <ul class="nav nav-pills-shadow nav-responsive" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1" aria-selected="true"
-                           role="tab">Все</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3" aria-selected="false" tabindex="-1"
-                           role="tab">Доступные</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2" aria-selected="false" tabindex="-1"
-                           role="tab">Заблокированные</a>
-                    </li>
-                </ul>
-            </div>
-
             <!-- Search -->
             <div class="col-md-6 col-lg-3">
                 <form class="rounded position-relative">
@@ -51,9 +33,7 @@
                     <div class="row row-cols-7 g-4">
                         <div class="col"><h6 class="mb-0">Логин</h6></div>
                         <div class="col"><h6 class="mb-0">Email</h6></div>
-                        <div class="col"><h6 class="mb-0">Статус</h6></div>
                         <div class="col"><h6 class="mb-0">Дата регистрации</h6></div>
-                        <div class="col"><h6 class="mb-0">Просмотр</h6></div>
                     </div>
                 </div>
 
@@ -95,28 +75,28 @@
             <!-- Card body END -->
 
             <!-- Card footer START -->
-            <div class="card-footer pt-0">
-                <!-- Pagination and content -->
-                <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-                    <!-- Content -->
-                    <p class="mb-sm-0 text-center text-sm-start">Показано с 1 по 8 из 20 записей</p>
-                    <!-- Pagination -->
-                    <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
-                        <ul class="pagination pagination-sm pagination-primary-soft mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Prev</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item disabled"><a class="page-link" href="#">..</a></li>
-                            <li class="page-item"><a class="page-link" href="#">15</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+{{--            <div class="card-footer pt-0">--}}
+{{--                <!-- Pagination and content -->--}}
+{{--                <div class="d-sm-flex justify-content-sm-between align-items-sm-center">--}}
+{{--                    <!-- Content -->--}}
+{{--                    <p class="mb-sm-0 text-center text-sm-start">Показано с 1 по 8 из 20 записей</p>--}}
+{{--                    <!-- Pagination -->--}}
+{{--                    <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">--}}
+{{--                        <ul class="pagination pagination-sm pagination-primary-soft mb-0">--}}
+{{--                            <li class="page-item disabled">--}}
+{{--                                <a class="page-link" href="#" tabindex="-1">Prev</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="page-item"><a class="page-link" href="#">1</a></li>--}}
+{{--                            <li class="page-item active"><a class="page-link" href="#">2</a></li>--}}
+{{--                            <li class="page-item disabled"><a class="page-link" href="#">..</a></li>--}}
+{{--                            <li class="page-item"><a class="page-link" href="#">15</a></li>--}}
+{{--                            <li class="page-item">--}}
+{{--                                <a class="page-link" href="#">Next</a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </nav>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
         <script>
             document.addEventListener('keyup', search);

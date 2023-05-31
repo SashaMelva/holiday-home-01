@@ -12,24 +12,6 @@
             </div>
         </div>
         <div class="row g-4 align-items-center">
-            <!-- Tabs -->
-            <div class="col-lg-6">
-                <ul class="nav nav-pills-shadow nav-responsive" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link mb-0 active" data-bs-toggle="tab" href="#tab-1" aria-selected="true"
-                           role="tab">Все</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-3" aria-selected="false" tabindex="-1"
-                           role="tab">Доступные</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-2" aria-selected="false" tabindex="-1"
-                           role="tab">Заблокированные</a>
-                    </li>
-                </ul>
-            </div>
-
             <!-- Search -->
             <div class="col-md-6 col-lg-3">
                     <input id="inputSearch" class="form-control bg-transparent" type="search" placeholder="Поиск по логину"
