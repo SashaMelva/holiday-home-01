@@ -94,7 +94,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/agent/hotel/settings/update/{id}', [SettingsAccountController::class, 'updateHotel'])->name('hotel.information.update');
 });
 
-Route::middleware('auth', 'admin', 'agent')->group(function () {
+Route::middleware('auth', 'timeLogin', 'admin', 'agent')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 

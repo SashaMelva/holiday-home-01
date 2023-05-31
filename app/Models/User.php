@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(User::class);
     }
+
+    public function loginHistory()
+    {
+        return $this->hasOne(LoginHistory::class);
+    }
 }
