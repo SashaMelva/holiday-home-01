@@ -213,7 +213,7 @@
 
                                         <!-- Button -->
                                         <div class="mt-2 mt-md-0">
-                                            <a class="text-md-end mb-0">Просмотрите билет</a>
+                                            <a href="{{ route('booking.ticket', $booking->id) }}" class="text-md-end mb-0">Просмотрите билет</a>
                                         </div>
                                     </div>
 

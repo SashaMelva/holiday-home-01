@@ -36,7 +36,7 @@
                                     </li>
                                     <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                                         <span class="mb-0"><i class="bi bi-currency-dollar fa-fw me-2"></i>Итоговая цена:</span>
-                                        <span class="h6 fw-normal mb-0">{{ $countNight }} </span>
+                                        <span class="h6 fw-normal mb-0">{{ $booking->room->price * $countNight }} </span>
                                     </li>
                                 </ul>
                             </div>
@@ -53,7 +53,7 @@
                                     </li>
                                     <li class="list-group-item d-sm-flex justify-content-between align-items-center">
                                         <span class="mb-0"><i class="bi bi-people fa-fw me-2"></i>Гости:</span>
-                                        <span class="h6 fw-normal mb-0">{{ $booking->count_night }}</span>
+                                        <span class="h6 fw-normal mb-0">{{ $countGuest }}</span>
                                     </li>
                                 </ul>
                             </div>

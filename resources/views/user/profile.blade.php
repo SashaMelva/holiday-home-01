@@ -65,14 +65,14 @@
                         <div class="d-flex gap-4">
                             <div class="form-check radio-bg-light">
                                 <input class="form-check-input" type="radio" name="gender"
-                                       id="gender_male" checked="">
+                                       id="gender_male" checked="" value="male">
                                 <label class="form-check-label" for="gender_male">
                                     Мужской
                                 </label>
                             </div>
                             <div class="form-check radio-bg-light">
                                 <input class="form-check-input" type="radio" name="gender"
-                                       id="gender_female">
+                                       id="gender_female" value="female">
                                 <label class="form-check-label" for="gender_female">
                                     Женский
                                 </label>
@@ -100,6 +100,8 @@
             <!-- Card body START -->
             <div class="card-body">
                 <!-- Form START -->
+
+
                 <form class="row g-3" method="POST" action="{{ route('user.passport.save') }}">
                     @csrf
                     <!-- Passport -->

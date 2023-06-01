@@ -16,16 +16,21 @@ class UserProfileController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
-        $userData = DataUsers::where('user_id', $id)->get();
-        $userPassportData = PassportDataUsers::where('data_user_id', $id)->get();
+        $userData = DataUsers::where('user_id', $id)->first();
 
-        return view('user/profile', ['userData' => $userData, 'userPassportData' => $userPassportData, 'user' => $user]);
+        if (isset($userData->id)) {
+            $userPassportData = PassportDataUsers::where('data_user_id', $userData->id)->get();
+        } else {
+            $userPassportData = null;
+        }
+
+        return view('user/profile', ['userData' => $userData, 'user' => $user, 'userPassportData' => $userPassportData]);
     }
 
     public function saveUserData(UserDataRequest $request)
     {
         $valid = $request->validated();
-        $usersData = DataUsers::where('user_id', Auth::user()->id)->get();
+        $usersData = DataUsers::where('user_id', Auth::user()->id)->first();
         $id = (int)Auth::user()->id;
 
         if (!isset($usersData->id) && count($usersData) == 0) {
@@ -56,10 +61,11 @@ class UserProfileController extends Controller
     {
         $valid = $request->validated();
         $passportData = PassportDataUsers::where('data_user_id', Auth::user()->id)->get();
+        $userData = DataUsers::where('user_id', Auth::user()->id)->get();
 
         if (!isset($passportData->id) && count($passportData) == 0) {
             PassportDataUsers::create([
-                'data_user_id' => Auth::user()->id,
+                'data_user_id' => $userData->id,
                 'citizenship' => $valid["citizenship"],
                 'passport_series' => $valid["passport_series"],
                 'passport_number' => $valid["passport_number"],

@@ -88,13 +88,9 @@ class HotelsController extends Controller
 
         $hotelsWithRooms = DB::table('hotels')
             ->join('rooms', 'rooms.hotel_id', '=', 'hotels.id')
-            ->leftJoin('bookings', 'bookings.room_id', '=', 'rooms.id')
             ->where([
                 ['number_beds', '>=', $countGuest],
-                ['city_id', '=', (int)$city[0]->id],
-                ['arrival_date', '=', $validate['arrival_date']],
-                ['date_departure', '=', $validate['date_departure']],
-                ['bookings.status_id', '=', 2]
+                ['city_id', '=', (int)$city[0]->id]
             ])
             ->get();
 

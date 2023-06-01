@@ -12,6 +12,7 @@ use App\Models\PassportDataUsers;
 use App\Models\Room\Room;
 use App\Models\Room\RoomEquipmentList;
 use App\Models\User;
+use Illuminate\Foundation\Vite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -92,8 +93,7 @@ class BookingController extends Controller
         $timeDeparture = strtotime($booking['date_departure']);
         $countNight = ($timeDeparture - $timeArrival) / (60 * 60 * 24);
 
-        // session()->flush();
-        return view('booking/ticket-booking', ['booking' => $booking, 'countNight' => $countNight]);
+        return view('booking/ticket-booking', ['booking' => $booking, 'countNight' => $countNight, 'countGuest' => count($guests) +  count($children) + 1]);
     }
 
     private function creatBookingDefault(int $roomId, int $hotelId)
@@ -128,6 +128,8 @@ class BookingController extends Controller
         $booking = Booking::find($bookingId);
         $hotel= Hotel::find($booking->hotel_id);
         $userData = DataUsers::where('user_id', $booking->user->id)->first();
+        $guests = Guest::where('booking_id', $bookingId)->get();
+        $children = Children::where('booking_id', $bookingId)->get();
 
         $pdf = new tFPDF('P', 'mm', 'A4');
         $pdf->AddPage();
@@ -135,17 +137,23 @@ class BookingController extends Controller
         $pdf->SetFont('DejaVu', '', 14);
 
         $text = "Билет о бронировании отеля";
-        $pdf->Cell(40, 10, $text);
+        $pdf->Cell(200, 20, $text,0,1,'C');
 
-        $text = "ФИО: " . $userData->surname . " " . $userData->name . " " .$userData->patronymic;
-        $pdf->Cell(10, 2, $text);
-        $text = $hotel->full_title . "номер: " . $booking->room->title;
-        $pdf->Cell(10, 40, $text);
-        $text = "Дата приезда:" . $booking->arrival_date;
-        $pdf->Cell(10, 80, $text);
-        $text = "Дата выезда:" . $booking->date_departure;
-        $pdf->Cell(10, 90, $text);
+        $text = "ID бронирования: " . $booking->id;
+        $pdf->Cell(200, 10, $text,0,1,'L');
+        $text = "ФИО клиента: " . $userData->surname . " " . $userData->name . " " .$userData->patronymic;
+        $pdf->Cell(200, 10, $text,0,1,'L');
+        $text = "Отель: " . $hotel->full_title ;
+        $pdf->Cell(200, 10, $text,0,1,'L');
+        $text = "Номер: " . $booking->room->title;
+        $pdf->Cell(200, 10, $text,0,1,'L');
+        $text = "Гости:" . count($guests) +  count($children) + 1;
+        $pdf->Cell(200, 10, $text,0,1,'L');
+        $text = "Дата приезда:" . $booking->arrival_date . " " . $booking->room->check_in_time;
+        $pdf->Cell(200, 10, $text,0,1,'L');
+        $text = "Дата выезда:" . $booking->date_departure .  " " . $booking->room->check_out_time;
+        $pdf->Cell(200, 10, $text,0,1,'L');
 
-        $pdf->Output('D', 'certificate.pdf');
+        $pdf->Output('D', 'ticket.pdf');
     }
 }
