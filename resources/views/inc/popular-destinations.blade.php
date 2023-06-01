@@ -25,17 +25,6 @@
             </div>
         </article>
         <article class="card-city p-4 shadow rounded-3">
-            <img src="{{ Vite::asset('resources/img/popular-city/Sochi.jpg') }}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Сочи</h5>
-                <p class="card-text">Сочи – главный российский курорт, получивший мировую известность после Олимпиады
-                    2014 года. Центр туризма на Черном море с уникальным климатом, многочисленными природными и
-                    историческими достопримечательностями ежегодно привлекает сотни тысяч гостей как на пляжи, так и на
-                    горные объекты. </p>
-                <a href="{{ route('hotels.city.search', 3) }}" class="btn btn-primary">Просмотреть отели</a>
-            </div>
-        </article>
-        <article class="card-city p-4 shadow rounded-3">
             <img src="{{ Vite::asset('resources/img/popular-city/Kazan.jpg') }}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">Казань</h5>
