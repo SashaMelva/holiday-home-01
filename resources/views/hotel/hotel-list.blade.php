@@ -9,7 +9,7 @@
                          class="img-fon rounded-3" alt="...">
                 </div>
                 <div class="row my-2 my-xl-5 content-search-text">
-                    <h1 class="header-search text-center">Более 150 доступных отелей</h1>
+                    <h1 class="header-search text-center">Доступные отелеи</h1>
                     @include('inc.main-search-hotel')
                 </div>
             </div>

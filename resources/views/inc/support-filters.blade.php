@@ -7,47 +7,47 @@
                 <input id="title" name="title" class="form-control-lg base-input" type="text" value="@if(isset($dataFilter)) {{ $dataFilter['title'] }} @endif">
             </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="form-control-borderless">
-                <label class="form-label">Цена</label>
-                <div class="rang-template">
-                    <div class="d-flex justify-content-between">
-                        <input class="text-body input-with-range-min" type="text" value="0" readonly>
-                        <input class="text-body input-with-range-min rang-max" type="text" value="100000" readonly>
-                    </div>
-                    <div class="d-flex justify-content-around">
-                            <input type="range" class="form-range" id="customRange1">
-                            <input type="range" class="form-range" id="customRange1">
-                    </div>
-                    {{--                        <div class="noUi-origin" style="transform: translate(-866.667%); z-index: 5;">--}}
-                    {{--                            <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"--}}
-                    {{--                                 aria-orientation="horizontal" aria-valuemin="500.0" aria-valuemax="1500.0"--}}
-                    {{--                                 aria-valuenow="700.0" aria-valuetext="700.00">--}}
-                    {{--                                <div class="noUi-touch-area"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="noUi-origin" style="transform: translate(-333.333%); z-index: 4;">--}}
-                    {{--                            <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider"--}}
-                    {{--                                 aria-orientation="horizontal" aria-valuemin="700.0" aria-valuemax="2000.0"--}}
-                    {{--                                 aria-valuenow="1500.0" aria-valuetext="1500.00">--}}
-                    {{--                                <div class="noUi-touch-area"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
+{{--        <div class="col-md-6 col-lg-4">--}}
+{{--            <div class="form-control-borderless">--}}
+{{--                <label class="form-label">Цена</label>--}}
+{{--                <div class="rang-template">--}}
+{{--                    <div class="d-flex justify-content-between">--}}
+{{--                        <input class="text-body input-with-range-min" type="text" value="0" readonly>--}}
+{{--                        <input class="text-body input-with-range-min rang-max" type="text" value="100000" readonly>--}}
+{{--                    </div>--}}
+{{--                    <div class="d-flex justify-content-around">--}}
+{{--                            <input type="range" class="form-range" id="customRange1">--}}
+{{--                            <input type="range" class="form-range" id="customRange1">--}}
+{{--                    </div>--}}
+{{--                    --}}{{--                        <div class="noUi-origin" style="transform: translate(-866.667%); z-index: 5;">--}}
+{{--                    --}}{{--                            <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"--}}
+{{--                    --}}{{--                                 aria-orientation="horizontal" aria-valuemin="500.0" aria-valuemax="1500.0"--}}
+{{--                    --}}{{--                                 aria-valuenow="700.0" aria-valuetext="700.00">--}}
+{{--                    --}}{{--                                <div class="noUi-touch-area"></div>--}}
+{{--                    --}}{{--                            </div>--}}
+{{--                    --}}{{--                        </div>--}}
+{{--                    --}}{{--                        <div class="noUi-origin" style="transform: translate(-333.333%); z-index: 4;">--}}
+{{--                    --}}{{--                            <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider"--}}
+{{--                    --}}{{--                                 aria-orientation="horizontal" aria-valuemin="700.0" aria-valuemax="2000.0"--}}
+{{--                    --}}{{--                                 aria-valuenow="1500.0" aria-valuetext="1500.00">--}}
+{{--                    --}}{{--                                <div class="noUi-touch-area"></div>--}}
+{{--                    --}}{{--                            </div>--}}
+{{--                    --}}{{--                        </div>--}}
 
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="form-size-lg form-control-borderless">
-                <label for="sort" class="form-label">Фильтрция по популярности</label>
-                <select id="sort" name="sort" class="form-control-lg base-input" type="text">
-                    <option value="popular">Самые популярные</option>
-                    <option value="max_price">Сначала дорогие</option>
-                    <option value="min_price">Сначала дешёвые</option>
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <div class="col-md-6 col-lg-4">--}}
+{{--            <div class="form-size-lg form-control-borderless">--}}
+{{--                <label for="sort" class="form-label">Фильтрция по популярности</label>--}}
+{{--                <select id="sort" name="sort" class="form-control-lg base-input" type="text">--}}
+{{--                    <option value="popular">Самые популярные</option>--}}
+{{--                    <option value="max_price">Сначала дорогие</option>--}}
+{{--                    <option value="min_price">Сначала дешёвые</option>--}}
 {{--                    <option value="">Больше всего отзывов</option>--}}
-                </select>
-            </div>
-        </div>
+{{--                </select>--}}
+{{--            </div>--}}
+{{--        </div>--}}
 {{--        <div class="col-md-6 col-lg-4">--}}
 {{--            <label class="form-label">Рейтинг клиентов</label>--}}
 {{--            <ul class="list-inline mb-0 g-3">--}}
